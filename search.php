@@ -1,0 +1,3 @@
+<?php
+$title = 'Search: ' . get_search_query();
+get_template_part('template-parts/blog/list', null, ['title' => $title, 'crumbs' => [['label' => 'Home', 'url' => home_url('/')], ['label' => 'Blog', 'url' => get_permalink(get_option('page_for_posts'))], ['label' => 'Search']]]);

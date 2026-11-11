@@ -6,13 +6,13 @@ $up = 'https://buny.wpbingosite.com/wp-content/uploads/';
 $video = 'https://www.youtube.com/embed/XHOmBV4js_E';
 // Popup position classes are literal so Tailwind picks them up (from the demo's .content-lookbook rules).
 $spots = [
-    ['left' => '32.04%', 'top' => '29.18%', 'url' => 'https://buny.wpbingosite.com/shop/braced-bloomer-fawn/', 'img' => $up . '2018/05/braced-bloomer-fawn-7.jpg', 'title' => 'Braced Bloomer Fawn', 'price' => '<span>100.00$</span>',
+    ['left' => '32.04%', 'top' => '29.18%', 'url' => '/shop/braced-bloomer-fawn/', 'img' => $up . '2018/05/braced-bloomer-fawn-7.jpg', 'title' => 'Braced Bloomer Fawn', 'price' => '<span>100.00$</span>',
      'pos' => 'translate-x-[calc(-100%_+_145px)] translate-y-7.5 group-data-[open]/spot:translate-y-13.75',
      'arrow' => 'before:-top-5.5 before:border-b-white before:start-[calc(50%_-_20px)]'],
-    ['left' => '65.38%', 'top' => '32.52%', 'url' => 'https://buny.wpbingosite.com/shop/corduroy-baby-overalls/', 'img' => $up . '2020/12/corduroy-baby-overalls-4.jpg', 'title' => 'Corduroy Baby Overalls', 'price' => '<span>30.00$</span>',
+    ['left' => '65.38%', 'top' => '32.52%', 'url' => '/shop/corduroy-baby-overalls/', 'img' => $up . '2020/12/corduroy-baby-overalls-4.jpg', 'title' => 'Corduroy Baby Overalls', 'price' => '<span>30.00$</span>',
      'pos' => 'translate-x-[calc(-100%_+_40px)] translate-y-7.5 group-data-[open]/spot:translate-y-13.75',
      'arrow' => 'before:-top-5.5 before:border-b-white before:end-3.75'],
-    ['left' => '87.42%', 'top' => '52.7%', 'url' => 'https://buny.wpbingosite.com/shop/organic-flutter-dress/', 'img' => $up . '2020/12/organic-flutter-dress-5.jpg', 'title' => 'Organic Flutter Dress', 'price' => '<del class="opacity-70">200.00$</del> <ins class="no-underline">116.00$</ins>',
+    ['left' => '87.42%', 'top' => '52.7%', 'url' => '/shop/organic-flutter-dress/', 'img' => $up . '2020/12/organic-flutter-dress-5.jpg', 'title' => 'Organic Flutter Dress', 'price' => '<del class="opacity-70">200.00$</del> <ins class="no-underline">116.00$</ins>',
      'pos' => 'translate-x-[calc(-100%_+_40px)] -translate-y-[calc(100%_+_20px)]',
      'arrow' => 'before:-bottom-5 before:border-t-white before:end-3.75'],
 ];

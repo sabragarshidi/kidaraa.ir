@@ -4,9 +4,9 @@
  */
 $up = 'https://buny.wpbingosite.com/wp-content/uploads/';
 $posts = [
-    ['url' => 'https://buny.wpbingosite.com/2023/01/12/little-fashionistas-wardrobe/', 'img' => $up . '2023/01/little-fashionistas-wardrobe-8-720x484.jpg', 'date' => 'January 12, 2023', 'title' => 'Little Fashionistas’ Wardrobe', 'excerpt' => 'From everyday outfits to unique styling tips, Little Fashionistas’ Wardrobe is not just a place to shop, but also...'],
-    ['url' => 'https://buny.wpbingosite.com/2023/01/11/tiny-trendsetters-collection/', 'img' => $up . '2023/01/little-fashionistas-wardrobe-7-720x484.jpg', 'date' => 'January 11, 2023', 'title' => 'Tiny Trendsetters Collection', 'excerpt' => 'Dive into a world of miniature style statements curated for the trendsetting tots. Sed a libero. Mauris sollicitudin fermentum libero....'],
-    ['url' => 'https://buny.wpbingosite.com/2023/01/10/fashionable-kiddos-attire/', 'img' => $up . '2023/01/little-fashionistas-wardrobe-6-720x484.jpg', 'date' => 'January 10, 2023', 'title' => 'Fashionable Kiddos Attire', 'excerpt' => 'Our collection is tailored to suit the dynamic tastes of the trendiest little ones. Sed a libero. Mauris sollicitudin fermentum...'],
+    ['url' => '/little-fashionistas-wardrobe/', 'img' => $up . '2023/01/little-fashionistas-wardrobe-8-720x484.jpg', 'date' => 'January 12, 2023', 'title' => 'Little Fashionistas’ Wardrobe', 'excerpt' => 'From everyday outfits to unique styling tips, Little Fashionistas’ Wardrobe is not just a place to shop, but also...'],
+    ['url' => '/tiny-trendsetters-collection/', 'img' => $up . '2023/01/little-fashionistas-wardrobe-7-720x484.jpg', 'date' => 'January 11, 2023', 'title' => 'Tiny Trendsetters Collection', 'excerpt' => 'Dive into a world of miniature style statements curated for the trendsetting tots. Sed a libero. Mauris sollicitudin fermentum libero....'],
+    ['url' => '/fashionable-kiddos-attire/', 'img' => $up . '2023/01/little-fashionistas-wardrobe-6-720x484.jpg', 'date' => 'January 10, 2023', 'title' => 'Fashionable Kiddos Attire', 'excerpt' => 'Our collection is tailored to suit the dynamic tastes of the trendiest little ones. Sed a libero. Mauris sollicitudin fermentum...'],
 ];
 ?>
 <section class="container mt-25 mb-24">

@@ -4,11 +4,11 @@
  */
 $up = 'https://buny.wpbingosite.com/wp-content/uploads/2023/11/';
 $brands = [
-    ['name' => 'Dolphin', 'url' => 'https://buny.wpbingosite.com/brand/dolphin/', 'img' => $up . 'brand-2.png'],
-    ['name' => 'Gummy', 'url' => 'https://buny.wpbingosite.com/brand/gummy/', 'img' => $up . 'brand-5.png'],
-    ['name' => 'Harmony', 'url' => 'https://buny.wpbingosite.com/brand/harmony/', 'img' => $up . 'brand-3.png'],
-    ['name' => 'Lucya', 'url' => 'https://buny.wpbingosite.com/brand/lucya/', 'img' => $up . 'brand-4.png'],
-    ['name' => 'Rainboow', 'url' => 'https://buny.wpbingosite.com/brand/rainboow/', 'img' => $up . 'brand-1.png'],
+    ['name' => 'Dolphin', 'url' => '/shop/?brand=dolphin', 'img' => $up . 'brand-2.png'],
+    ['name' => 'Gummy', 'url' => '/shop/?brand=gummy', 'img' => $up . 'brand-5.png'],
+    ['name' => 'Harmony', 'url' => '/shop/?brand=harmony', 'img' => $up . 'brand-3.png'],
+    ['name' => 'Lucya', 'url' => '/shop/?brand=lucya', 'img' => $up . 'brand-4.png'],
+    ['name' => 'Rainboow', 'url' => '/shop/?brand=rainboow', 'img' => $up . 'brand-1.png'],
 ];
 ?>
 <section class="container mb-24">

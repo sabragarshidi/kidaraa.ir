@@ -30,3 +30,13 @@ add_action('wp_enqueue_scripts', function () {
 add_filter('wc_is_block_theme', '__return_false');
 add_filter('use_block_template_for_woocommerce', '__return_false');
 add_filter('woocommerce_enqueue_styles', '__return_empty_array');
+
+// Template routing for WooCommerce + inner pages (templates live in woocommerce/ and template-parts/)
+add_filter('template_include', function ($t) {
+    if (function_exists('is_woocommerce')) {
+        $d = get_template_directory();
+        if ((is_shop() || is_product_taxonomy()) && file_exists($d . '/woocommerce/archive-product.php')) return $d . '/woocommerce/archive-product.php';
+        if (is_product() && file_exists($d . '/woocommerce/single-product.php')) return $d . '/woocommerce/single-product.php';
+    }
+    return $t;
+}, 999);

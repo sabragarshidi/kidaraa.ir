@@ -20,11 +20,12 @@
         tabs.forEach(function (tab) {
             tab.addEventListener('click', function () {
                 var slug = tab.dataset.tab;
-                var match = slug === 'all' ? items.length : box.querySelectorAll('[data-cat="' + slug + '"]').length;
+                function has(it) { return (' ' + it.dataset.cat + ' ').indexOf(' ' + slug + ' ') > -1; }
+                var match = slug === 'all' ? items.length : Array.prototype.filter.call(items, has).length;
                 tabs.forEach(function (t) { t.setAttribute('aria-selected', t === tab ? 'true' : 'false'); });
                 items.forEach(function (it) {
                     // tabs with no captured products fall back to showing all
-                    it.hidden = !(slug === 'all' || !match || it.dataset.cat === slug);
+                    it.hidden = !(slug === 'all' || !match || has(it));
                 });
             });
         });

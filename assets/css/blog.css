@@ -6,8 +6,8 @@
 .kd-comment-form .kd-field-full { flex: 1 1 100%; }
 .kd-comment-form .comment-form-cookies-consent { display: none; }
 @media (max-width: 575px) { .kd-comment-form .kd-field { flex-basis: 100%; } }
-.kd-comment-list .children { list-style: none; margin: 0; padding: 0 0 0 90px; }
-@media (max-width: 575px) { .kd-comment-list .children { padding-left: 24px; } }
+.kd-comment-list .children { list-style: none; margin: 0; padding: 0; padding-inline-start: 90px; }
+@media (max-width: 575px) { .kd-comment-list .children { padding-inline-start: 24px; } }
 .kd-comment-list > li + li { border-top: 1px solid #e9e9e9; padding-top: 35px; }
 .kd-comment-list > li > .children li { border: 0; padding-top: 0; }
 .kd-comment-list .comment-reply-link { color: #222; }
@@ -16,16 +16,16 @@
 .comment-navigation, .navigation.comments-pagination { margin-top: 20px; text-align: center; }
 
 /* post content typography */
-.kd-entry { font-size: 16px; line-height: 1.7; color: #666; }
+.kd-entry { font-size: 16px; line-height: 2; color: #666; }
 .kd-entry > * + * { margin-top: 1.25em; }
 .kd-entry > p:empty { display: none; }
 .kd-entry > p:first-child, .kd-entry > p:empty + p, .kd-entry .our-goal {
-  font-size: 30px; line-height: 40px; color: #222; text-align: center; margin-bottom: 40px; }
+  font-size: 30px; line-height: 1.8; color: #222; text-align: center; margin-bottom: 40px; }
 .kd-entry .has-text-align-center { text-align: center; }
-.kd-entry h1, .kd-entry h2, .kd-entry h3, .kd-entry h4, .kd-entry h5, .kd-entry h6 { color: #222; line-height: 1.25; margin: 1.6em 0 .6em; }
+.kd-entry h1, .kd-entry h2, .kd-entry h3, .kd-entry h4, .kd-entry h5, .kd-entry h6 { color: #222; line-height: 1.6; margin: 1.6em 0 .6em; }
 .kd-entry h2 { font-size: 32px; } .kd-entry h3 { font-size: 26px; } .kd-entry h4 { font-size: 22px; } .kd-entry h5 { font-size: 18px; } .kd-entry h6 { font-size: 16px; }
 .kd-entry a { color: #5a7760; text-decoration: underline; } .kd-entry a:hover { color: #222; }
-.kd-entry ul, .kd-entry ol { padding-left: 1.5em; }
+.kd-entry ul, .kd-entry ol { padding-inline-start: 1.5em; }
 .kd-entry ul { list-style: disc; } .kd-entry ol { list-style: decimal; }
 .kd-entry li + li { margin-top: .4em; }
 .kd-entry img, .kd-entry video { max-width: 100%; height: auto; }
@@ -33,11 +33,11 @@
 .kd-entry figcaption { margin-top: .6em; font-size: 13px; text-align: center; color: #999; }
 .kd-entry .wp-block-gallery { display: flex; flex-wrap: wrap; gap: 20px; }
 .kd-entry .wp-block-gallery figure { margin: 0; flex: 1 1 calc(50% - 10px); }
-.kd-entry blockquote { margin: 2.2em 0; padding: 0 100px 0 60px; border-left: 2px solid #222; font-size: 22px; line-height: 30px; color: #222; text-align: center; }
+.kd-entry blockquote { margin: 2.2em 0; padding-block: 0; padding-inline: 60px 100px; border-inline-start: 2px solid #222; font-size: 22px; line-height: 1.8; color: #222; text-align: center; }
 .kd-entry blockquote p { margin: 0; }
 .kd-entry blockquote cite { display: block; margin-top: 12px; font-size: 14px; color: #666; font-style: normal; }
 .kd-entry table { width: 100%; border-collapse: collapse; }
-.kd-entry th, .kd-entry td { border: 1px solid #e9e9e9; padding: 8px 12px; text-align: left; }
+.kd-entry th, .kd-entry td { border: 1px solid #e9e9e9; padding: 8px 12px; text-align: start; }
 .kd-entry pre { overflow: auto; padding: 16px; background: #f5f5f5; border-radius: 8px; font-size: 14px; }
 .kd-entry code { background: #f5f5f5; padding: 1px 5px; border-radius: 4px; }
 .kd-entry pre code { background: none; padding: 0; }
@@ -45,6 +45,6 @@
 .kd-entry .alignleft { float: left; margin: 0 24px 12px 0; } .kd-entry .alignright { float: right; margin: 0 0 12px 24px; }
 .kd-entry .aligncenter { display: block; margin-inline: auto; }
 @media (max-width: 767px) {
-  .kd-entry > p:first-child, .kd-entry > p:empty + p, .kd-entry .our-goal { font-size: 22px; line-height: 1.4; }
-  .kd-entry blockquote { padding: 0 20px 0 24px; font-size: 18px; line-height: 1.5; }
+  .kd-entry > p:first-child, .kd-entry > p:empty + p, .kd-entry .our-goal { font-size: 22px; line-height: 1.8; }
+  .kd-entry blockquote { padding-block: 0; padding-inline: 24px 20px; font-size: 18px; line-height: 1.8; }
 }

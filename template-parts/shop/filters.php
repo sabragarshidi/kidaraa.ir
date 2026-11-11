@@ -9,7 +9,7 @@ $cur  = is_product_category() ? get_queried_object_id() : 0;
 
 $row = $wpdb->get_row("SELECT FLOOR(MIN(min_price)) a, CEIL(MAX(max_price)) b FROM {$wpdb->wc_product_meta_lookup}");
 $min = $row && $row->b > 0 ? (int) $row->a : 0;
-$max = $row && $row->b > 0 ? (int) $row->b : 1000;
+$max = $row && $row->b > 0 ? (int) $row->b : 1000000;
 $vmin = isset($_GET['min_price']) ? max($min, (int) $_GET['min_price']) : $min; // phpcs:ignore
 $vmax = isset($_GET['max_price']) ? min($max, (int) $_GET['max_price']) : $max; // phpcs:ignore
 $action = is_product_category() ? get_term_link(get_queried_object()) : get_permalink(wc_get_page_id('shop'));
@@ -17,15 +17,15 @@ $action = is_product_category() ? get_term_link(get_queried_object()) : get_perm
 $featured = wc_get_products(['limit' => 3, 'status' => 'publish', 'featured' => true]);
 ?>
 <div class="kd-shop-sidebar-inner">
-    <button type="button" class="kd-filter-close mb-5 hidden size-10 items-center justify-center rounded-full border-0 bg-bg-light text-heading" data-shop-close aria-label="Close filters"><?= kidara_icon('x', 'text-[20px]') ?></button>
+    <button type="button" class="kd-filter-close mb-5 hidden size-10 items-center justify-center rounded-full border-0 bg-bg-light text-heading" data-shop-close aria-label="بستن فیلترها"><?= kidara_icon('x', 'text-[20px]') ?></button>
 
     <?php if ($cats && !is_wp_error($cats)) : ?>
     <section class="<?= $wrap ?>">
-        <h3 class="<?= $title ?>">Categories</h3>
+        <h3 class="<?= $title ?>">دسته‌بندی‌ها</h3>
         <ul class="m-0 list-none p-0">
             <?php foreach ($cats as $c) : ?>
                 <li class="py-2 text-[13px] leading-[18px]">
-                    <a href="<?= esc_url(get_term_link($c)) ?>" class="<?= $cur === $c->term_id ? 'text-accent' : 'text-heading' ?> hover:text-accent"><?= esc_html($c->name) ?> <span class="text-xs text-muted">(<?= (int) $c->count ?>)</span></a>
+                    <a href="<?= esc_url(get_term_link($c)) ?>" class="<?= $cur === $c->term_id ? 'text-accent' : 'text-heading' ?> hover:text-accent"><?= esc_html($c->name) ?> <span class="text-xs text-muted">(<?= kidara_fa((string) (int) $c->count) ?>)</span></a>
                 </li>
             <?php endforeach; ?>
         </ul>
@@ -33,25 +33,25 @@ $featured = wc_get_products(['limit' => 3, 'status' => 'publish', 'featured' => 
     <?php endif; ?>
 
     <section class="<?= $wrap ?>">
-        <h3 class="<?= $title ?>">Price</h3>
+        <h3 class="<?= $title ?>">قیمت</h3>
         <form method="get" action="<?= esc_url($action) ?>" class="kd-price" data-price data-min="<?= $min ?>" data-max="<?= $max ?>">
             <?php if (!empty($_GET['orderby'])) : // phpcs:ignore ?><input type="hidden" name="orderby" value="<?= esc_attr(wc_clean(wp_unslash($_GET['orderby']))) ?>"><?php endif; ?>
             <div class="kd-range relative mb-5 h-5">
                 <span class="kd-range-track absolute inset-x-0 top-2 h-1 rounded bg-border"></span>
                 <span class="kd-range-fill absolute top-2 h-1 rounded bg-accent" data-fill></span>
-                <input type="range" name="min_price" min="<?= $min ?>" max="<?= $max ?>" value="<?= $vmin ?>" data-lo aria-label="Minimum price">
-                <input type="range" name="max_price" min="<?= $min ?>" max="<?= $max ?>" value="<?= $vmax ?>" data-hi aria-label="Maximum price">
+                <input type="range" name="min_price" min="<?= $min ?>" max="<?= $max ?>" value="<?= $vmin ?>" data-lo aria-label="حداقل قیمت">
+                <input type="range" name="max_price" min="<?= $min ?>" max="<?= $max ?>" value="<?= $vmax ?>" data-hi aria-label="حداکثر قیمت">
             </div>
             <div class="flex items-center justify-between text-[13px] text-heading">
-                <span>Range : <span class="text-[#e00]"><span data-lo-out><?= $vmin ?>.00</span>$ - <span data-hi-out><?= $vmax ?>.00</span>$</span></span>
-                <button type="submit" class="cursor-pointer rounded-btn border border-border bg-white px-3.75 py-1 text-xs font-bold text-heading transition-colors hover:border-accent hover:bg-accent hover:text-white">Filter</button>
+                <span>بازه: <span class="text-[#e00]"><span data-lo-out><?= kidara_money($vmin, false) ?></span> تا <span data-hi-out><?= kidara_money($vmax, false) ?></span> تومان</span></span>
+                <button type="submit" class="cursor-pointer rounded-btn border border-border bg-white px-3.75 py-1 text-xs font-bold text-heading transition-colors hover:border-accent hover:bg-accent hover:text-white">اعمال فیلتر</button>
             </div>
         </form>
     </section>
 
     <?php if ($featured) : ?>
     <section>
-        <h3 class="<?= $title ?>">Feature Product</h3>
+        <h3 class="<?= $title ?>">محصولات ویژه</h3>
         <ul class="m-0 list-none p-0">
             <?php foreach ($featured as $f) : ?>
                 <li class="mb-3.75 flex gap-3.75">

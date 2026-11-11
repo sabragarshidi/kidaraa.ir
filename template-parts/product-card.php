@@ -5,8 +5,8 @@
  * get_template_part('template-parts/product-card', null, [
  *   'url','title','category','category_url','image','image_hover',
  *   'price','regular_price','price_html',
- *   'badges' => ['hot'=>bool, 'sale'=>'-33%', 'stock'=>'out of stock'|'pre order'],
- *   'swatches' => [['name'=>'Green','color'=>'#5e6762'], ...],
+ *   'badges' => ['hot'=>bool, 'sale'=>'۳۳٪', 'stock'=>'ناموجود'|'پیش‌سفارش'],
+ *   'swatches' => [['name'=>'سبز','color'=>'#5e6762'], ...],
  *   'product_id' => 0, 'slide' => false,
  * ]);
  */
@@ -14,7 +14,7 @@ $a = wp_parse_args($args ?? [], [
     'url' => '#', 'title' => '', 'category' => '', 'category_url' => '#',
     'image' => '', 'image_hover' => '', 'price' => '', 'regular_price' => '', 'price_html' => '',
     'badges' => [], 'swatches' => [], 'product_id' => 0, 'slide' => false,
-    'cart_label' => 'Add to cart',
+    'cart_label' => 'افزودن به سبد',
 ]);
 $badges = (array) $a['badges'];
 $hover  = $a['image_hover'] ?: '';
@@ -39,12 +39,12 @@ $tip = 'relative m-1.25 opacity-0 invisible transition-all duration-500 group-ho
         </a>
 
         <?php
-        $badge = 'absolute top-5 z-[5] h-11.25 rounded-full text-center text-white text-sm font-bold leading-[45px] lowercase';
+        $badge = 'absolute top-5 z-[5] h-11.25 rounded-full text-center text-white text-sm font-bold leading-[45px]';
         if (!empty($badges['hot']) && empty($badges['stock'])) : ?>
-            <div class="<?= $badge ?> start-5 w-11.25 bg-hot">hot</div>
+            <div class="<?= $badge ?> start-5 min-w-11.25 px-2 bg-hot">ویژه</div>
         <?php endif; ?>
         <?php if (!empty($badges['stock'])) : ?>
-            <div class="absolute top-5 start-5 z-10 h-11.25 rounded-[45px] bg-stock px-3.75 text-sm font-bold leading-[45px] whitespace-nowrap lowercase text-white"><?= esc_html($badges['stock']) ?></div>
+            <div class="absolute top-5 start-5 z-10 h-11.25 rounded-[45px] bg-stock px-3.75 text-sm font-bold leading-[45px] whitespace-nowrap text-white max-[767px]:top-3.75 max-[767px]:start-2.5 max-[767px]:h-8 max-[767px]:px-2.5 max-[767px]:text-xs max-[767px]:leading-8"><?= esc_html($badges['stock']) ?></div>
         <?php endif; ?>
         <?php if (!empty($badges['sale'])) : ?>
             <div class="<?= $badge ?> end-5 w-11.25 bg-accent"><?= esc_html($badges['sale']) ?></div>
@@ -55,18 +55,18 @@ $tip = 'relative m-1.25 opacity-0 invisible transition-all duration-500 group-ho
             <div class="<?= $tip ?> [transition-delay:0.05s]" data-title="<?= esc_attr($a['cart_label']) ?>">
                 <a href="<?= esc_url($a['url']) ?>" class="js-add-to-cart size-11.25 <?= $circle ?>" aria-label="<?= esc_attr($a['cart_label']) ?>" data-product-id="<?= $pid ?>"><?= kidara_icon('shopping-bag', 'text-[28px]') ?></a>
             </div>
-            <div class="<?= $tip ?> [transition-delay:0.1s]" data-title="Quick View">
-                <button type="button" class="js-quickview size-11.25 <?= $circle ?>" aria-label="Quick View" data-product-id="<?= $pid ?>"><?= kidara_icon('eye', 'text-[27px]') ?></button>
+            <div class="<?= $tip ?> [transition-delay:0.1s]" data-title="نمایش سریع">
+                <button type="button" class="js-quickview size-11.25 <?= $circle ?>" aria-label="نمایش سریع" data-product-id="<?= $pid ?>"><?= kidara_icon('eye', 'text-[27px]') ?></button>
             </div>
-            <div class="<?= $tip ?> [transition-delay:0.15s]" data-title="Wishlist">
-                <button type="button" class="js-wishlist size-11.25 <?= $circle ?>" aria-label="Wishlist" data-product-id="<?= $pid ?>"><?= kidara_icon('heart', 'text-[17px]') ?></button>
+            <div class="<?= $tip ?> [transition-delay:0.15s]" data-title="علاقه‌مندی">
+                <button type="button" class="js-wishlist size-11.25 <?= $circle ?>" aria-label="علاقه‌مندی" data-product-id="<?= $pid ?>"><?= kidara_icon('heart', 'text-[17px]') ?></button>
             </div>
         </div>
 
         <!-- compact buttons (<1200) -->
         <div class="absolute bottom-2.5 end-2.5 z-[9] flex flex-col min-[1200px]:hidden">
-            <button type="button" class="js-wishlist my-[3.5px] size-8.75 <?= $circle ?>" aria-label="Wishlist" data-product-id="<?= $pid ?>"><?= kidara_icon('heart', 'text-base') ?></button>
-            <button type="button" class="js-quickview my-[3.5px] size-8.75 <?= $circle ?>" aria-label="Quick View" data-product-id="<?= $pid ?>"><?= kidara_icon('eye', 'text-2xl') ?></button>
+            <button type="button" class="js-wishlist my-[3.5px] size-8.75 <?= $circle ?>" aria-label="علاقه‌مندی" data-product-id="<?= $pid ?>"><?= kidara_icon('heart', 'text-base') ?></button>
+            <button type="button" class="js-quickview my-[3.5px] size-8.75 <?= $circle ?>" aria-label="نمایش سریع" data-product-id="<?= $pid ?>"><?= kidara_icon('eye', 'text-2xl') ?></button>
         </div>
     </div>
 
@@ -74,7 +74,7 @@ $tip = 'relative m-1.25 opacity-0 invisible transition-all duration-500 group-ho
         <?php if ($a['category']) : ?>
             <div class="mb-1.25 text-base leading-[27.2px]"><a href="<?= esc_url($a['category_url']) ?>" class="text-body hover:text-accent"><?= esc_html($a['category']) ?></a></div>
         <?php endif; ?>
-        <h3 class="mb-[11px] font-body text-base font-bold leading-[19.2px] text-heading"><a href="<?= esc_url($a['url']) ?>" class="line-clamp-2 hover:text-accent"><?= esc_html($a['title']) ?></a></h3>
+        <h3 class="mb-2.5 font-body text-base font-bold leading-normal text-heading"><a href="<?= esc_url($a['url']) ?>" class="line-clamp-2 hover:text-accent"><?= esc_html($a['title']) ?></a></h3>
         <span class="mb-2.5 block text-base font-bold leading-none text-accent [&_del]:text-sm [&_del]:font-normal [&_del]:text-muted [&_ins]:no-underline">
             <?php if ($a['price_html']) : ?>
                 <?= wp_kses_post($a['price_html']) ?>

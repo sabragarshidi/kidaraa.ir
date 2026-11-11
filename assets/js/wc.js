@@ -17,8 +17,8 @@
         });
         return b;
       }
-      q.insertBefore(mk('−', 'Decrease'), input);
-      q.appendChild(mk('+', 'Increase'));
+      q.insertBefore(mk('−', 'کاهش تعداد'), input);
+      q.appendChild(mk('+', 'افزایش تعداد'));
     });
   }
   function init() {

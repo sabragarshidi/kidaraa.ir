@@ -45,13 +45,14 @@
     var lo = f.querySelector('[data-lo]'), hi = f.querySelector('[data-hi]'), fill = f.querySelector('[data-fill]');
     var lo2 = f.querySelector('[data-lo-out]'), hi2 = f.querySelector('[data-hi-out]');
     var mn = +f.dataset.min, mx = +f.dataset.max;
+    var fa = function (n) { return Math.round(n).toLocaleString('fa-IR'); };
     var upd = function (src) {
       var a = +lo.value, b = +hi.value;
       if (a > b) { if (src === lo) { a = b; lo.value = a; } else { b = a; hi.value = b; } }
       var span = (mx - mn) || 1;
-      fill.style.left = ((a - mn) / span * 100) + '%';
-      fill.style.right = (100 - (b - mn) / span * 100) + '%';
-      lo2.textContent = a.toFixed(2); hi2.textContent = b.toFixed(2);
+      fill.style.insetInlineStart = ((a - mn) / span * 100) + '%';
+      fill.style.insetInlineEnd = (100 - (b - mn) / span * 100) + '%';
+      lo2.textContent = fa(a); hi2.textContent = fa(b);
     };
     lo.addEventListener('input', function () { upd(lo); });
     hi.addEventListener('input', function () { upd(hi); });

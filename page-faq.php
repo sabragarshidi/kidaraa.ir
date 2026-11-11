@@ -1,26 +1,42 @@
 <?php
-/** FAQ (slug faq): numbered groups, accordion questions (pages.js). */
+/** FAQ (slug faq): groups, accordion questions (pages.js). */
 get_header();
-$qa = [
-    ['When do I receive my order?', 'When placing the order, a day of shipment is indicated. After the order has been placed, the same delivery time will also be stated on the order confirmation. It is therefore never possible that during the order, the shipping day on the website, is different than on the order confirmation.'],
-    ['I now see the longer delivery time of (a part of) my order. How can I cancel it?', 'If the order has a longer delivery time than you had previously seen, it is of course possible to cancel (a part of) the order. For this you can contact our customer service. They will cancel the order for you. The purchase amount will be back on your bank account within two working days. When an order has already been shipped, it can no longer be cancelled.'],
-    ['When will I receive the invoice for my order?', 'When you have paid for the order, you will not automatically receive an invoice for your order. If you wish to receive an invoice, this can be done in two ways.The first way is through your account at our store. When you log in to your account you can see your orders and download the invoice.'],
+$groups = [
+    ['۱. سفارش', [
+        ['سفارشم چه زمانی به دستم می‌رسد؟', 'زمان تقریبی ارسال هنگام ثبت سفارش در سبد خرید و در صفحهٔ تسویه‌حساب نمایش داده می‌شود و همان زمان در ایمیل و پیامک تأیید سفارش هم می‌آید. بنابراین زمان اعلام‌شده در هنگام خرید و زمان تأیید سفارش هیچ تفاوتی با هم ندارند.'],
+        ['چطور می‌توانم سفارشم را لغو کنم؟', 'تا پیش از ارسال سفارش می‌توانید با پشتیبانی تماس بگیرید تا سفارش یا بخشی از آن لغو شود. مبلغ پرداختی ظرف دو روز کاری به حساب بانکی شما بازمی‌گردد. سفارشی که به پست تحویل داده شده باشد دیگر قابل لغو نیست.'],
+        ['صورت‌حساب خرید را از کجا دریافت کنم؟', 'پس از پرداخت، صورت‌حساب به‌صورت خودکار برایتان ارسال نمی‌شود، اما به‌راحتی می‌توانید آن را دریافت کنید. وارد حساب کاربری خود شوید، به بخش «سفارش‌ها» بروید و صورت‌حساب هر سفارش را ببینید. اگر مشکلی داشتید، پشتیبانی کمکتان می‌کند.'],
+    ]],
+    ['۲. ارسال', [
+        ['هزینهٔ ارسال چقدر است؟', 'هزینهٔ ارسال بر اساس شهر مقصد و وزن بسته محاسبه می‌شود و پیش از پرداخت نهایی در صفحهٔ تسویه‌حساب می‌بینید. برای سفارش‌های بالاتر از مبلغ مشخصی، ارسال رایگان است.'],
+        ['سفارش‌ها به کدام شهرها ارسال می‌شود؟', 'ما به سراسر ایران ارسال داریم. سفارش‌های تهران معمولاً ظرف یک تا دو روز کاری و سفارش‌های شهرستان‌ها ظرف دو تا پنج روز کاری تحویل داده می‌شود.'],
+        ['چگونه می‌توانم سفارشم را پیگیری کنم؟', 'پس از ارسال سفارش، کد رهگیری مرسوله با پیامک و ایمیل برایتان فرستاده می‌شود. همچنین می‌توانید وضعیت سفارش را در بخش «سفارش‌ها» در حساب کاربری خود ببینید.'],
+    ]],
+    ['۳. پرداخت', [
+        ['چه روش‌های پرداختی وجود دارد؟', 'پرداخت به‌صورت آنلاین و از طریق درگاه امن بانکی با همهٔ کارت‌های عضو شتاب انجام می‌شود. اطلاعات کارت شما نزد فروشگاه ذخیره نمی‌شود.'],
+        ['آیا پرداخت آنلاین امن است؟', 'بله. پرداخت در درگاه معتبر بانکی انجام می‌شود و کیدارا به اطلاعات کارت یا رمز شما دسترسی ندارد.'],
+        ['اگر پرداخت ناموفق بود و پولم کم شد چه کنم؟', 'در این حالت نگران نباشید. مبلغ کسرشده معمولاً ظرف ۷۲ ساعت به حساب شما برمی‌گردد. اگر بازنگشت، شمارهٔ پیگیری تراکنش را برای پشتیبانی بفرستید تا موضوع را پیگیری کنیم.'],
+    ]],
+    ['۴. بازگشت، تعویض و شکایت', [
+        ['چطور کالا را تعویض یا مرجوع کنم؟', 'تا ۷ روز پس از دریافت سفارش، اگر کالا استفاده نشده و برچسب و بسته‌بندی‌اش سالم باشد، می‌توانید با پشتیبانی تماس بگیرید و درخواست تعویض یا مرجوعی ثبت کنید.'],
+        ['اگر اندازهٔ لباس مناسب نبود چه می‌شود؟', 'مشکلی نیست. اندازهٔ دیگری از همان مدل را برایتان ارسال می‌کنیم، به شرط آنکه موجودی داشته باشد. در غیر این صورت مبلغ کالا را برمی‌گردانیم.'],
+        ['شکایت یا پیشنهاد خود را کجا ثبت کنم؟', 'از صفحهٔ «تماس با ما» پیام بفرستید یا با شمارهٔ پشتیبانی تماس بگیرید. نظر شما برای بهتر شدن کیدارا بسیار ارزشمند است و همهٔ پیام‌ها پاسخ داده می‌شوند.'],
+    ]],
 ];
-$groups = ['01. The order', '02. Shipment', '03. The order', '04. Returns, exchanges and complaints'];
 ?>
 <main class="container mt-18 pb-25 min-[1200px]:mt-29.5" data-faq>
     <div class="pt-14 pb-12.5 text-center">
         <?php kidara_icon_e('circle-help', 'text-[40px] text-heading'); ?>
-        <h1 class="mt-6 mb-0 font-body text-[40px] leading-[1.2] text-heading min-[768px]:text-[50px]">Frequently Asked Questions.</h1>
+        <h1 class="mt-6 mb-0 font-body text-[40px] leading-[1.5] text-heading min-[768px]:text-[50px]">پرسش‌های متداول</h1>
     </div>
     <div class="-mx-3.75 flex flex-wrap">
-        <?php foreach ($groups as $gi => $g) : ?>
+        <?php foreach ($groups as $gi => [$g, $qa]) : ?>
             <div class="mb-12.5 w-full px-3.75 min-[768px]:w-1/2">
-                <h2 class="mb-7.5 mt-0 font-body text-[30px] leading-[1.2] text-heading"><?= esc_html($g) ?></h2>
+                <h2 class="mb-7.5 mt-0 font-body text-[30px] leading-[1.5] text-heading"><?= esc_html($g) ?></h2>
                 <?php foreach ($qa as $qi => $item) : $id = "faq-$gi-$qi"; ?>
                     <div class="mb-5 js-faq-item">
-                        <h3 class="m-0"><button type="button" class="js-faq-q flex w-full cursor-pointer items-center justify-between gap-3 bg-transparent p-0 text-start font-body text-base font-normal leading-[1.4] text-body" aria-expanded="true" aria-controls="<?= $id ?>"><span><?= esc_html($item[0]) ?></span><?php kidara_icon_e('chevron-down', 'text-[16px] shrink-0 transition-transform duration-200 [.is-closed_&]:-rotate-90'); ?></button></h3>
-                        <div id="<?= $id ?>" class="js-faq-a pt-2.5 text-sm leading-6"><p class="m-0"><?= esc_html($item[1]) ?></p></div>
+                        <h3 class="m-0"><button type="button" class="js-faq-q flex w-full cursor-pointer items-center justify-between gap-3 bg-transparent p-0 text-start font-body text-base font-normal leading-[1.8] text-body" aria-expanded="true" aria-controls="<?= $id ?>"><span><?= esc_html($item[0]) ?></span><?php kidara_icon_e('chevron-down', 'text-[16px] shrink-0 transition-transform duration-200 [.is-closed_&]:rotate-90'); ?></button></h3>
+                        <div id="<?= $id ?>" class="js-faq-a pt-2.5 text-sm leading-7"><p class="m-0"><?= esc_html($item[1]) ?></p></div>
                     </div>
                 <?php endforeach; ?>
             </div>

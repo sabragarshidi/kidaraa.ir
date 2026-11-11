@@ -8,20 +8,20 @@
 $up = 'https://buny.wpbingosite.com/wp-content/uploads/';
 $slides = [
     [
-        'title' => "Spring<br>Baby<br>Clothes",
-        'text'  => "We created Buny with an aspiration to<br>become a one stop shop for all conscious, organic and ethical<br>purchases relating to parenthood and your baby.",
+        'title' => "لباس بهاره<br>نوزاد<br>و کودک",
+        'text'  => "کیدارا را ساختیم تا جایی باشد برای همهٔ خریدهای آگاهانه،<br>ارگانیک و مطمئن پدر و مادرها؛<br>هرچه برای نوزادتان لازم دارید، یک‌جا.",
         'photo' => $up . '2024/01/slider-1.jpg',
         'gw'    => [420, 350, 300, 250],
     ],
     [
-        'title' => "Newborn<br>Baby<br>Clothes",
-        'text'  => "Our cutest looks &amp; matching sets,<br>designed for easy dressing &amp; everyday comfort.<br>Welcome to Buny!",
+        'title' => "لباس<br>نوزاد<br>تازه‌متولد",
+        'text'  => "بامزه‌ترین استایل‌ها و ستهای هماهنگ،<br>طراحی‌شده برای پوشیدن راحت و آسایش هر روزه.<br>به کیدارا خوش آمدید!",
         'photo' => $up . '2024/01/slider-2.jpg',
         'gw'    => [420, 350, 300, 250],
     ],
     [
-        'title' => "Boys'<br>Clothes<br>Online",
-        'text'  => "The latest styles for spring &amp; summer with<br>on-trend prints, positive slogans &amp; more. Delicate prints &amp; special<br>features, designed with the smallest arrivals in mind",
+        'title' => "لباس<br>پسرانه<br>آنلاین",
+        'text'  => "جدیدترین مدل‌های بهار و تابستان با طرح‌های روز<br>و شعارهای شاد؛ طرح‌های ظریف و جزئیات ویژه،<br>با فکر کوچک‌ترین عضوهای خانواده",
         'photo' => $up . '2024/01/slider-3.jpg',
         'gw'    => [450, 350, 300, 250],
     ],
@@ -57,7 +57,7 @@ function kd_hero_lv(array $vars): string
     }
 </style>
 <section class="kd-hero relative overflow-hidden bg-[#f6f6f6]" data-hero-slider>
-    <div class="swiper">
+    <div class="swiper" dir="rtl">
         <div class="swiper-wrapper">
             <?php foreach ($slides as $s) : ?>
                 <div class="swiper-slide !h-auto">
@@ -67,7 +67,7 @@ function kd_hero_lv(array $vars): string
                              class="kd-l pointer-events-none absolute -bottom-px left-1/2 z-[7] max-w-none -translate-x-1/2 h-[calc(var(--h)*var(--hu))] w-[calc(var(--w)*var(--hu))]"
                              style="<?= kd_hero_lv(['w' => [1920, 1371, 1371, 1029], 'h' => [280, 200, 200, 150]]) ?>">
                         <!-- arch photo, right anchored (x = right offset, y = bottom offset) -->
-                        <img src="<?= esc_url($s['photo']) ?>" alt="" width="498" height="732"
+                        <img src="<?= esc_url($s['photo']) ?>" alt="کودک با لباس کیدارا" width="498" height="732"
                              class="kd-l absolute z-[6] max-w-none rounded-t-[249px] border-5 border-white object-cover end-[calc(var(--x)*var(--hu))] bottom-[calc(var(--y)*var(--hu))] h-[calc(var(--h)*var(--hu))] w-[calc(var(--w)*var(--hu))]"
                              style="<?= kd_hero_lv(['x' => [280, 30, 30, 90], 'y' => [0, 0, 0, -90], 'w' => [498, 350, 330, 300], 'h' => [732, 514, 485, 441]]) ?>">
                         <!-- text group -->
@@ -75,11 +75,11 @@ function kd_hero_lv(array $vars): string
                              style="<?= kd_hero_lv(['x' => [315, 50, 30, 115], 'y' => [211, 142, 137, 144], 'w' => $s['gw'], 'h' => [500, 400, 300, 220]]) ?>">
                             <h2 class="kd-l absolute start-0 top-0 m-0 w-full text-center font-display font-normal text-heading text-[length:calc(var(--fs)*var(--hu))] leading-[calc(var(--lh)*var(--hu))]"
                                 style="<?= kd_hero_lv(['fs' => [60, 50, 40, 35], 'lh' => [75, 65, 55, 50]]) ?>"><?= $s['title'] ?></h2>
-                            <p class="kd-l absolute start-1/2 m-0 -translate-x-1/2 whitespace-nowrap text-center text-body max-[1199px]:hidden top-[calc(var(--y)*var(--hu))] text-[length:calc(var(--fs)*var(--hu))] leading-[calc(var(--lh)*var(--hu))]"
+                            <p class="kd-l absolute left-1/2 m-0 -translate-x-1/2 whitespace-nowrap text-center text-body max-[1199px]:hidden top-[calc(var(--y)*var(--hu))] text-[length:calc(var(--fs)*var(--hu))] leading-[calc(var(--lh)*var(--hu))]"
                                style="<?= kd_hero_lv(['y' => [239, 217, 174, 107], 'fs' => [16, 16, 16, 9], 'lh' => [26, 25, 25, 15]]) ?>"><?= $s['text'] ?></p>
                             <a href="<?= esc_url(home_url('/shop/')) ?>"
-                               class="kd-l absolute start-1/2 -translate-x-1/2 whitespace-nowrap rounded-btn bg-accent text-center text-[length:calc(14*var(--hu))] font-bold text-white max-[479px]:text-sm transition-colors duration-200 hover:bg-accent-dark top-[calc(var(--y)*var(--hu))] leading-[calc(var(--lh)*var(--hu))] px-[calc(var(--px)*var(--hu))] max-[479px]:px-12.5 max-[479px]:leading-[50px]"
-                               style="<?= kd_hero_lv(['y' => [356, 339, 187, 170], 'lh' => [50, 50, 50, 50], 'px' => [80, 70, 55, 50]]) ?>">Shop Now</a>
+                               class="kd-l absolute left-1/2 -translate-x-1/2 whitespace-nowrap rounded-btn bg-accent text-center text-[length:calc(14*var(--hu))] font-bold text-white max-[479px]:text-sm transition-colors duration-200 hover:bg-accent-dark top-[calc(var(--y)*var(--hu))] leading-[calc(var(--lh)*var(--hu))] px-[calc(var(--px)*var(--hu))] max-[479px]:px-12.5 max-[479px]:leading-[50px]"
+                               style="<?= kd_hero_lv(['y' => [356, 339, 187, 170], 'lh' => [50, 50, 50, 50], 'px' => [80, 70, 55, 50]]) ?>">همین حالا بخرید</a>
                         </div>
                         <!-- decor: dragonfly, feather(leaves), balloon (hidden on mobile) -->
                         <img src="<?= esc_url($up . '2020/06/dragonfly.png') ?>" alt="" class="kd-l absolute z-[9] max-w-none max-[479px]:hidden start-[calc(var(--x)*var(--hu))] top-[calc(var(--y)*var(--hu))] h-[calc(var(--h)*var(--hu))] w-[calc(var(--w)*var(--hu))]"

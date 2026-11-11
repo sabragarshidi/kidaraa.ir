@@ -38,7 +38,7 @@
 .kd-product table.variations th.label, .kd-product table.variations td.label { line-height: 40px; display: flex; align-items: baseline; }
 .kd-product table.variations label { font-size: 14px; font-weight: 400; color: #666; }
 .kd-product table.variations label::after { content: ":"; }
-.kd-product .kd-selected { margin-left: 6px; color: #222; }
+.kd-product .kd-selected { margin-inline-start: 6px; color: #222; }
 .kd-product .kd-hidden-select { display: none !important; }
 .kd-product .kd-swatches { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
 .kd-product .kd-sw { cursor: pointer; background: transparent; padding: 0; font-family: inherit; transition: border-color .2s, color .2s, opacity .2s; }
@@ -54,9 +54,9 @@
 /* stars */
 .kd-product .star-rating { position: relative; display: inline-block; width: 70px; height: 14px; overflow: hidden; font-size: 0; line-height: 0; vertical-align: middle; }
 .kd-product .star-rating::before,
-.kd-product .star-rating > span::before { content: ""; position: absolute; left: 0; top: 0; width: 70px; height: 14px; -webkit-mask: var(--kd-star) 0 0 / 14px 14px repeat-x; mask: var(--kd-star) 0 0 / 14px 14px repeat-x; }
+.kd-product .star-rating > span::before { content: ""; position: absolute; inset-inline-start: 0; top: 0; width: 70px; height: 14px; -webkit-mask: var(--kd-star) 0 0 / 14px 14px repeat-x; mask: var(--kd-star) 0 0 / 14px 14px repeat-x; }
 .kd-product .star-rating::before { background: #d9d9d9; }
-.kd-product .star-rating > span { position: absolute; left: 0; top: 0; height: 100%; overflow: hidden; }
+.kd-product .star-rating > span { position: absolute; inset-inline-start: 0; top: 0; height: 100%; overflow: hidden; }
 .kd-product .star-rating > span::before { background: #f5a623; }
 .kd-product p.stars { margin: 0; line-height: 1; }
 .kd-product p.stars span { display: inline-flex; gap: 3px; }
@@ -75,11 +75,11 @@
 .kd-product .kd-prose { font-size: 14px; }
 .kd-product .kd-prose > :last-child { margin-bottom: 0; }
 .kd-product .kd-prose p { margin: 0 0 16px; }
-.kd-product .kd-prose ul { padding-left: 20px; list-style: disc; margin: 0 0 16px; }
-.kd-product .kd-prose ol { padding-left: 20px; list-style: decimal; margin: 0 0 16px; }
+.kd-product .kd-prose ul { padding-inline-start: 20px; list-style: disc; margin: 0 0 16px; }
+.kd-product .kd-prose ol { padding-inline-start: 20px; list-style: decimal; margin: 0 0 16px; }
 .kd-product table.shop_attributes { width: 100%; border-collapse: collapse; border: 0; }
-.kd-product table.shop_attributes th, .kd-product table.shop_attributes td { padding: 10px 0; border: 0; border-bottom: 1px solid #e9e9e9; text-align: left; font-style: normal; }
-.kd-product table.shop_attributes th { width: 160px; font-weight: 700; color: #222; text-transform: capitalize; }
+.kd-product table.shop_attributes th, .kd-product table.shop_attributes td { padding: 10px 0; border: 0; border-bottom: 1px solid #e9e9e9; text-align: start; font-style: normal; }
+.kd-product table.shop_attributes th { width: 160px; font-weight: 700; color: #222; }
 .kd-product table.shop_attributes p { margin: 0; }
 
 /* reviews */
@@ -98,7 +98,7 @@
 .kd-product #reviews .woocommerce-review__author { display: block; color: #222; font-size: 14px; font-weight: 700; }
 .kd-product #reviews .woocommerce-review__dash { display: none; }
 .kd-product #reviews .woocommerce-noreviews, .kd-product #reviews .woocommerce-verification-required { margin: 0; }
-.kd-product #review_form #reply-title { display: block; margin: 0 0 15px; font-family: "Preahvihear", sans-serif; font-size: 24px; color: #222; }
+.kd-product #review_form #reply-title { display: block; margin: 0 0 15px; font-family: inherit; font-weight: 700; font-size: 24px; color: #222; }
 .kd-product #review_form .comment-notes { margin: 0 0 15px; }
 .kd-product #review_form p { margin: 0 0 15px; }
 .kd-product #review_form label { display: block; margin-bottom: 8px; color: #222; font-weight: 500; }
@@ -114,17 +114,17 @@
 /* notices */
 .kd-product .woocommerce-notices-wrapper { margin: 0 auto; } .kd-product .woocommerce-notices-wrapper:not(:empty) { margin-bottom: 20px; }
 .kd-product .woocommerce-notices-wrapper, .kd-product > .woocommerce-message, .kd-product > .woocommerce-error, .kd-product > .woocommerce-info { max-width: 1820px; margin-inline: auto; padding-inline: 15px; }
-.kd-product .woocommerce-message, .kd-product .woocommerce-info, .kd-product .woocommerce-error { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin: 0 0 20px; padding: 12px 20px; list-style: none; border: 1px solid #e9e9e9; border-left: 3px solid #719378; border-radius: 6px; font-size: 14px; color: #222; }
-.kd-product .woocommerce-error { border-left-color: #d33; }
+.kd-product .woocommerce-message, .kd-product .woocommerce-info, .kd-product .woocommerce-error { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin: 0 0 20px; padding: 12px 20px; list-style: none; border: 1px solid #e9e9e9; border-inline-start: 3px solid #719378; border-radius: 6px; font-size: 14px; color: #222; }
+.kd-product .woocommerce-error { border-inline-start-color: #d33; }
 .kd-product .woocommerce-message .button { order: 2; border-radius: 25px; background: #719378; padding: 6px 18px; color: #fff; font-weight: 700; }
 
 /* lightbox */
 .kd-lb { position: fixed; inset: 0; z-index: 100000; display: flex; align-items: center; justify-content: center; background: rgba(0, 0, 0, .85); }
 .kd-lb img { max-width: 90vw; max-height: 90vh; object-fit: contain; background: #f3f3f3; }
 .kd-lb button { position: absolute; border: 0; background: transparent; color: #fff; cursor: pointer; line-height: 1; padding: 10px; }
-.kd-lb-x { top: 15px; right: 20px; font-size: 40px; }
+.kd-lb-x { top: 15px; inset-inline-end: 20px; font-size: 40px; }
 .kd-lb-p, .kd-lb-n { top: 50%; transform: translateY(-50%); font-size: 60px; }
-.kd-lb-p { left: 15px; } .kd-lb-n { right: 15px; }
+.kd-lb-p { right: 15px; } .kd-lb-n { left: 15px; }
 
 @media (max-width: 575px) {
     .kd-product .quantity { width: 100px; padding: 0 12px; }

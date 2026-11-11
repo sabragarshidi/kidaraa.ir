@@ -1,25 +1,31 @@
 <?php
 /**
- * Manifest #6: "Our Blog" banner + 3 recent posts. Static copy of the demo.
+ * Manifest #6: "Our Blog" banner + 3 recent posts. 3 latest real posts.
  */
 $up = 'https://buny.wpbingosite.com/wp-content/uploads/';
-$posts = [
-    ['url' => '/little-fashionistas-wardrobe/', 'img' => $up . '2023/01/little-fashionistas-wardrobe-8-720x484.jpg', 'date' => 'January 12, 2023', 'title' => 'Little Fashionistas’ Wardrobe', 'excerpt' => 'From everyday outfits to unique styling tips, Little Fashionistas’ Wardrobe is not just a place to shop, but also...'],
-    ['url' => '/tiny-trendsetters-collection/', 'img' => $up . '2023/01/little-fashionistas-wardrobe-7-720x484.jpg', 'date' => 'January 11, 2023', 'title' => 'Tiny Trendsetters Collection', 'excerpt' => 'Dive into a world of miniature style statements curated for the trendsetting tots. Sed a libero. Mauris sollicitudin fermentum libero....'],
-    ['url' => '/fashionable-kiddos-attire/', 'img' => $up . '2023/01/little-fashionistas-wardrobe-6-720x484.jpg', 'date' => 'January 10, 2023', 'title' => 'Fashionable Kiddos Attire', 'excerpt' => 'Our collection is tailored to suit the dynamic tastes of the trendiest little ones. Sed a libero. Mauris sollicitudin fermentum...'],
-];
+$demo_imgs = [$up . '2023/01/little-fashionistas-wardrobe-8-720x484.jpg', $up . '2023/01/little-fashionistas-wardrobe-7-720x484.jpg', $up . '2023/01/little-fashionistas-wardrobe-6-720x484.jpg'];
+$posts = [];
+foreach (get_posts(['numberposts' => 3, 'post_status' => 'publish', 'ignore_sticky_posts' => true]) as $n => $kd_post) {
+    $posts[] = [
+        'url'     => get_permalink($kd_post),
+        'img'     => get_the_post_thumbnail_url($kd_post, 'medium_large') ?: $demo_imgs[$n % 3],
+        'date'    => kidara_post_date($kd_post),
+        'title'   => get_the_title($kd_post),
+        'excerpt' => wp_trim_words(get_the_excerpt($kd_post) ?: wp_strip_all_tags($kd_post->post_content), 20, '…'),
+    ];
+}
 ?>
 <section class="container mt-25 mb-24">
     <div class="-mx-3.75 flex flex-col min-[1025px]:flex-row">
         <!-- banner -->
         <div class="relative w-full px-3.75 min-[1025px]:w-1/2 min-[1025px]:px-0">
             <img src="<?= esc_url($up . '2023/11/heart.png') ?>" alt="" width="53" height="59" class="pointer-events-none absolute -top-7.5 start-5 z-0 max-w-none" loading="lazy">
-            <a href="#" class="relative z-[1] block overflow-hidden min-[1025px]:mx-10 min-[1025px]:h-[620px]">
-                <?= kidara_img($up . '2023/11/banner-3.jpg', 'Banner Image', 'block aspect-square h-full w-full object-cover opacity-100 min-[1025px]:aspect-auto') ?>
+            <a href="<?= esc_url(home_url('/blog/')) ?>" class="relative z-[1] block overflow-hidden min-[1025px]:mx-10 min-[1025px]:h-[620px]">
+                <?= kidara_img($up . '2023/11/banner-3.jpg', 'بنر وبلاگ کیدارا', 'block aspect-square h-full w-full object-cover opacity-100 min-[1025px]:aspect-auto') ?>
                 <span class="absolute inset-0 flex items-center justify-center px-7.5">
                     <span class="block max-w-[418px] text-center text-white">
-                        <span class="mb-6.25 block font-display text-[25px] leading-[1.2] min-[768px]:text-[30px] min-[1025px]:text-[40px]">Our Blog</span>
-                        <span class="block whitespace-nowrap text-base leading-6.5 max-[480px]:whitespace-normal">Discover a wealth of inspiration and knowledge on Our Blog,<br> where we curate engaging content to fuel your passions and<br> pursuits.From in-depth articles to inspiring stories…</span>
+                        <span class="mb-6.25 block font-display text-[25px] leading-normal min-[768px]:text-[30px] min-[1025px]:text-[40px]">وبلاگ ما</span>
+                        <span class="block whitespace-nowrap text-base leading-8 max-[480px]:whitespace-normal">در وبلاگ ما انبوهی از الهام و دانستنی‌ها را پیدا می‌کنید؛<br> مطالبی جذاب برای والدین و کودکان،<br> از مقاله‌های کاربردی تا داستان‌های الهام‌بخش…</span>
                     </span>
                 </span>
             </a>
@@ -35,8 +41,8 @@ $posts = [
                         </a>
                         <div class="min-w-0 max-w-[385px] pt-2.25 max-[767px]:pt-3.75 min-[768px]:ps-7.5">
                             <div class="mb-3.5 flex items-center gap-1 text-sm text-accent"><?= kidara_icon('calendar-clock', 'text-[18px]') ?><time><?= esc_html($p['date']) ?></time></div>
-                            <h3 class="mb-3 font-body text-base font-bold leading-[18px]"><a href="<?= esc_url($p['url']) ?>" class="text-heading hover:text-accent-dark"><?= esc_html($p['title']) ?></a></h3>
-                            <p class="m-0 text-sm leading-[1.7]"><?= esc_html($p['excerpt']) ?></p>
+                            <h3 class="mb-3 font-body text-base font-bold leading-normal"><a href="<?= esc_url($p['url']) ?>" class="text-heading hover:text-accent-dark"><?= esc_html($p['title']) ?></a></h3>
+                            <p class="m-0 text-sm leading-[1.9]"><?= esc_html($p['excerpt']) ?></p>
                         </div>
                     </article>
                 <?php endforeach; ?>

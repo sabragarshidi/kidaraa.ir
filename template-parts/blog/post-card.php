@@ -12,7 +12,7 @@ $cats = get_the_category();
             <?php } ?>
         </a>
         <?php if ($cats) : ?>
-            <ul class="absolute bottom-5 left-5 m-0 flex list-none flex-wrap gap-2.5 p-0">
+            <ul class="absolute bottom-5 start-5 m-0 flex list-none flex-wrap gap-2.5 p-0">
                 <?php foreach ($cats as $c) : ?>
                     <li><a class="inline-block rounded-btn bg-white px-3.75 py-[5px] text-sm leading-[27px] text-heading transition-colors hover:text-accent-dark min-[768px]:text-base" href="<?= esc_url(get_category_link($c)) ?>"><?= esc_html($c->name) ?></a></li>
                 <?php endforeach; ?>
@@ -22,10 +22,10 @@ $cats = get_the_category();
     <div class="pt-3.75">
         <div class="mb-2.5 flex items-center gap-1.5 text-sm text-accent">
             <?php kidara_icon_e('calendar', 'text-[14px]'); ?>
-            <a href="<?php the_permalink(); ?>" rel="bookmark" class="text-accent"><time datetime="<?= esc_attr(get_the_date('c')) ?>"><?= esc_html(get_the_date()) ?></time></a>
+            <a href="<?php the_permalink(); ?>" rel="bookmark" class="text-accent"><time datetime="<?= esc_attr(get_the_date('c')) ?>"><?= esc_html(kidara_post_date()) ?></time></a>
         </div>
-        <h3 class="m-0 mb-2.5 text-[30px] leading-[1.15] max-[767px]:text-2xl"><a class="text-heading hover:text-accent-dark" href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
-        <p class="mb-5 text-sm"><?= esc_html(wp_trim_words((strlen(trim(get_the_excerpt(), " .…")) > 3) ? get_the_excerpt() : wp_strip_all_tags(strip_shortcodes(get_the_content())), 22, '...')) ?></p>
-        <a class="inline-block rounded-btn bg-[#d33] px-10 py-2.5 text-sm font-bold text-white transition-all duration-300 hover:bg-accent-dark" href="<?php the_permalink(); ?>">Read More</a>
+        <h3 class="m-0 mb-2.5 text-[30px] leading-[1.5] max-[767px]:text-2xl"><a class="text-heading hover:text-accent-dark" href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
+        <p class="mb-5 text-sm"><?= esc_html(wp_trim_words((strlen(trim(get_the_excerpt(), " .…")) > 3) ? get_the_excerpt() : wp_strip_all_tags(strip_shortcodes(get_the_content())), 22, '…')) ?></p>
+        <a class="inline-block rounded-btn bg-[#d33] px-10 py-2.5 text-sm font-bold text-white transition-all duration-300 hover:bg-accent-dark" href="<?php the_permalink(); ?>">ادامه مطلب</a>
     </div>
 </article>

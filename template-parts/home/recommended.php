@@ -1,27 +1,25 @@
 <?php
 // Manifest #1 (title) + #2 (product slider). Data copied from captured demo.
-$products = 
-[
-    ['url'=>'/shop/braced-bloomer-fawn/', 'image'=>'https://buny.wpbingosite.com/wp-content/uploads/2018/05/braced-bloomer-fawn-7-600x836.jpg', 'image_hover'=>'https://buny.wpbingosite.com/wp-content/uploads/2018/05/braced-bloomer-fawn-6-600x836.jpg', 'category'=>'Baby', 'category_url'=>'/product-category/baby/', 'title'=>'Braced Bloomer Fawn', 'price'=>'100.00$ – 120.00$', 'badges'=>['hot'=>true, 'sale'=>'-33%'], 'swatches'=>[['name'=>'Green', 'color'=>'#5e6762'], ['name'=>'Viola', 'color'=>'#b09294'], ['name'=>'Yellow', 'color'=>'#c69a02']]],
-    ['url'=>'/shop/short-sleeve-belle-dress/', 'image'=>'https://buny.wpbingosite.com/wp-content/uploads/2019/04/short-sleeve-belle-dress-4-600x836.jpg', 'image_hover'=>'https://buny.wpbingosite.com/wp-content/uploads/2019/04/short-sleeve-belle-dress-3-600x836.jpg', 'category'=>'All', 'category_url'=>'/product-category/all/', 'title'=>'Short Sleeve Belle Dress', 'regular_price'=>'150.00$', 'price'=>'100.00$', 'badges'=>['hot'=>true, 'sale'=>'-33%', 'stock'=>'out of stock'], 'swatches'=>[]],
-    ['url'=>'/shop/gathered-bloomers-basil/', 'image'=>'https://buny.wpbingosite.com/wp-content/uploads/2020/04/gathered-bloomers-basil-4-600x836.jpg', 'image_hover'=>'https://buny.wpbingosite.com/wp-content/uploads/2020/04/gathered-bloomers-basil-3-600x836.jpg', 'category'=>'Boys', 'category_url'=>'/product-category/boys/', 'title'=>'Gathered Bloomers Basil', 'price'=>'200.00$', 'badges'=>[], 'swatches'=>[]],
-    ['url'=>'/shop/organic-belle-dress-ditsy-clay/', 'image'=>'https://buny.wpbingosite.com/wp-content/uploads/2020/04/organic-belle-dress-ditsy-clay-4-600x836.jpg', 'image_hover'=>'https://buny.wpbingosite.com/wp-content/uploads/2020/04/organic-belle-dress-ditsy-clay-3-600x836.jpg', 'category'=>'All', 'category_url'=>'/product-category/all/', 'title'=>'Organic Belle Dress Ditsy Clay', 'price'=>'200.00$', 'badges'=>[], 'swatches'=>[]],
-    ['url'=>'/shop/zanti-humpback-belt-for-babies/', 'image'=>'https://buny.wpbingosite.com/wp-content/uploads/2018/10/zanti-humpback-belt-for-babies-24-600x836.jpg', 'image_hover'=>'https://buny.wpbingosite.com/wp-content/uploads/2018/10/zanti-humpback-belt-for-babies-23-600x836.jpg', 'category'=>'Toys', 'category_url'=>'/product-category/toys/', 'title'=>'Zanti-Humpback Belt for babies', 'price'=>'250.00$', 'badges'=>['hot'=>true], 'swatches'=>[]],
-];
+$kd_slugs = ['braced-bloomer-fawn', 'short-sleeve-belle-dress', 'gathered-bloomers-basil', 'organic-belle-dress-ditsy-clay', 'zanti-humpback-belt-for-babies'];
+$products = [];
+foreach ($kd_slugs as $kd_slug) {
+    $kd_p = function_exists('wc_get_product') ? get_page_by_path($kd_slug, OBJECT, 'product') : null;
+    if ($kd_p) $products[] = kidara_card_args($kd_p->ID);
+}
 ?>
 <section class="container mt-25">
-    <?php get_template_part('template-parts/section-title', null, ['title' => 'Recommended For You', 'subtitle' => 'Fashion Meets Function, On-trend Style']); ?>
+    <?php get_template_part('template-parts/section-title', null, ['title' => 'پیشنهاد ویژه برای شما', 'subtitle' => 'شیک، راحت و مطابق مد روز']); ?>
 </section>
 <section class="container mt-10 mb-16.25">
     <div class="group/slider relative -mx-3.75" data-product-slider>
-        <div class="swiper">
+        <div class="swiper" dir="rtl">
             <div class="swiper-wrapper">
                 <?php foreach ($products as $p) {
                     get_template_part('template-parts/product-card', null, $p + ['slide' => true]);
                 } ?>
             </div>
         </div>
-        <button type="button" class="js-prev absolute start-3.75 top-[35%] z-[1] text-[30px] text-heading opacity-0 invisible transition-all duration-300 hover:text-accent-dark group-hover/slider:opacity-100 group-hover/slider:visible max-[1199px]:opacity-100 max-[1199px]:visible max-[480px]:hidden cursor-pointer" aria-label="Previous"><?= kidara_icon('chevron-left') ?></button>
-        <button type="button" class="js-next absolute end-3.75 top-[35%] z-[1] text-[30px] text-heading opacity-0 invisible transition-all duration-300 hover:text-accent-dark group-hover/slider:opacity-100 group-hover/slider:visible max-[1199px]:opacity-100 max-[1199px]:visible max-[480px]:hidden cursor-pointer" aria-label="Next"><?= kidara_icon('chevron-right') ?></button>
+        <button type="button" class="js-prev absolute start-3.75 top-[35%] z-[1] text-[30px] text-heading opacity-0 invisible transition-all duration-300 hover:text-accent-dark group-hover/slider:opacity-100 group-hover/slider:visible max-[1199px]:opacity-100 max-[1199px]:visible max-[480px]:hidden cursor-pointer" aria-label="قبلی"><?= kidara_icon('chevron-left', 'kd-dir') ?></button>
+        <button type="button" class="js-next absolute end-3.75 top-[35%] z-[1] text-[30px] text-heading opacity-0 invisible transition-all duration-300 hover:text-accent-dark group-hover/slider:opacity-100 group-hover/slider:visible max-[1199px]:opacity-100 max-[1199px]:visible max-[480px]:hidden cursor-pointer" aria-label="بعدی"><?= kidara_icon('chevron-right', 'kd-dir') ?></button>
     </div>
 </section>

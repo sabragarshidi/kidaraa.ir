@@ -55,13 +55,13 @@
         if (swiper) swiper.slideTo(lbIndex, 0);
     }
     function lbClose() { if (lb) { lb.remove(); lb = null; document.body.style.overflow = ''; document.removeEventListener('keydown', lbKey); } }
-    function lbKey(e) { if (e.key === 'Escape') lbClose(); else if (e.key === 'ArrowLeft') lbShow(lbIndex - 1); else if (e.key === 'ArrowRight') lbShow(lbIndex + 1); }
+    function lbKey(e) { if (e.key === 'Escape') lbClose(); else if (e.key === 'ArrowRight') lbShow(lbIndex - 1); else if (e.key === 'ArrowLeft') lbShow(lbIndex + 1); }
     function openLightbox(i) {
         if (i < 0 || lb) return;
         lb = document.createElement('div');
         lb.className = 'kd-lb';
-        lb.innerHTML = '<button type="button" class="kd-lb-x" aria-label="Close">&times;</button>' +
-            (slides.length > 1 ? '<button type="button" class="kd-lb-p" aria-label="Previous">&#8249;</button><button type="button" class="kd-lb-n" aria-label="Next">&#8250;</button>' : '') +
+        lb.innerHTML = '<button type="button" class="kd-lb-x" aria-label="بستن">&times;</button>' +
+            (slides.length > 1 ? '<button type="button" class="kd-lb-p" aria-label="قبلی">&#8250;</button><button type="button" class="kd-lb-n" aria-label="بعدی">&#8249;</button>' : '') +
             '<img alt="">';
         document.body.appendChild(lb);
         document.body.style.overflow = 'hidden';
@@ -109,7 +109,7 @@
             var mk = function (cls, html, label) {
                 var b = document.createElement('button'); b.type = 'button'; b.className = cls; b.innerHTML = html; b.setAttribute('aria-label', label); return b;
             };
-            var minus = mk('kd-qty-btn minus', ICON_MINUS, 'Decrease quantity'), plus = mk('kd-qty-btn plus', ICON_PLUS, 'Increase quantity');
+            var minus = mk('kd-qty-btn minus', ICON_MINUS, 'کاهش تعداد'), plus = mk('kd-qty-btn plus', ICON_PLUS, 'افزایش تعداد');
             q.insertBefore(minus, input); input.after(plus);
             function step(d) {
                 var min = parseFloat(input.min) || 0, max = parseFloat(input.max), st = parseFloat(input.step) || 1, v = (parseFloat(input.value) || 0) + d * st;
@@ -240,7 +240,7 @@
     var pv = root.querySelector('.product-count-view');
     if (pv) {
         var min = +pv.dataset.min || 30, max = +pv.dataset.max || 40, out = pv.querySelector('.kd-viewers');
-        var rnd = function () { out.textContent = Math.floor(Math.random() * (max - min + 1)) + min; };
+        var rnd = function () { out.textContent = (Math.floor(Math.random() * (max - min + 1)) + min).toLocaleString('fa-IR'); };
         rnd(); setInterval(rnd, +pv.dataset.timeout || 10000);
     }
 })();

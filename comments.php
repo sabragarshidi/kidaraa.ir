@@ -12,10 +12,10 @@ if (!function_exists('kidara_comment')) {
                 <div class="min-w-0 flex-1">
                     <h4 class="m-0 text-base leading-[1.8] text-heading"><?= esc_html(get_comment_author($comment)) ?></h4>
                     <div class="mb-1 text-sm text-body">
-                        <a href="<?= esc_url(get_comment_link($comment)) ?>" class="text-body"><time datetime="<?= esc_attr(get_comment_date('c', $comment)) ?>"><?= esc_html(get_comment_date('F j, Y', $comment) . ' at ' . get_comment_time('g:i a')) ?></time></a>
-                        <?= get_comment_reply_link(array_merge($args, ['depth' => $depth, 'before' => '<span class="mx-1">/</span>', 'reply_text' => 'Reply'])) ?>
+                        <a href="<?= esc_url(get_comment_link($comment)) ?>" class="text-body"><time datetime="<?= esc_attr(get_comment_date('c', $comment)) ?>"><?= esc_html(kidara_jdate(strtotime($comment->comment_date_gmt . ' UTC')) . '، ' . kidara_fa(get_comment_time('H:i'))) ?></time></a>
+                        <?= get_comment_reply_link(array_merge($args, ['depth' => $depth, 'before' => '<span class="mx-1">/</span>', 'reply_text' => 'پاسخ'])) ?>
                     </div>
-                    <?php if ($comment->comment_approved === '0') : ?><p class="italic">Your comment is awaiting moderation.</p><?php endif; ?>
+                    <?php if ($comment->comment_approved === '0') : ?><p>نظر شما در انتظار تأیید است.</p><?php endif; ?>
                     <div class="text-sm [&>p]:mb-2"><?php comment_text(); ?></div>
                 </div>
             </div>
@@ -27,7 +27,7 @@ $field = 'h-[47px] w-full rounded-btn border border-border bg-white px-6.25 py-0
 ?>
 <div id="comments" class="mt-15 border-t border-border pt-10">
     <?php if (have_comments()) : ?>
-        <h3 class="m-0 mb-7.5 text-center text-[30px] leading-[1.2]"><?= esc_html(sprintf(_n('%s Comment', '%s Comments', $n), number_format_i18n($n))) ?></h3>
+        <h3 class="m-0 mb-7.5 text-center text-[30px] leading-[1.5]"><?= esc_html(sprintf('%s نظر', number_format_i18n($n))) ?></h3>
         <ol class="kd-comment-list m-0 list-none p-0">
             <?php wp_list_comments(['callback' => 'kidara_comment', 'style' => 'ol', 'avatar_size' => 120]); ?>
         </ol>
@@ -37,24 +37,24 @@ $field = 'h-[47px] w-full rounded-btn border border-border bg-white px-6.25 py-0
     <div class="mt-10">
         <?php
         comment_form([
-            'title_reply'          => 'Leave a Reply',
-            'title_reply_before'   => '<h3 id="reply-title" class="comment-reply-title m-0 mb-1.5 text-center text-[30px] leading-[1.2]">',
+            'title_reply'          => 'ارسال نظر',
+            'title_reply_before'   => '<h3 id="reply-title" class="comment-reply-title m-0 mb-1.5 text-center text-[30px] leading-[1.5]">',
             'title_reply_after'    => '</h3>',
             'cancel_reply_before'  => ' <small class="text-sm">',
-            'comment_notes_before' => '<p class="mb-7.5 text-center text-xs">Your email address will not be published. Required fields are marked <span class="text-[#d33]">*</span></p>',
+            'comment_notes_before' => '<p class="mb-7.5 text-center text-xs">نشانی ایمیل شما منتشر نمی‌شود. بخش‌های ضروری با <span class="text-[#d33]">*</span> مشخص شده‌اند.</p>',
             'comment_notes_after'  => '',
             'logged_in_as'         => '',
             'fields'               => [
-                'author' => '<div class="kd-field"><input id="author" name="author" type="text" required placeholder="Name *" class="' . $field . '"></div>',
-                'email'  => '<div class="kd-field"><input id="email" name="email" type="email" required placeholder="Email *" class="' . $field . '"></div>',
-                'url'    => '<div class="kd-field kd-field-full"><input id="url" name="url" type="text" placeholder="Website" class="' . $field . '"></div>',
+                'author' => '<div class="kd-field"><input id="author" name="author" type="text" required placeholder="نام *" class="' . $field . '"></div>',
+                'email'  => '<div class="kd-field"><input id="email" name="email" type="email" required placeholder="ایمیل *" dir="ltr" class="' . $field . ' text-start"></div>',
+                'url'    => '<div class="kd-field kd-field-full"><input id="url" name="url" type="text" placeholder="وب‌سایت" dir="ltr" class="' . $field . ' text-start"></div>',
                 'cookies' => '',
             ],
-            'comment_field'        => '<div class="kd-field kd-field-full"><textarea id="comment" name="comment" rows="12" required placeholder="Your Comment Here..." class="block h-87 w-full resize-y rounded-btn border border-border bg-white px-6.25 py-2.5 text-base text-heading outline-none transition-colors focus:border-accent"></textarea></div>',
+            'comment_field'        => '<div class="kd-field kd-field-full"><textarea id="comment" name="comment" rows="12" required placeholder="نظر خود را اینجا بنویسید…" class="block h-87 w-full resize-y rounded-btn border border-border bg-white px-6.25 py-2.5 text-base text-heading outline-none transition-colors focus:border-accent"></textarea></div>',
             'class_form'           => 'kd-comment-form',
             'submit_button'        => '<button name="%1$s" type="submit" id="%2$s" class="%3$s cursor-pointer rounded-btn border-0 bg-[#d33] px-10 py-2.5 text-sm font-bold text-white transition-colors hover:bg-accent-dark">%4$s</button>',
             'submit_field'         => '<div class="kd-field kd-field-full text-center">%1$s %2$s</div>',
-            'label_submit'         => 'Post Comment',
+            'label_submit'         => 'ارسال نظر',
             'format'               => 'html5',
         ]);
         ?>

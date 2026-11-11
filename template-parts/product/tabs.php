@@ -10,17 +10,17 @@ $tabs    = [];
 
 $desc = trim((string) $post->post_content);
 if ($desc !== '') {
-    $tabs['description'] = ['title' => 'Description', 'cb' => function () use ($desc) {
+    $tabs['description'] = ['title' => 'توضیحات', 'cb' => function () use ($desc) {
         echo '<div class="kd-prose">' . apply_filters('the_content', $desc) . '</div>'; // phpcs:ignore
     }];
 }
 if ($product->has_attributes() || apply_filters('wc_product_enable_dimensions_display', $product->has_weight() || $product->has_dimensions())) {
-    $tabs['additional_information'] = ['title' => 'Additional information', 'cb' => function () use ($product) {
+    $tabs['additional_information'] = ['title' => 'اطلاعات تکمیلی', 'cb' => function () use ($product) {
         wc_display_product_attributes($product);
     }];
 }
 if (comments_open($product->get_id())) {
-    $tabs['reviews'] = ['title' => sprintf('Reviews (%d)', $product->get_review_count()), 'cb' => function () {
+    $tabs['reviews'] = ['title' => 'نظرات (' . kidara_fa((string) $product->get_review_count()) . ')', 'cb' => function () {
         comments_template();
     }];
 }
@@ -33,7 +33,7 @@ $first = array_key_first($tabs);
             <?php foreach ($tabs as $key => $t) : ?>
                 <li class="mx-2.5 p-0" role="presentation">
                     <a href="#tab-<?= esc_attr($key) ?>" role="tab" data-tab-link="<?= esc_attr($key) ?>"
-                       class="inline-block rounded-btn px-5 py-1.25 font-display text-xl leading-[34px] text-body capitalize transition-colors duration-300 hover:bg-accent hover:text-white [.is-active>&]:bg-accent [.is-active>&]:text-white"><?= esc_html($t['title']) ?></a>
+                       class="inline-block rounded-btn px-5 py-1.25 font-display text-xl leading-[34px] text-body transition-colors duration-300 hover:bg-accent hover:text-white [.is-active>&]:bg-accent [.is-active>&]:text-white"><?= esc_html($t['title']) ?></a>
                 </li>
             <?php endforeach; ?>
         </ul>

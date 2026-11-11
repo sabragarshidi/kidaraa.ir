@@ -2,3 +2,6 @@
 .js-faq-a[hidden] { display: none; }
 .kd-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #bbb; cursor: pointer; transition: background .2s; }
 .kd-dot.is-active { background: #719378; }
+
+/* LTR inputs (email/phone/url): empty placeholder stays right-aligned in Persian, typed value is LTR */
+input[dir="ltr"]:placeholder-shown { direction: rtl; }

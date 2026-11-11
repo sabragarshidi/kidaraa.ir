@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+@source "../../*.php";
+@source "../../template-parts/**/*.php";
+@source "../../woocommerce/**/*.php";
+@source "../../inc/*.php";
+@source "../js/*.js";
+
+@font-face { font-family: "Lato"; font-weight: 400; font-style: normal; font-display: swap; src: url("../fonts/lato-400.woff2") format("woff2"); }
+@font-face { font-family: "Lato"; font-weight: 700; font-style: normal; font-display: swap; src: url("../fonts/lato-700.woff2") format("woff2"); }
+@font-face { font-family: "Lato"; font-weight: 900; font-style: normal; font-display: swap; src: url("../fonts/lato-900.woff2") format("woff2"); }
+@font-face { font-family: "Preahvihear"; font-weight: 400; font-style: normal; font-display: swap; src: url("../fonts/preahvihear-400.woff2") format("woff2"); }
+
+@theme {
+    --font-body: "Lato", sans-serif;
+    --font-display: "Preahvihear", sans-serif;
+
+    --color-accent: #719378;        /* primary green: prices, buttons, sale badge */
+    --color-accent-dark: #5a7760;   /* hover green */
+    --color-hot: #c75110;           /* "hot" badge + logo orange */
+    --color-heading: #222222;
+    --color-body: #666666;
+    --color-muted: #999999;
+    --color-border: #e9e9e9;
+    --color-bg-light: #f5f5f5;      /* product image bg, hero bg */
+    --color-bg-footer: #f2f2f2;
+    --color-blob: #f3dfe3;          /* pink blob behind section titles */
+    --color-stock: #666666;         /* "out of stock" / "pre order" pill */
+
+    --radius-btn: 25px;
+}
+
+@utility container {
+    margin-inline: auto;
+    width: 100%;
+    max-width: 1820px;
+    padding-inline: 15px;
+    @media (width >= 768px) { padding-inline: 30px; }
+}
+
+@layer base {
+    html, body { overflow-x: clip; }
+    body { font-family: var(--font-body); font-size: 14px; line-height: 1.7; color: var(--color-body); background: #fff; }
+    h1, h2, h3, h4, h5, h6 { font-family: var(--font-display); color: var(--color-heading); font-weight: 400; }
+    a { transition: color .3s; }
+    img { max-width: 100%; height: auto; }
+}
+
+/* Inline SVG icon helper output */
+.kd-icon { display: inline-block; width: 1em; height: 1em; vertical-align: middle; flex-shrink: 0; }
+.kd-icon svg { width: 100%; height: 100%; display: block; }
+
+/* Missing-image fallback (placeholder slots) */
+.kd-img-missing { background: var(--color-bg-light); }

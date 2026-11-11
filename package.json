@@ -1,0 +1,1 @@
+{"name":"kidara-theme","private":true,"scripts":{"build":"tailwindcss -i assets/css/site.css -o assets/css/dist.css --minify","watch":"tailwindcss -i assets/css/site.css -o assets/css/dist.css --watch"},"devDependencies":{"@tailwindcss/cli":"^4.3.5","lucide-static":"^1.72.0","swiper":"^14.4.0","tailwindcss":"^4.3.5"}}

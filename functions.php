@@ -40,3 +40,10 @@ add_filter('template_include', function ($t) {
     }
     return $t;
 }, 999);
+
+// Favicon / app icon from the theme (unless a Site Icon is set in the Customizer)
+add_action('wp_head', function () {
+    if (has_site_icon()) return;
+    $u = get_template_directory_uri() . '/assets/img/icon-512.png';
+    echo '<link rel="icon" href="' . esc_url($u) . '" sizes="512x512" type="image/png">' . "\n" . '<link rel="apple-touch-icon" href="' . esc_url($u) . '">' . "\n";
+}, 5);

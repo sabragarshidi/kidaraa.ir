@@ -41,11 +41,20 @@ function kidara_img(string $src, string $alt = '', string $class = '', array $at
     return '<img src="' . esc_url($src) . '" alt="' . esc_attr($alt) . '" class="' . esc_attr($class) . '" loading="lazy" decoding="async" onerror="this.onerror=null;this.classList.add(\'kd-img-missing\');this.removeAttribute(\'src\')"' . $extra . '>';
 }
 
-/** Site logo: custom logo if set, else text fallback in the brand style. */
-function kidara_logo(string $class = ''): void
+/** Site logo: custom logo if set, else assets/img/logo.png, else text. */
+function kidara_logo(string $class = '', int $height = 60): void
 {
     if (has_custom_logo()) {
         the_custom_logo();
+        return;
+    }
+    $file = get_template_directory() . '/assets/img/logo.png';
+    if (file_exists($file)) {
+        [$w, $h] = getimagesize($file);
+        $width = (int) round($height * $w / $h);
+        echo '<a href="' . esc_url(home_url('/')) . '" class="inline-block ' . esc_attr($class) . '" aria-label="' . esc_attr(get_bloginfo('name')) . '">'
+            . '<img src="' . esc_url(kidara_asset('img/logo.png')) . '?v=' . filemtime($file) . '" alt="' . esc_attr(get_bloginfo('name')) . '" width="' . $width . '" height="' . $height . '" class="block w-auto max-w-none" style="height:' . $height . 'px">'
+            . '</a>';
         return;
     }
     echo '<a href="' . esc_url(home_url('/')) . '" class="font-display text-[34px] font-black leading-none text-hot ' . esc_attr($class) . '">' . esc_html(get_bloginfo('name')) . '</a>';

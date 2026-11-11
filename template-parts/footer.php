@@ -11,7 +11,7 @@ $kd_socials = ['tiktok' => 'تیک‌تاک', 'x-twitter' => 'ایکس', 'facebo
 	<img src="<?php echo esc_url($kd_up . 'dragonfly.png'); ?>" alt="" width="29" height="34" loading="lazy" class="absolute bottom-[15%] end-[15%] max-md:hidden">
 
 	<div class="relative mx-auto max-w-195 px-3.75 py-30 text-center">
-		<div class="mb-8.75 flex justify-center [&_a]:text-[32px]"><?php kidara_logo(); ?></div>
+		<div class="mb-6 flex justify-center"><?php kidara_logo('', 110); ?></div>
 
 		<ul class="mb-8.75 m-0 p-0 list-none text-sm leading-[1.7] text-body [&>li:not(:first-child)]:mt-1.5 [&>li:not(:last-child)]:pb-1.5">
 			<li>تهران، خیابان نمونه، پلاک ۱۰</li>

@@ -59,7 +59,7 @@ $kd_sticky = 'group-[.is-sticky]/h:fixed group-[.is-sticky]/h:top-0 group-[.is-s
 					<div class="flex-1 text-start">
 						<button type="button" class="<?php echo $kd_icon_btn; ?>" data-kd-menu-open aria-label="<?php esc_attr_e('منو', 'kidara'); ?>"><?php echo kidara_icon('menu', 'text-[24px]'); ?></button>
 					</div>
-					<div class="flex-[3] flex justify-center [&_a]:text-[28px]"><?php kidara_logo(); ?></div>
+					<div class="flex-[3] flex justify-center"><?php kidara_logo('', 52); ?></div>
 					<div class="flex-1 text-end">
 						<a href="<?php echo esc_url($kd_cart); ?>" class="<?php echo $kd_icon_btn; ?>" aria-label="<?php esc_attr_e('سبد خرید', 'kidara'); ?>">
 							<?php echo kidara_icon('shopping-bag', 'text-[24px]'); ?><span class="<?php echo $kd_badge; ?>">۰</span>
@@ -93,7 +93,7 @@ $kd_sticky = 'group-[.is-sticky]/h:fixed group-[.is-sticky]/h:top-0 group-[.is-s
 							?>
 						</nav>
 					</div>
-					<div class="header-logo flex justify-center"><?php kidara_logo(); ?></div>
+					<div class="header-logo flex justify-center"><?php kidara_logo('', 80); ?></div>
 					<div class="header-icon flex-1 flex items-center justify-end gap-x-4.5">
 						<button type="button" class="<?php echo $kd_icon_btn; ?>" data-kd-search-open aria-label="<?php esc_attr_e('جست‌وجو', 'kidara'); ?>"><?php echo kidara_icon('search', 'text-[26px]'); ?></button>
 						<a href="<?php echo esc_url($kd_account); ?>" class="<?php echo $kd_icon_btn; ?>" aria-label="<?php esc_attr_e('حساب کاربری', 'kidara'); ?>"><?php echo kidara_icon('user', 'text-[26px]'); ?></a>

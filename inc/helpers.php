@@ -48,13 +48,7 @@ function kidara_logo(string $class = ''): void
         the_custom_logo();
         return;
     }
-    echo '<a href="' . esc_url(home_url('/')) . '" class="font-display text-[32px] leading-none text-hot ' . esc_attr($class) . '">' . esc_html(get_bloginfo('name')) . '</a>';
-}
-
-/** Currency format used by the demo: 100.00$ */
-function kidara_money($n): string
-{
-    return number_format((float) $n, 2, '.', '') . '$';
+    echo '<a href="' . esc_url(home_url('/')) . '" class="font-display text-[34px] font-black leading-none text-hot ' . esc_attr($class) . '">' . esc_html(get_bloginfo('name')) . '</a>';
 }
 
 /**
@@ -73,14 +67,14 @@ function kidara_card_args($product, array $extra = []): array
     $hover = $gal ? wp_get_attachment_image_url($gal[0], 'woocommerce_single') : '';
 
     $badges = [];
-    if ($product->is_featured()) $badges['hot'] = true;
+    if ($product->is_featured()) $badges['hot'] = true; // label text 'ویژه' is rendered by product-card
     if ($product->is_on_sale()) {
         $reg  = (float) $product->get_regular_price();
         $sale = (float) $product->get_sale_price();
         if ($product->is_type('variable')) { $reg = (float) $product->get_variation_regular_price('max'); $sale = (float) $product->get_variation_sale_price('min'); }
-        if ($reg > 0 && $sale > 0) $badges['sale'] = '-' . round((1 - $sale / $reg) * 100) . '%';
+        if ($reg > 0 && $sale > 0) $badges['sale'] = kidara_fa((string) round((1 - $sale / $reg) * 100)) . '٪';
     }
-    if (!$product->is_in_stock()) $badges['stock'] = 'out of stock';
+    if (!$product->is_in_stock()) $badges['stock'] = 'ناموجود';
     elseif (get_post_meta($product->get_id(), '_kd_label', true)) $badges['stock'] = get_post_meta($product->get_id(), '_kd_label', true);
 
     $swatches = [];
@@ -105,3 +99,64 @@ function kidara_card_args($product, array $extra = []): array
         'product_id' => $product->get_id(),
     ], $price, $extra);
 }
+
+/* ===== Persian / RTL helpers ===== */
+
+/** Latin digits -> Persian digits (and , -> ٬ thousands separator when $sep). */
+function kidara_fa(string $s, bool $sep = false): string
+{
+    $s = strtr($s, ['0' => '۰', '1' => '۱', '2' => '۲', '3' => '۳', '4' => '۴', '5' => '۵', '6' => '۶', '7' => '۷', '8' => '۸', '9' => '۹']);
+    return $sep ? str_replace(',', '٬', $s) : $s;
+}
+
+/** Price in toman: 1500000 -> ۱٬۵۰۰٬۰۰۰ تومان */
+function kidara_money($n, bool $unit = true): string
+{
+    return kidara_fa(number_format((float) $n, 0, '.', ','), true) . ($unit ? ' تومان' : '');
+}
+
+/** Gregorian -> Jalali (jy, jm, jd). */
+function kidara_to_jalali(int $gy, int $gm, int $gd): array
+{
+    $g_d_m = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
+    $gy2 = $gm > 2 ? $gy + 1 : $gy;
+    $days = 355666 + (365 * $gy) + intdiv($gy2 + 3, 4) - intdiv($gy2 + 99, 100) + intdiv($gy2 + 399, 400) + $gd + $g_d_m[$gm - 1];
+    $jy = -1595 + (33 * intdiv($days, 12053));
+    $days %= 12053;
+    $jy += 4 * intdiv($days, 1461);
+    $days %= 1461;
+    if ($days > 365) {
+        $jy += intdiv($days - 1, 365);
+        $days = ($days - 1) % 365;
+    }
+    if ($days < 186) { $jm = 1 + intdiv($days, 31); $jd = 1 + ($days % 31); }
+    else { $jm = 7 + intdiv($days - 186, 30); $jd = 1 + (($days - 186) % 30); }
+    return [$jy, $jm, $jd];
+}
+
+/** Jalali date string, e.g. ۲۲ دی ۱۴۰۱. $ts = unix timestamp (default now). */
+function kidara_jdate(?int $ts = null, string $format = 'j F Y'): string
+{
+    $ts = $ts ?? time();
+    $months = ['', 'فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'];
+    $dt = new DateTime('@' . $ts);
+    $dt->setTimezone(new DateTimeZone('Asia/Tehran'));
+    [$jy, $jm, $jd] = kidara_to_jalali((int) $dt->format('Y'), (int) $dt->format('n'), (int) $dt->format('j'));
+    $out = strtr($format, ['j' => (string) $jd, 'F' => $months[$jm], 'Y' => (string) $jy, 'n' => (string) $jm, 'm' => sprintf('%02d', $jm), 'd' => sprintf('%02d', $jd)]);
+    return kidara_fa($out);
+}
+
+/** Jalali date of a post: kidara_post_date() inside the loop or kidara_post_date($post_id). */
+function kidara_post_date($post = null): string
+{
+    return kidara_jdate((int) get_post_time('U', true, $post));
+}
+
+// WooCommerce: toman, no decimals, Persian digits everywhere prices are formatted
+add_filter('woocommerce_currency_symbol', fn($s, $c) => in_array($c, ['IRT', 'IRR'], true) ? 'تومان' : $s, 10, 2);
+add_filter('formatted_woocommerce_price', fn($f) => kidara_fa($f, true), 10);
+add_filter('woocommerce_price_format', fn() => '%2$s&nbsp;%1$s');
+add_filter('wc_get_price_thousand_separator', fn() => ',');
+// Persian digits in human dates / counts produced by WP core
+add_filter('date_i18n', fn($d) => kidara_fa((string) $d), 20);
+add_filter('number_format_i18n', fn($n) => kidara_fa((string) $n), 20);

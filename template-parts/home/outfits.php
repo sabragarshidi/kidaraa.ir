@@ -39,7 +39,7 @@ if (!$kd_items) { return; }
             <button type="button" class="js-outfits-next text-[22px] text-heading transition-colors hover:text-accent" aria-label="بعدی"><?php kidara_icon_e('arrow-right', 'kd-dir'); ?></button>
         </div>
     </div>
-    <div class="flex w-full flex-col justify-center px-3.75 max-[767px]:mt-6 min-[768px]:order-first min-[768px]:w-[34%]">
+    <div class="flex w-full flex-col justify-center px-3.75 order-first max-[767px]:mb-6 min-[768px]:w-[34%]">
         <div class="@container relative isolate pe-0 min-[1200px]:pe-10">
             <h2 class="relative m-0 whitespace-nowrap text-start text-[min(40px,calc(100cqw/11.8))] leading-normal text-[#000022] max-[767px]:text-[25px]">لباس و ست‌های نوزادی</h2>
             <p class="mb-8.75 mt-5 max-w-[394px] text-sm leading-[1.9]">نوزادتان را با لباس‌ها و ست‌های دوست‌داشتنی ما بپوشانید؛ دوخته‌شده از پارچه‌های نرم برای بیشترین راحتی و زیبایی. از سرهمی‌های دل‌چسب تا ست‌های دوتکهٔ ناز، هر لباس طوری طراحی شده که کوچولوی شما گرم و دوست‌داشتنی بماند.</p>

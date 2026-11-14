@@ -8,7 +8,7 @@ foreach ($kd_slugs as $kd_slug) {
     $kd_terms = wp_get_post_terms($kd_p->ID, 'product_cat', ['fields' => 'slugs']);
     $products[] = kidara_card_args($kd_p->ID) + ['cat_slugs' => is_wp_error($kd_terms) ? '' : implode(' ', $kd_terms)];
 }
-$tabs = ['all' => 'همه', 'baby' => 'نوزاد', 'boys' => 'پسرانه', 'girls' => 'دخترانه', 'toys' => 'اسباب‌بازی'];
+$tabs = ['all' => 'همه', 'baby' => 'نوزاد', 'boys' => 'پسرانه', 'girls' => 'دخترانه'];
 ?>
 <section class="container mb-16.25" data-product-tabs>
     <ul class="flex flex-nowrap items-center justify-center py-3.75 max-[767px]:justify-start" role="tablist">

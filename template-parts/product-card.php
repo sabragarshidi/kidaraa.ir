@@ -72,7 +72,7 @@ $tip = 'relative m-1.25 opacity-0 invisible transition-all duration-500 group-ho
 
     <div class="absolute inset-x-2.5 bottom-2.5 z-[6] rounded-xl bg-white/90 px-3 py-2.5 text-center backdrop-blur-sm">
         <h3 class="mb-1 font-body text-sm font-bold leading-normal text-heading"><a href="<?= esc_url($a['url']) ?>" class="line-clamp-1 hover:text-accent"><?= esc_html($a['title']) ?></a></h3>
-        <span class="block text-sm font-bold leading-none text-accent [&_del]:text-xs [&_del]:font-normal [&_del]:text-muted [&_ins]:no-underline">
+        <span class="block text-sm font-bold leading-none text-accent [&_del]:text-xs [&_del]:font-normal [&_del]:text-muted max-[767px]:[&_del]:hidden [&_ins]:no-underline">
             <?php if ($a['price_html']) : ?>
                 <?= wp_kses_post($a['price_html']) ?>
             <?php else : ?>

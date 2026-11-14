@@ -11,10 +11,10 @@ $btn = 'kd-view inline-flex size-10 cursor-pointer items-center justify-center r
 ?>
 <div class="mb-12.5 flex items-center justify-between max-[991px]:mb-10">
     <div class="flex items-center gap-3.75">
-        <button type="button" class="size-10 cursor-pointer items-center justify-center rounded-full border border-border bg-white p-0 text-heading min-[992px]:hidden inline-flex" data-shop-open aria-label="نمایش فیلترها"><?= kidara_icon('filter', 'text-[18px]') ?></button>
+        <button type="button" class="inline-flex h-10 cursor-pointer items-center gap-2 rounded-btn border border-border bg-white px-5 text-sm text-heading min-[992px]:hidden" data-shop-open aria-label="نمایش فیلترها"><?= kidara_icon('filter', 'text-[18px]') ?> فیلتر</button>
         <div class="relative" data-sort>
             <button type="button" class="inline-flex h-10 cursor-pointer items-center gap-2 rounded-btn border border-border bg-white px-5 text-sm text-heading" data-sort-toggle aria-expanded="false">
-                <?= esc_html($opts[$cur]) ?> <?= kidara_icon('chevron-down', 'text-[14px]') ?>
+                <span class="min-[768px]:hidden">مرتب‌سازی</span><span class="max-[767px]:hidden"><?= esc_html($opts[$cur]) ?></span> <?= kidara_icon('chevron-down', 'text-[14px]') ?>
             </button>
             <ul class="invisible absolute start-0 top-full z-20 m-0 mt-2 min-w-55 list-none rounded-[5px] bg-white p-2.5 opacity-0 shadow-[0_0_30px_rgba(0,0,0,0.12)] transition-all duration-200 [.is-open_&]:visible [.is-open_&]:opacity-100">
                 <?php foreach ($opts as $k => $label) : ?>

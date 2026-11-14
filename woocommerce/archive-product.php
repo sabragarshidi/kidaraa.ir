@@ -17,8 +17,15 @@ ob_start();
 get_template_part('template-parts/shop/banner-cats');
 $after = ob_get_clean();
 
-get_template_part('template-parts/page-title', null, ['title' => $title, 'crumbs' => $crumbs, 'after' => $after]);
 ?>
+<!-- phones: compact header (title + garland); categories live in the filter drawer -->
+<div class="mt-18 mb-6 bg-[#f6f6f6] pb-2 pt-7 text-center min-[768px]:hidden">
+    <h1 class="m-0 px-4 text-[22px] leading-normal text-heading"><?= esc_html($is_cat ? $title : 'فروشگاه لباس کودک کیدارا') ?></h1>
+    <img src="<?= esc_url(get_theme_file_uri('assets/img/cta-garland.webp')) ?>" alt="" width="1332" height="750" class="mt-1 block h-auto w-full">
+</div>
+<div class="max-[767px]:hidden">
+<?php get_template_part('template-parts/page-title', null, ['title' => $title, 'crumbs' => $crumbs, 'after' => $after]); ?>
+</div>
 <main class="woocommerce kd-shop container pb-17.5" data-kd-shop>
     <div class="kd-shop-overlay fixed inset-0 z-[998] hidden bg-black/50" data-shop-overlay></div>
     <div class="flex flex-wrap">

@@ -6,27 +6,26 @@
  * Right-anchored/centered layers were converted to plain left/right offsets from the stage edge.
  */
 $up = 'https://buny.wpbingosite.com/wp-content/uploads/';
-$yr = kidara_jdate(null, 'Y');
 $slides = [
     [
-        'eyebrow' => "کالکشن بهار {$yr}",
-        'line'    => 'لباس بهاره',
-        'mark'    => 'نوزاد و کودک',
-        'text'    => 'کیدارا را ساختیم تا همهٔ خریدهای آگاهانه و ارگانیکِ پدر و مادرها، برای نوزادشان، یک‌جا باشد.',
+        'eyebrow' => 'لباس نوزاد و کودک',
+        'line'    => 'راحتیِ کوچولوها،',
+        'mark'    => 'آرامشِ خیال شما',
+        'text'    => 'لباس‌های نرم و باکیفیت، برای روزهایی پر از شادی و بازی.',
         'photo'   => $up . '2024/01/slider-1.jpg',
     ],
     [
-        'eyebrow' => 'تازه‌های نوزادی',
-        'line'    => 'لباس نوزاد',
-        'mark'    => 'تازه‌متولد',
-        'text'    => 'بامزه‌ترین استایل‌ها و ستهای هماهنگ، طراحی‌شده برای پوشیدن راحت و آسایش هر روزه.',
+        'eyebrow' => 'مخصوص نوزادان',
+        'line'    => 'اولین لباس‌های کوچولو،',
+        'mark'    => 'با لطافتی بیشتر',
+        'text'    => 'پارچه‌های لطیف و دوخت راحت، برای پوست حساس نوزاد.',
         'photo'   => $up . '2024/01/slider-2.jpg',
     ],
     [
-        'eyebrow' => 'مد پسرانهٔ بهار',
-        'line'    => 'لباس پسرانه',
-        'mark'    => 'شاد و راحت',
-        'text'    => 'جدیدترین مدل‌های بهار و تابستان با طرح‌های روز؛ جزئیات ظریف، برای کوچک‌ترین عضوهای خانواده.',
+        'eyebrow' => 'پسرانه و دخترانه',
+        'line'    => 'لباس‌هایی که',
+        'mark'    => 'کوچولوها دوستشون دارن',
+        'text'    => 'طرح‌های دوست‌داشتنی و رنگ‌های دلنشین، برای لحظه‌های شاد کودکانه.',
         'photo'   => $up . '2024/01/slider-3.jpg',
     ],
 ];
@@ -60,13 +59,17 @@ function kd_hero_lv(array $vars): string
         .kd-hero .kd-l { --x: var(--x0); --y: var(--y0); --w: var(--w0); --h: var(--h0); --fs: var(--fs0); --lh: var(--lh0); --px: var(--px0) }
     }
     /* text block: sizes are design px scaled by --hu, per Rev level */
-    .kd-hero { --ts: 34; --ps: 15; --bs: 15; --es: 13; --bh: 46; --gap: 14; }
+    .kd-hero { --ts: 30; --ps: 15; --bs: 15; --es: 13; --bh: 46; --gap: 14; }
     .kd-hero .kd-txt { display:flex; flex-direction:column; align-items:center; text-align:center; gap:calc(var(--gap)*var(--hu)); }
     .kd-hero .kd-eyebrow { display:inline-flex; align-items:center; gap:calc(8*var(--hu)); background:#fff; border:1px solid var(--color-border); border-radius:999px; padding:calc(6*var(--hu)) calc(18*var(--hu)); font-size:calc(var(--es)*var(--hu)); line-height:1.6; color:var(--color-accent-dark); box-shadow:0 2px 12px rgba(0,0,0,.04); }
     .kd-hero .kd-eyebrow::before { content:""; width:calc(8*var(--hu)); height:calc(8*var(--hu)); border-radius:50%; background:var(--color-hot); flex:none; }
     .kd-hero .kd-title { margin:0; font-size:calc(var(--ts)*var(--hu)); line-height:1.5; font-weight:700; color:var(--color-heading); }
     .kd-hero .kd-title .kd-mark { position:relative; z-index:0; display:inline-block; white-space:nowrap; color:var(--color-hot); }
     .kd-hero .kd-title .kd-mark::after { content:""; position:absolute; z-index:-1; inset-inline:-.12em; bottom:.12em; height:.34em; background:var(--color-blob); border-radius:999px; }
+    @media (max-width: 1239px) {
+        .kd-hero .kd-title .kd-mark { display:inline; white-space:normal; text-wrap:balance; background:linear-gradient(var(--color-blob),var(--color-blob)) 0 88%/100% .3em no-repeat; -webkit-box-decoration-break:clone; box-decoration-break:clone; padding-inline:.12em; margin-inline:-.12em; }
+        .kd-hero .kd-title .kd-mark::after { display:none; }
+    }
     .kd-hero .kd-lead { margin:0; max-width:calc(470*var(--hu)); font-size:calc(var(--ps)*var(--hu)); line-height:2; color:var(--color-body); }
     .kd-hero .kd-btns { display:flex; flex-wrap:wrap; gap:calc(14*var(--hu)); justify-content:center; }
     .kd-hero .kd-btn { display:inline-flex; align-items:center; justify-content:center; gap:calc(10*var(--hu)); height:calc(var(--bh)*var(--hu)); padding-inline:calc(var(--bh)*.7*var(--hu)); border-radius:999px; font-size:calc(var(--bs)*var(--hu)); font-weight:700; line-height:1; white-space:nowrap; transition:background-color .2s,color .2s,border-color .2s,transform .2s; }
@@ -78,13 +81,13 @@ function kd_hero_lv(array $vars): string
     @media (max-width: 479px) { .kd-hero .kd-eyebrow, .kd-hero .kd-lead, .kd-hero .kd-btn-ghost { display:none; } }
     @media (max-width: 1199px) { .kd-hero .kd-lead { display:none; } }
     @media (max-width: 1199px) { .kd-hero .kd-btn-ghost { display:none; } }
-    @media (min-width: 480px) { .kd-hero { --ts: 38; --es: 13; --bs: 15; --bh: 46; --gap: 12; } }
+    @media (min-width: 480px) { .kd-hero { --ts: 36; --es: 13; --bs: 15; --bh: 46; --gap: 12; } }
     @media (min-width: 1200px) {
-        .kd-hero { --ts: 50; --ps: 16; --bs: 16; --es: 14; --bh: 50; --gap: 16; }
+        .kd-hero { --ts: 44; --ps: 16; --bs: 16; --es: 14; --bh: 50; --gap: 16; }
         .kd-hero .kd-txt { align-items:flex-start; text-align:start; }
         .kd-hero .kd-btns { justify-content:flex-start; }
     }
-    @media (min-width: 1240px) { .kd-hero { --ts: 68; --ps: 20; --bs: 18; --es: 16; --bh: 58; --gap: 22; } }
+    @media (min-width: 1240px) { .kd-hero { --ts: 52; --ps: 20; --bs: 18; --es: 16; --bh: 58; --gap: 22; } }
 </style>
 <section class="kd-hero relative overflow-hidden bg-[#f6f6f6]" data-hero-slider>
     <div class="swiper" dir="rtl">
@@ -102,7 +105,7 @@ function kd_hero_lv(array $vars): string
                              style="<?= kd_hero_lv(['x' => [280, 30, 30, 90], 'y' => [0, 0, 0, -90], 'w' => [498, 350, 330, 300], 'h' => [732, 514, 485, 441]]) ?>">
                         <!-- text group -->
                         <div class="kd-l kd-txt absolute z-[8] start-[calc(var(--x)*var(--hu))] top-[calc(var(--y)*var(--hu))] h-[calc(var(--h)*var(--hu))] w-[calc(var(--w)*var(--hu))]"
-                             style="<?= kd_hero_lv(['x' => [300, 50, 30, 90], 'y' => [170, 142, 137, 144], 'w' => [640, 500, 330, 300], 'h' => [460, 400, 300, 220]]) ?>">
+                             style="<?= kd_hero_lv(['x' => [300, 50, 30, 90], 'y' => [170, 142, 137, 144], 'w' => [780, 560, 340, 300], 'h' => [460, 400, 300, 220]]) ?>">
                             <span class="kd-eyebrow"><?= esc_html($s['eyebrow']) ?></span>
                             <h2 class="kd-title"><?= esc_html($s['line']) ?><br><span class="kd-mark"><?= esc_html($s['mark']) ?></span></h2>
                             <p class="kd-lead"><?= esc_html($s['text']) ?></p>

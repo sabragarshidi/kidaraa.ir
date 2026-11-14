@@ -13,6 +13,7 @@ $slides = [
         'mark'    => 'آرامشِ خیال شما',
         'text'    => 'لباس‌های نرم و باکیفیت، برای روزهایی پر از شادی و بازی.',
         'photo'   => $up . '2024/01/slider-1.jpg',
+        'url'     => home_url('/shop/'),
     ],
     [
         'eyebrow' => 'مخصوص نوزادان',
@@ -20,6 +21,7 @@ $slides = [
         'mark'    => 'با لطافتی بیشتر',
         'text'    => 'پارچه‌های لطیف و دوخت راحت، برای پوست حساس نوزاد.',
         'photo'   => $up . '2024/01/slider-2.jpg',
+        'url'     => home_url('/product-category/baby/'),
     ],
     [
         'eyebrow' => 'پسرانه و دخترانه',
@@ -27,6 +29,7 @@ $slides = [
         'mark'    => 'کوچولوها دوستشون دارن',
         'text'    => 'طرح‌های دوست‌داشتنی و رنگ‌های دلنشین، برای لحظه‌های شاد کودکانه.',
         'photo'   => $up . '2024/01/slider-3.jpg',
+        'url'     => home_url('/shop/?product_cat=boys,girls'),
     ],
 ];
 
@@ -75,12 +78,9 @@ function kd_hero_lv(array $vars): string
     .kd-hero .kd-btn { display:inline-flex; align-items:center; justify-content:center; gap:calc(10*var(--hu)); height:calc(var(--bh)*var(--hu)); padding-inline:calc(var(--bh)*.7*var(--hu)); border-radius:999px; font-size:calc(var(--bs)*var(--hu)); font-weight:700; line-height:1; white-space:nowrap; transition:background-color .2s,color .2s,border-color .2s,transform .2s; }
     .kd-hero .kd-btn-primary { background:var(--color-accent); color:#fff; border:2px solid var(--color-accent); }
     .kd-hero .kd-btn-primary:hover { background:var(--color-accent-dark); border-color:var(--color-accent-dark); }
-    .kd-hero .kd-btn-ghost { background:transparent; color:var(--color-accent-dark); border:2px solid var(--color-accent); }
-    .kd-hero .kd-btn-ghost:hover { background:var(--color-accent); color:#fff; }
     .kd-hero .kd-btn .kd-icon { font-size:1.15em; }
-    @media (max-width: 479px) { .kd-hero .kd-eyebrow, .kd-hero .kd-lead, .kd-hero .kd-btn-ghost { display:none; } }
+    @media (max-width: 479px) { .kd-hero .kd-eyebrow, .kd-hero .kd-lead { display:none; } }
     @media (max-width: 1199px) { .kd-hero .kd-lead { display:none; } }
-    @media (max-width: 1199px) { .kd-hero .kd-btn-ghost { display:none; } }
     @media (min-width: 480px) { .kd-hero { --ts: 36; --es: 13; --bs: 15; --bh: 46; --gap: 12; } }
     @media (min-width: 1200px) {
         .kd-hero { --ts: 44; --ps: 16; --bs: 16; --es: 14; --bh: 50; --gap: 16; }
@@ -110,8 +110,7 @@ function kd_hero_lv(array $vars): string
                             <h2 class="kd-title"><?= esc_html($s['line']) ?><br><span class="kd-mark"><?= esc_html($s['mark']) ?></span></h2>
                             <p class="kd-lead"><?= esc_html($s['text']) ?></p>
                             <div class="kd-btns">
-                                <a href="<?= esc_url(home_url('/shop/')) ?>" class="kd-btn kd-btn-primary">همین حالا بخرید <?php kidara_icon_e('arrow-right', 'kd-dir'); ?></a>
-                                <a href="<?= esc_url(home_url('/about-us/')) ?>" class="kd-btn kd-btn-ghost">دربارهٔ کیدارا</a>
+                                <a href="<?= esc_url($s['url']) ?>" class="kd-btn kd-btn-primary">همین حالا بخرید <?php kidara_icon_e('arrow-right', 'kd-dir'); ?></a>
                             </div>
                         </div>
                         <!-- decor: dragonfly, feather(leaves), balloon (hidden on mobile) -->

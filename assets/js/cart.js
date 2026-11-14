@@ -8,3 +8,10 @@ document.addEventListener('click', function (e) {
   real.removeAttribute('aria-disabled');
   real.click();
 });
+
+// Keep the header cart badge in sync after the cart is updated/changed by AJAX.
+if (window.jQuery) {
+  jQuery(document.body).on('updated_cart_totals removed_from_cart', function () {
+    jQuery(document.body).trigger('wc_fragment_refresh');
+  });
+}

@@ -28,11 +28,11 @@ while (have_posts()) :
     ?>
     <div id="product-<?php the_ID(); ?>" <?php wc_product_class('kd-product woocommerce', $product); ?>>
         <?php // Breadcrumb (demo: 16px/24 heading colour, 20px vertical padding under the header) ?>
-        <nav class="container mt-18 min-[1200px]:mt-29.5 flex flex-wrap items-center py-5 text-base leading-6 text-body" aria-label="مسیر صفحه">
+        <nav class="container mt-18 min-[1200px]:mt-29.5 flex flex-wrap items-center py-4 text-sm leading-6 text-body" aria-label="مسیر صفحه">
             <?php $last = count($crumbs) - 1; foreach ($crumbs as $i => $c) : ?>
                 <?php if ($i < $last) : ?>
                     <a href="<?= esc_url($c['url']) ?>" class="text-body hover:text-accent-dark"><?= esc_html($c['label']) ?></a>
-                    <span class="mx-2 text-heading"><?php kidara_icon_e('chevron-left', 'kd-dir text-[14px]'); ?></span>
+                    <span class="mx-1.5 text-muted"><?php kidara_icon_e('chevron-left', 'kd-dir text-[12px]'); ?></span>
                 <?php else : ?>
                     <span class="text-heading"><?= esc_html($c['label']) ?></span>
                 <?php endif; ?>
@@ -41,12 +41,17 @@ while (have_posts()) :
 
         <?php woocommerce_output_all_notices(); ?>
 
-        <div class="container grid gap-y-7.5 min-[992px]:grid-cols-[minmax(0,793fr)_minmax(0,523fr)] min-[992px]:gap-x-15.75 pb-15">
+        <div class="container grid gap-y-6 pb-10 min-[992px]:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] min-[992px]:gap-x-14 min-[992px]:pb-14">
             <?php get_template_part('template-parts/product/gallery', null, ['product' => $product]); ?>
             <?php get_template_part('template-parts/product/summary', null, ['product' => $product]); ?>
         </div>
 
-        <?php get_template_part('template-parts/product/tabs', null, ['product' => $product]); ?>
+        <section class="kd-below bg-[#f7f4f0] py-8 min-[992px]:py-10">
+            <div class="container grid items-start gap-6 min-[1100px]:grid-cols-[minmax(0,1fr)_320px]">
+                <?php get_template_part('template-parts/product/tabs', null, ['product' => $product]); ?>
+                <?php get_template_part('template-parts/product/mini', null, ['product' => $product]); ?>
+            </div>
+        </section>
         <?php get_template_part('template-parts/product/related', null, ['product' => $product]); ?>
     </div>
 <?php endwhile;

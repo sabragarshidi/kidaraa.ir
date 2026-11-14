@@ -11,7 +11,7 @@ $recent = array_filter(array_map('wc_get_product', array_slice($recent_ids, 0, 8
     return $p && $p->is_visible();
 });
 
-$sections = ['محصولات مرتبط' => $related, 'بازدیدهای اخیر شما' => $recent];
+$sections = ['محصولات مرتبط' => $related, 'بازدیدهای اخیر شما' => count($recent) > 1 ? $recent : []];
 $i = 0;
 foreach ($sections as $title => $list) :
     if (!$list) continue; $i++; ?>

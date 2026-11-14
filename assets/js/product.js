@@ -11,6 +11,7 @@
     var gal = root.querySelector('[data-gallery]');
     var swiper = null, slides = [], thumbs = [];
     function setActiveThumb(i) {
+        var ct = root.querySelector('.kd-count'); if (ct) ct.textContent = (i + 1).toLocaleString('fa-IR') + ' / ' + slides.length.toLocaleString('fa-IR');
         thumbs.forEach(function (t, k) { t.classList.toggle('is-active', k === i); });
         if (thumbs[i] && window.matchMedia('(min-width:992px)').matches) {
             var box = thumbs[i].parentNode;
@@ -204,37 +205,47 @@
         });
     });
 
-    /* ---------- Tabs (pills on desktop, accordion on mobile) ---------- */
+    /* ---------- Below-the-fold cards: scroll-spy, description toggle, mini buy ---------- */
     var tabsBox = root.querySelector('[data-tabs]');
-    function activate(key, toggle) {
-        if (!tabsBox) return;
-        tabsBox.querySelectorAll('[data-tab]').forEach(function (t) {
-            var on = t.getAttribute('data-tab') === key;
-            if (toggle && on && t.classList.contains('is-active')) on = false;
-            t.classList.toggle('is-active', on);
-            var h = t.querySelector('.kd-tab-head'); if (h) h.setAttribute('aria-expanded', on ? 'true' : 'false');
-        });
-        tabsBox.querySelectorAll('[data-tab-link]').forEach(function (a) {
-            a.parentNode.classList.toggle('is-active', a.getAttribute('data-tab-link') === key);
-        });
-    }
     if (tabsBox) {
-        activate(tabsBox.querySelector('[data-tab].is-active') ? tabsBox.querySelector('[data-tab].is-active').getAttribute('data-tab') : '');
-        tabsBox.querySelectorAll('[data-tab-link]').forEach(function (a) {
-            a.addEventListener('click', function (e) { e.preventDefault(); activate(a.getAttribute('data-tab-link')); });
-        });
-        tabsBox.querySelectorAll('.kd-tab-head').forEach(function (h) {
-            h.addEventListener('click', function () { activate(h.closest('[data-tab]').getAttribute('data-tab'), true); });
-        });
-        var openReviews = function () {
-            if (!tabsBox.querySelector('[data-tab="reviews"]')) return;
-            activate('reviews'); tabsBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        };
+        var links = [].slice.call(tabsBox.querySelectorAll('[data-tab-link]'));
+        var cards = [].slice.call(tabsBox.querySelectorAll('[data-tab]'));
+        var setLink = function (k) { links.forEach(function (a) { a.classList.toggle('is-active', a.getAttribute('data-tab-link') === k); }); };
+        if (links[0]) setLink(links[0].getAttribute('data-tab-link'));
+        if ('IntersectionObserver' in window) {
+            var io = new IntersectionObserver(function (es) {
+                es.forEach(function (e) { if (e.isIntersecting) setLink(e.target.getAttribute('data-tab')); });
+            }, { rootMargin: '-25% 0px -60% 0px' });
+            cards.forEach(function (c) { io.observe(c); });
+        }
+        var d = tabsBox.querySelector('[data-desc]'), tg = tabsBox.querySelector('[data-desc-toggle]');
+        if (d && tg) {
+            if (d.scrollHeight <= d.clientHeight + 8) { d.classList.add('is-short'); }
+            else {
+                tg.classList.remove('hidden');
+                tg.addEventListener('click', function () {
+                    var on = d.classList.toggle('is-open');
+                    tg.textContent = on ? 'نمایش کمتر' : 'نمایش کامل توضیحات';
+                });
+            }
+        }
         root.querySelectorAll('.woocommerce-review-link').forEach(function (a) {
-            a.addEventListener('click', function (e) { e.preventDefault(); openReviews(); });
+            a.addEventListener('click', function (e) {
+                var t = document.getElementById('tab-reviews'); if (!t) return;
+                e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
         });
-        if (/^#(reviews|tab-reviews|comment-)/.test(location.hash)) setTimeout(openReviews, 50);
     }
+    root.querySelectorAll('[data-mini-buy]').forEach(function (b) {
+        b.addEventListener('click', function () {
+            var main = root.querySelector('.kd-summary .single_add_to_cart_button');
+            if (main && !main.disabled && !main.classList.contains('disabled')) { main.click(); return; }
+            var sm = root.querySelector('.kd-summary'); if (sm) sm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    });
+    root.querySelectorAll('[data-to-top]').forEach(function (a) {
+        a.addEventListener('click', function (e) { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+    });
 
     /* ---------- Live viewers counter (demo: random 30-40, refreshes) ---------- */
     var pv = root.querySelector('.product-count-view');

@@ -1,51 +1,76 @@
 <?php
 /**
- * Description / Additional information / Reviews. Pills on desktop, accordion < 992px.
- * (own classes: WC's wc-single-product script would hijack .wc-tabs / .woocommerce-tabs)
+ * Below-the-fold cards: specifications, description, reviews, shipping. Sticky anchor bar on top.
  * Args: product
  */
 $product = $args['product'];
-$post    = get_post($product->get_id());
-$tabs    = [];
+$pid     = $product->get_id();
+$desc    = trim((string) get_post($pid)->post_content);
 
-$desc = trim((string) $post->post_content);
-if ($desc !== '') {
-    $tabs['description'] = ['title' => 'توضیحات', 'cb' => function () use ($desc) {
-        echo '<div class="kd-prose">' . apply_filters('the_content', $desc) . '</div>'; // phpcs:ignore
-    }];
+// Specifications: SKU + visible attributes + weight/dimensions.
+$specs = [];
+if ($product->get_sku()) $specs['کد محصول'] = '<bdi dir="ltr">' . esc_html($product->get_sku()) . '</bdi>';
+foreach ($product->get_attributes() as $attr) {
+    if (!is_a($attr, 'WC_Product_Attribute') || !$attr->get_visible()) continue;
+    $vals = $attr->is_taxonomy() ? wc_get_product_terms($pid, $attr->get_name(), ['fields' => 'names']) : $attr->get_options();
+    $vals = array_filter(array_map('strval', (array) $vals));
+    if ($vals) $specs[wc_attribute_label($attr->get_name(), $product)] = esc_html(implode('، ', $vals));
 }
-if ($product->has_attributes() || apply_filters('wc_product_enable_dimensions_display', $product->has_weight() || $product->has_dimensions())) {
-    $tabs['additional_information'] = ['title' => 'اطلاعات تکمیلی', 'cb' => function () use ($product) {
-        wc_display_product_attributes($product);
-    }];
-}
-if (comments_open($product->get_id())) {
-    $tabs['reviews'] = ['title' => 'نظرات (' . kidara_fa((string) $product->get_review_count()) . ')', 'cb' => function () {
-        comments_template();
-    }];
-}
-if (!$tabs) return;
-$first = array_key_first($tabs);
+if ($product->has_weight()) $specs['وزن'] = esc_html(kidara_fa(wc_format_weight($product->get_weight())));
+if ($product->has_dimensions()) $specs['ابعاد'] = esc_html(kidara_fa(wc_format_dimensions($product->get_dimensions(false))));
+
+$nav = [];
+if ($specs) $nav['specs'] = 'مشخصات';
+if ($desc !== '') $nav['desc'] = 'توضیحات';
+if (comments_open($pid)) $nav['reviews'] = 'دیدگاه‌ها';
+$nav['shipping'] = 'ارسال';
+
+$card = 'scroll-mt-32 rounded-2xl border border-border bg-white p-5 min-[768px]:p-7';
+$h2   = 'mb-5 mt-0 flex items-center gap-2.5 text-xl leading-normal text-heading after:h-5 after:w-1 after:rounded-full after:bg-accent after:content-[\'\']';
 ?>
-<section class="kd-tabs mb-2.5 border-y border-border py-15 max-[991px]:py-7.5" data-tabs>
-    <div class="mx-auto max-w-360 px-3.75 md:px-8.25">
-        <ul class="m-0 mb-7.5 flex list-none justify-center overflow-x-auto p-0 whitespace-nowrap max-[991px]:hidden" role="tablist">
-            <?php foreach ($tabs as $key => $t) : ?>
-                <li class="mx-2.5 p-0" role="presentation">
-                    <a href="#tab-<?= esc_attr($key) ?>" role="tab" data-tab-link="<?= esc_attr($key) ?>"
-                       class="inline-block rounded-btn px-5 py-1.25 font-display text-xl leading-[34px] text-body transition-colors duration-300 hover:bg-accent hover:text-white [.is-active>&]:bg-accent [.is-active>&]:text-white"><?= esc_html($t['title']) ?></a>
-                </li>
-            <?php endforeach; ?>
-        </ul>
-        <?php foreach ($tabs as $key => $t) : ?>
-            <div class="kd-tab <?= $key === $first ? 'is-active' : '' ?>" data-tab="<?= esc_attr($key) ?>">
-                <button type="button" class="kd-tab-head hidden w-full cursor-pointer items-center justify-between border-0 border-b border-border bg-transparent px-0 py-3.75 text-start font-display text-[22px] text-body max-[991px]:flex" aria-expanded="<?= $key === $first ? 'true' : 'false' ?>">
-                    <?= esc_html($t['title']) ?><?= kidara_icon('chevron-down', 'kd-chev text-[20px] transition-transform duration-300') ?>
-                </button>
-                <div id="tab-<?= esc_attr($key) ?>" class="kd-panel text-start leading-[2em] max-[991px]:pt-3.75" role="tabpanel">
-                    <?php ($t['cb'])(); ?>
-                </div>
-            </div>
+<div class="kd-tabs min-w-0" data-tabs>
+    <nav class="kd-tabbar sticky top-[64px] z-[20] mb-4 flex gap-1 overflow-x-auto rounded-2xl border border-border bg-white p-1.5 [scrollbar-width:none] min-[1200px]:top-[84px] [&::-webkit-scrollbar]:hidden" aria-label="بخش‌های محصول">
+        <?php foreach ($nav as $k => $label) : ?>
+            <a href="#tab-<?= esc_attr($k) ?>" data-tab-link="<?= esc_attr($k) ?>" class="shrink-0 rounded-xl px-5 py-2 text-base text-body transition-colors hover:text-accent-dark [&.is-active]:bg-[#e4ede6] [&.is-active]:text-accent-dark"><?= esc_html($label) ?></a>
         <?php endforeach; ?>
+    </nav>
+
+    <div class="grid gap-4">
+        <?php if ($specs) : ?>
+        <section id="tab-specs" class="<?= $card ?>" data-tab="specs">
+            <h2 class="<?= $h2 ?>">مشخصات</h2>
+            <dl class="m-0 grid gap-x-10 min-[768px]:grid-cols-2">
+                <?php foreach ($specs as $k => $v) : ?>
+                    <div class="flex items-start justify-between gap-4 border-b border-border py-3 text-sm">
+                        <dt class="text-muted"><?= esc_html($k) ?></dt>
+                        <dd class="m-0 text-end text-heading"><?= $v // phpcs:ignore ?></dd>
+                    </div>
+                <?php endforeach; ?>
+            </dl>
+        </section>
+        <?php endif; ?>
+
+        <?php if ($desc !== '') : ?>
+        <section id="tab-desc" class="<?= $card ?>" data-tab="desc">
+            <h2 class="<?= $h2 ?>">توضیحات</h2>
+            <div class="kd-desc relative max-h-[260px] overflow-hidden transition-[max-height] duration-300" data-desc>
+                <div class="kd-prose text-body leading-[2]"><?= apply_filters('the_content', $desc) // phpcs:ignore ?></div>
+                <div class="kd-desc-fade pointer-events-none absolute inset-x-0 bottom-0 hidden h-16 bg-gradient-to-t from-white to-transparent"></div>
+            </div>
+            <button type="button" class="kd-desc-toggle mt-3 hidden cursor-pointer border-0 bg-transparent p-0 text-sm font-bold text-accent-dark" data-desc-toggle>نمایش کامل توضیحات</button>
+        </section>
+        <?php endif; ?>
+
+        <?php if (comments_open($pid)) : ?>
+        <section id="tab-reviews" class="<?= $card ?>" data-tab="reviews">
+            <h2 class="<?= $h2 ?>">دیدگاه‌ها <span class="text-sm font-normal text-muted">(<?= esc_html(kidara_fa((string) $product->get_review_count())) ?>)</span></h2>
+            <?php comments_template(); ?>
+        </section>
+        <?php endif; ?>
+
+        <section id="tab-shipping" class="<?= $card ?>" data-tab="shipping">
+            <h2 class="<?= $h2 ?>">ارسال</h2>
+            <p class="m-0 text-sm leading-8 text-body">سفارش شما پس از تأیید، در سریع‌ترین زمان ممکن ارسال می‌شود و تحویل آن ۳ تا ۷ روز کاری طول می‌کشد. ارسال با پست پیشتاز انجام می‌شود و هزینهٔ آن در مرحلهٔ تکمیل سفارش مشخص می‌شود.</p>
+        </section>
     </div>
-</section>
+</div>

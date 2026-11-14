@@ -3,6 +3,7 @@ defined('ABSPATH') || exit;
 
 require_once get_template_directory() . '/inc/helpers.php';
 require_once get_template_directory() . '/inc/otp.php';
+require_once get_template_directory() . '/inc/sms-notify.php';
 
 add_action('after_setup_theme', function () {
     add_theme_support('title-tag');

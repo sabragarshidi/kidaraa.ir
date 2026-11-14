@@ -169,3 +169,13 @@ add_filter('wc_get_price_thousand_separator', fn() => ',');
 // Persian digits in human dates / counts produced by WP core
 add_filter('date_i18n', fn($d) => kidara_fa((string) $d), 20);
 add_filter('number_format_i18n', fn($n) => kidara_fa((string) $n), 20);
+
+
+/** Product categories shown in menus/sidebar (no "all", no uncategorized, no toys). */
+function kidara_shop_cats(): array
+{
+    if (!taxonomy_exists('product_cat')) return [];
+    $terms = get_terms(['taxonomy' => 'product_cat', 'hide_empty' => true, 'orderby' => 'count', 'order' => 'DESC']);
+    if (is_wp_error($terms)) return [];
+    return array_values(array_filter($terms, fn($t) => !in_array($t->slug, ['all', 'uncategorized', 'toys'], true)));
+}

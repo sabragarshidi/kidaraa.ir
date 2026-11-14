@@ -6,9 +6,16 @@ $kd_account = home_url('/my-account/');
 $kd_wish    = home_url('/wishlist/');
 $kd_cart    = home_url('/cart/');
 
+$kd_cat_sub = [];
+if (function_exists('kidara_shop_cats')) {
+    foreach (kidara_shop_cats() as $kd_t) {
+        $kd_link = get_term_link($kd_t);
+        if (!is_wp_error($kd_link)) $kd_cat_sub[] = [$kd_t->name, $kd_link];
+    }
+}
 $kd_demo_menu = [
     ['خانه', home_url('/'), []],
-    ['فروشگاه', $kd_shop, [['شبکه‌ای', $kd_shop], ['فهرستی', add_query_arg('shop_view', 'list', $kd_shop)], ['سبد خرید', $kd_cart], ['تسویه‌حساب', home_url('/checkout/')]]],
+    ['فروشگاه', $kd_shop, $kd_cat_sub],
     ['محصولات', $kd_shop, []],
     ['وبلاگ', home_url('/blog/'), []],
     ['صفحات', '#', [['دربارهٔ ما', home_url('/about-us/')], ['تماس با ما', home_url('/contact/')], ['سؤالات متداول', home_url('/faq/')]]],

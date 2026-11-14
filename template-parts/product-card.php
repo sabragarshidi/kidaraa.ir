@@ -28,7 +28,7 @@ $tip = 'relative m-1.25 opacity-0 invisible transition-all duration-500 group-ho
 ?>
 <?php if ($a['slide']) : ?><div class="swiper-slide px-3.75 !h-auto"><?php endif; ?>
 <div class="group/card relative mb-7.5 products-entry overflow-hidden rounded-2xl border border-border bg-white"<?= $pid ? ' data-product-id="' . $pid . '"' : '' ?>>
-    <div class="relative overflow-hidden bg-bg-light">
+    <div class="kd-card-img relative overflow-hidden bg-bg-light">
         <a href="<?= esc_url($a['url']) ?>" class="relative block aspect-[600/836]" aria-label="<?= esc_attr($a['title']) ?>">
             <?php if ($a['image']) : ?>
                 <?= kidara_img($a['image'], $a['title'], 'absolute inset-0 size-full object-cover transition-all duration-300 group-hover/card:opacity-0' . ($hover ? '' : ' group-hover/card:opacity-100')) ?>
@@ -51,7 +51,7 @@ $tip = 'relative m-1.25 opacity-0 invisible transition-all duration-500 group-ho
         <?php endif; ?>
 
         <!-- hover buttons (desktop >=1200) -->
-        <div class="absolute inset-x-0 top-1/2 z-[9] -translate-y-1/2 flex flex-wrap items-center justify-center max-[1199px]:hidden">
+        <div class="kd-card-actions absolute inset-x-0 top-1/2 z-[9] -translate-y-1/2 flex flex-wrap items-center justify-center max-[1199px]:hidden">
             <div class="<?= $tip ?> [transition-delay:0.05s]" data-title="<?= esc_attr($a['cart_label']) ?>">
                 <a href="<?= esc_url($a['url']) ?>" class="js-add-to-cart size-11.25 <?= $circle ?>" aria-label="<?= esc_attr($a['cart_label']) ?>" data-product-id="<?= $pid ?>"><?= kidara_icon('shopping-bag', 'text-[28px]') ?></a>
             </div>
@@ -64,13 +64,13 @@ $tip = 'relative m-1.25 opacity-0 invisible transition-all duration-500 group-ho
         </div>
 
         <!-- compact buttons (<1200) -->
-        <div class="absolute bottom-20 end-2.5 z-[9] flex flex-col min-[1200px]:hidden">
+        <div class="kd-card-actions absolute bottom-20 end-2.5 z-[9] flex flex-col min-[1200px]:hidden">
             <button type="button" class="js-wishlist my-[3.5px] size-8.75 <?= $circle ?>" aria-label="علاقه‌مندی" data-product-id="<?= $pid ?>"><?= kidara_icon('heart', 'text-base') ?></button>
             <button type="button" class="js-quickview my-[3.5px] size-8.75 <?= $circle ?>" aria-label="نمایش سریع" data-product-id="<?= $pid ?>"><?= kidara_icon('eye', 'text-2xl') ?></button>
         </div>
     </div>
 
-    <div class="absolute inset-x-2.5 bottom-2.5 z-[6] rounded-xl bg-white/90 px-3 py-2.5 text-center backdrop-blur-sm">
+    <div class="kd-card-info absolute inset-x-2.5 bottom-2.5 z-[6] rounded-xl bg-white/90 px-3 py-2.5 text-center backdrop-blur-sm">
         <h3 class="mb-1 font-body text-sm font-bold leading-normal text-heading"><a href="<?= esc_url($a['url']) ?>" class="line-clamp-1 hover:text-accent"><?= esc_html($a['title']) ?></a></h3>
         <span class="block text-sm font-bold leading-none text-accent [&_del]:text-xs [&_del]:font-normal [&_del]:text-muted max-[767px]:[&_del]:hidden [&_ins]:no-underline">
             <?php if ($a['price_html']) : ?>

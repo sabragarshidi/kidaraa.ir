@@ -74,7 +74,7 @@ $kd_sticky = 'group-[.is-sticky]/h:fixed group-[.is-sticky]/h:top-0 group-[.is-s
 					<div class="flex-[3] flex justify-center"><?php kidara_logo('', 52); ?></div>
 					<div class="flex-1 text-end">
 						<a href="<?php echo esc_url($kd_cart); ?>" class="<?php echo $kd_icon_btn; ?>" aria-label="<?php esc_attr_e('سبد خرید', 'kidara'); ?>">
-							<?php echo kidara_icon('shopping-bag', 'text-[24px]'); ?><span class="<?php echo $kd_badge; ?>">۰</span>
+							<?php echo kidara_icon('shopping-bag', 'text-[24px]'); ?><?php echo kidara_cart_badge($kd_badge); ?>
 						</a>
 					</div>
 				</div>
@@ -84,7 +84,7 @@ $kd_sticky = 'group-[.is-sticky]/h:fixed group-[.is-sticky]/h:top-0 group-[.is-s
 			<a href="<?php echo esc_url($kd_shop); ?>" class="<?php echo $kd_fx($kd_on_shop); ?>"><?php echo kidara_icon('store', 'text-[21px]'); ?><span class="lbl"><?php esc_html_e('فروشگاه', 'kidara'); ?></span></a>
 			<button type="button" class="<?php echo $kd_fx(false); ?> cursor-pointer border-0 bg-transparent" data-kd-cats-open aria-controls="kd-cats"><?php echo kidara_icon('layout-grid', 'text-[21px]'); ?><span class="lbl"><?php esc_html_e('دسته‌ها', 'kidara'); ?></span></button>
 			<button type="button" class="<?php echo $kd_fx(false); ?> cursor-pointer border-0 bg-transparent" data-kd-search-open><?php echo kidara_icon('search', 'text-[21px]'); ?><span class="lbl"><?php esc_html_e('جست‌وجو', 'kidara'); ?></span></button>
-			<a href="<?php echo esc_url($kd_cart); ?>" class="<?php echo $kd_fx($kd_on_cart); ?>"><?php echo kidara_icon('shopping-bag', 'text-[21px]'); ?><span class="lbl"><?php esc_html_e('سبد', 'kidara'); ?></span></a>
+			<a href="<?php echo esc_url($kd_cart); ?>" class="<?php echo $kd_fx($kd_on_cart); ?> relative"><?php echo kidara_icon('shopping-bag', 'text-[21px]'); ?><?php echo kidara_cart_badge('absolute top-0 start-1/2 ms-1 w-3.5 h-3.5 rounded-full bg-accent text-white text-[9px] leading-3.5 text-center'); ?><span class="lbl"><?php esc_html_e('سبد', 'kidara'); ?></span></a>
 			<a href="<?php echo esc_url($kd_account); ?>" class="<?php echo $kd_fx($kd_on_acc); ?>"><?php echo kidara_icon('user', 'text-[21px]'); ?><span class="lbl"><?php esc_html_e('حساب', 'kidara'); ?></span></a>
 		</div>
 		<div id="kd-cats" class="fixed inset-0 z-[99] invisible min-[1200px]:hidden [&.is-open]:visible" aria-hidden="true">
@@ -123,7 +123,7 @@ $kd_sticky = 'group-[.is-sticky]/h:fixed group-[.is-sticky]/h:top-0 group-[.is-s
 						<button type="button" class="<?php echo $kd_icon_btn; ?>" data-kd-search-open aria-label="<?php esc_attr_e('جست‌وجو', 'kidara'); ?>"><?php echo kidara_icon('search', 'text-[26px]'); ?></button>
 						<a href="<?php echo esc_url($kd_account); ?>" class="<?php echo $kd_icon_btn; ?>" aria-label="<?php esc_attr_e('حساب کاربری', 'kidara'); ?>"><?php echo kidara_icon('user', 'text-[26px]'); ?></a>
 						<a href="<?php echo esc_url($kd_wish); ?>" class="<?php echo $kd_icon_btn; ?>" aria-label="<?php esc_attr_e('علاقه‌مندی‌ها', 'kidara'); ?>"><?php echo kidara_icon('heart', 'text-[26px]'); ?><span class="<?php echo $kd_badge; ?>">۰</span></a>
-						<a href="<?php echo esc_url($kd_cart); ?>" class="<?php echo $kd_icon_btn; ?>" aria-label="<?php esc_attr_e('سبد خرید', 'kidara'); ?>"><?php echo kidara_icon('shopping-bag', 'text-[26px]'); ?><span class="<?php echo $kd_badge; ?>">۰</span></a>
+						<a href="<?php echo esc_url($kd_cart); ?>" class="<?php echo $kd_icon_btn; ?>" aria-label="<?php esc_attr_e('سبد خرید', 'kidara'); ?>"><?php echo kidara_icon('shopping-bag', 'text-[26px]'); ?><?php echo kidara_cart_badge($kd_badge); ?></a>
 					</div>
 				</div>
 			</div>

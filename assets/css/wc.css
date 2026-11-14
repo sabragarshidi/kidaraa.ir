@@ -87,8 +87,8 @@
 .kd-wc .coupon label { display:none; }
 .kd-wc .coupon input { width:240px; max-width:100%; }
 .kd-wc td.actions > .button { float:left; }
-.kd-wc .coupon .button, .kd-wc td.actions > .button { background:var(--color-heading); }
-.kd-wc .coupon .button:hover, .kd-wc td.actions > .button:hover { background:var(--color-accent); }
+.kd-wc .coupon .button, .kd-wc td.actions > .button { background:var(--color-accent); }
+.kd-wc .coupon .button:hover, .kd-wc td.actions > .button:hover { background:var(--color-accent-dark); }
 .kd-wc .cart-collaterals { display:flex; justify-content:flex-end; }
 .kd-wc .cart_totals { width:100%; max-width:480px; padding:30px; background:var(--color-bg-light); border-radius:20px; }
 .kd-wc .cart_totals h2 { font-size:24px; }

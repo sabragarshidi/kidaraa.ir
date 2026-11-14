@@ -14,12 +14,14 @@
 
 
 
-@font-face { font-family: "Zain"; font-weight: 300; font-style: normal; font-display: swap; size-adjust: 110%; src: url("../fonts/zain-light.woff2") format("woff2"); }
-@font-face { font-family: "Zain"; font-weight: 400; font-style: normal; font-display: swap; size-adjust: 110%; src: url("../fonts/zain-regular.woff2") format("woff2"); }
+@font-face { font-family: "IRANSans"; font-weight: 300; font-style: normal; font-display: swap; src: url("../fonts/iransans-light.woff2") format("woff2"); }
+@font-face { font-family: "IRANSans"; font-weight: 400; font-style: normal; font-display: swap; src: url("../fonts/iransans-regular.woff2") format("woff2"); }
+@font-face { font-family: "IRANSans"; font-weight: 500; font-style: normal; font-display: swap; src: url("../fonts/iransans-medium.woff2") format("woff2"); }
+@font-face { font-family: "IRANSans"; font-weight: 700; font-style: normal; font-display: swap; src: url("../fonts/iransans-bold.woff2") format("woff2"); }
 
 @theme {
-    --font-body: "Zain", Tahoma, sans-serif;
-    --font-display: "Zain", Tahoma, sans-serif;
+    --font-body: "IRANSans", Tahoma, sans-serif;
+    --font-display: "IRANSans", Tahoma, sans-serif;
 
     --color-accent: #719378;        /* primary green: prices, buttons, sale badge */
     --color-accent-dark: #5a7760;   /* hover green */

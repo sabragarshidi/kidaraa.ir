@@ -179,3 +179,18 @@ function kidara_shop_cats(): array
     if (is_wp_error($terms)) return [];
     return array_values(array_filter($terms, fn($t) => !in_array($t->slug, ['all', 'uncategorized', 'toys'], true)));
 }
+
+/** Cart-count badge (updated live through WooCommerce cart fragments). */
+function kidara_cart_badge(string $cls): string {
+    $n = function_exists('WC') && WC()->cart ? (int) WC()->cart->get_cart_contents_count() : 0;
+    return '<span class="kd-cart-badge ' . esc_attr($cls) . ($n ? '' : ' hidden') . '">' . esc_html(kidara_fa((string) $n)) . '</span>';
+}
+add_filter('woocommerce_add_to_cart_fragments', function ($f) {
+    // Same badge markup as the header; one selector refreshes every instance.
+    $f['span.kd-cart-badge'] = kidara_cart_badge('absolute -top-1.25 -end-1.25 w-3.75 h-3.75 rounded-full bg-accent text-white text-[10px] leading-3.75 text-center');
+    return $f;
+});
+// Coupons live on the checkout page only, not in the cart.
+add_filter('woocommerce_coupons_enabled', function ($on) {
+    return (function_exists('is_cart') && is_cart()) ? false : $on;
+});

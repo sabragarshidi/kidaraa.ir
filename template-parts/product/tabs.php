@@ -26,12 +26,12 @@ if (comments_open($pid)) $nav['reviews'] = 'دیدگاه‌ها';
 $nav['shipping'] = 'ارسال';
 
 $card = 'scroll-mt-32 rounded-2xl border border-border bg-white p-5 min-[768px]:p-7';
-$h2   = 'mb-5 mt-0 flex items-center gap-2.5 text-xl leading-normal text-heading after:h-5 after:w-1 after:rounded-full after:bg-accent after:content-[\'\']';
+$h2   = 'mb-5 mt-0 flex items-center gap-2.5 text-base min-[768px]:text-xl leading-normal text-heading after:h-5 after:w-1 after:rounded-full after:bg-accent after:content-[\'\']';
 ?>
 <div class="kd-tabs min-w-0" data-tabs>
     <nav class="kd-tabbar sticky top-[64px] z-[20] mb-4 flex gap-1 overflow-x-auto rounded-2xl border border-border bg-white p-1.5 [scrollbar-width:none] min-[1200px]:top-[84px] [&::-webkit-scrollbar]:hidden" aria-label="بخش‌های محصول">
         <?php foreach ($nav as $k => $label) : ?>
-            <a href="#tab-<?= esc_attr($k) ?>" data-tab-link="<?= esc_attr($k) ?>" class="shrink-0 rounded-xl px-5 py-2 text-base text-body transition-colors hover:text-accent-dark [&.is-active]:bg-[#e4ede6] [&.is-active]:text-accent-dark"><?= esc_html($label) ?></a>
+            <a href="#tab-<?= esc_attr($k) ?>" data-tab-link="<?= esc_attr($k) ?>" class="shrink-0 rounded-xl px-3.5 py-1.5 text-[13px] min-[768px]:px-5 min-[768px]:py-2 min-[768px]:text-base text-body transition-colors hover:text-accent-dark [&.is-active]:bg-[#e4ede6] [&.is-active]:text-accent-dark"><?= esc_html($label) ?></a>
         <?php endforeach; ?>
     </nav>
 

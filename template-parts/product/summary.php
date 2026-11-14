@@ -36,7 +36,7 @@ $rating_count = $product->get_rating_count();
 <?php $kd_cat = $cats_terms = wc_get_product_terms($pid, 'product_cat', ['orderby' => 'parent', 'order' => 'DESC']); $kd_cat = $cats_terms && !is_wp_error($cats_terms) ? $cats_terms[0] : null; ?>
 <div class="kd-summary min-w-0" data-swatches="<?= esc_attr(wp_json_encode($sw)) ?>" data-product-type="<?= esc_attr($product->get_type()) ?>">
     <?php if ($kd_cat) : ?><a href="<?= esc_url(get_term_link($kd_cat)) ?>" class="mb-1.5 inline-block text-sm text-accent-dark hover:text-accent"><?= esc_html($kd_cat->name) ?></a><?php endif; ?>
-    <h1 class="product_title entry-title mb-2 mt-0 text-[28px] leading-[1.5] text-heading min-[992px]:text-[34px]"><?php the_title(); ?></h1>
+    <h1 class="product_title entry-title mb-2 mt-0 text-[19px] leading-[1.5] text-heading min-[768px]:text-[28px] min-[992px]:text-[34px]"><?php the_title(); ?></h1>
 
     <div class="mb-4 flex flex-wrap items-center gap-x-5 gap-y-1 text-sm text-muted">
         <?php if (wc_product_sku_enabled() && $product->get_sku()) : ?><span>کد محصول: <bdi dir="ltr"><?= esc_html($product->get_sku()) ?></bdi></span><?php endif; ?>
@@ -49,7 +49,7 @@ $rating_count = $product->get_rating_count();
     </div>
 
     <div class="price-single mb-5 border-b border-border pb-5">
-        <p class="kd-price m-0 text-[30px] font-bold leading-tight text-heading [&_del]:me-2 [&_del]:text-base [&_del]:font-normal [&_del]:text-muted [&_ins]:text-accent-dark [&_ins]:no-underline [&_.woocommerce-Price-currencySymbol]:ms-1 [&_.woocommerce-Price-currencySymbol]:text-sm [&_.woocommerce-Price-currencySymbol]:font-normal [&_.woocommerce-Price-currencySymbol]:text-body"><?= $product->get_price_html() ?></p>
+        <p class="kd-price m-0 text-[20px] min-[768px]:text-[30px] font-bold leading-tight text-heading [&_del]:me-2 [&_del]:text-base [&_del]:font-normal [&_del]:text-muted [&_ins]:text-accent-dark [&_ins]:no-underline [&_.woocommerce-Price-currencySymbol]:ms-1 [&_.woocommerce-Price-currencySymbol]:text-sm [&_.woocommerce-Price-currencySymbol]:font-normal [&_.woocommerce-Price-currencySymbol]:text-body"><?= $product->get_price_html() ?></p>
     </div>
 
     <?php if ($product->get_short_description()) : ?>

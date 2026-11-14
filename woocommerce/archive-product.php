@@ -19,9 +19,9 @@ $after = ob_get_clean();
 
 ?>
 <!-- phones: compact header (title + garland); categories live in the filter drawer -->
-<div class="mb-4 mt-18 bg-gradient-to-b from-[#f3dfe3] via-[#e6efe8] to-white pb-3 pt-1 text-center min-[768px]:hidden">
-    <img src="<?= esc_url(get_theme_file_uri('assets/img/cta-garland.webp')) ?>" alt="" width="1332" height="750" class="block h-[92px] w-full object-cover object-top [mask-image:linear-gradient(to_bottom,#000_45%,transparent)]">
-    <h1 class="relative mb-0 mt-0 px-4 text-[20px] leading-normal text-heading"><?= esc_html($is_cat ? $title : 'فروشگاه لباس کودک کیدارا') ?></h1>
+<div class="mb-4 mt-18 overflow-hidden bg-[#f6e3e7] pb-3 pt-0 text-center min-[768px]:hidden">
+    <img src="<?= esc_url(get_theme_file_uri('assets/img/cta-garland.webp')) ?>" alt="" width="1332" height="750" class="-mt-5 block h-[104px] w-full object-cover object-top [mask-image:linear-gradient(to_bottom,#000_62%,transparent)]">
+    <h1 class="relative mb-0 mt-0 px-4 text-[20px] leading-normal text-accent-dark"><?= esc_html($is_cat ? $title : 'فروشگاه لباس کودک کیدارا') ?></h1>
 </div>
 <div class="max-[767px]:hidden">
 <?php get_template_part('template-parts/page-title', null, ['title' => $title, 'crumbs' => $crumbs, 'after' => $after]); ?>

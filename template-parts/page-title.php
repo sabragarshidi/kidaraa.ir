@@ -24,13 +24,13 @@ if ($a['crumbs'] === null) {
         <div class="relative inline-flex items-center">
             <h1 class="mt-0 text-center text-3xl leading-normal text-heading md:text-[40px]"><?= esc_html($a['title']) ?></h1>
         </div>
-        <nav class="flex w-full flex-wrap items-center justify-center text-base text-heading" aria-label="مسیر صفحه">
+        <nav class="flex w-full flex-nowrap items-center justify-center overflow-hidden whitespace-nowrap text-base text-heading" aria-label="مسیر صفحه">
             <?php $last = count($a['crumbs']) - 1; foreach ($a['crumbs'] as $i => $c) : ?>
                 <?php if ($i < $last && !empty($c['url'])) : ?>
-                    <a href="<?= esc_url($c['url']) ?>" class="text-heading hover:text-accent-dark"><?= esc_html($c['label']) ?></a>
-                    <span class="mx-2 text-body"><?php kidara_icon_e('chevron-right', 'text-[14px] kd-dir'); ?></span>
+                    <a href="<?= esc_url($c['url']) ?>" class="shrink-0 text-heading hover:text-accent-dark"><?= esc_html($c['label']) ?></a>
+                    <span class="mx-2 shrink-0 text-body"><?php kidara_icon_e('chevron-right', 'text-[14px] kd-dir'); ?></span>
                 <?php else : ?>
-                    <span class="text-body"><?= esc_html($c['label']) ?></span>
+                    <span class="min-w-0 truncate text-body"><?= esc_html($c['label']) ?></span>
                 <?php endif; ?>
             <?php endforeach; ?>
         </nav>

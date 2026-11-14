@@ -20,8 +20,8 @@ $after = ob_get_clean();
 ?>
 <!-- phones: compact header (title + garland); categories live in the filter drawer -->
 <div class="mb-4 mt-18 overflow-hidden bg-[#f6e3e7] pb-2.5 pt-0 text-center min-[768px]:hidden">
-    <img src="<?= esc_url(get_theme_file_uri('assets/img/cta-garland.webp')) ?>" alt="" width="1332" height="750" class="mx-auto -mt-4 block h-auto w-[230px] [mask-image:linear-gradient(to_right,transparent,#000_10%,#000_90%,transparent)]">
-    <h1 class="relative mb-0 -mt-1 px-4 text-[20px] leading-normal text-accent-dark"><?= esc_html($is_cat ? $title : 'فروشگاه لباس کودک کیدارا') ?></h1>
+    <img src="<?= esc_url(get_theme_file_uri('assets/img/cta-garland.webp')) ?>" alt="" width="1332" height="750" class="mx-auto -mt-4 block h-auto w-[200px] [mask-image:linear-gradient(to_right,transparent,#000_10%,#000_90%,transparent)]">
+    <h1 class="relative mb-0 -mt-2 px-4 text-[18px] leading-normal text-accent-dark"><?= esc_html($is_cat ? $title : 'فروشگاه لباس کودک کیدارا') ?></h1>
 </div>
 <div class="max-[767px]:hidden">
 <?php get_template_part('template-parts/page-title', null, ['title' => $title, 'crumbs' => $crumbs, 'after' => $after]); ?>

@@ -13,6 +13,10 @@ if (function_exists('kidara_shop_cats')) {
         if (!is_wp_error($kd_link)) $kd_cat_sub[] = [$kd_t->name, $kd_link];
     }
 }
+$kd_on_shop = function_exists('is_shop') && (is_shop() || is_product_category() || is_product() || is_cart() || is_checkout());
+$kd_on_acc  = function_exists('is_account_page') && is_account_page();
+$kd_on_wish = is_page('wishlist');
+$kd_fx = fn(bool $on) => $on ? 'is-active rounded-2xl bg-[#e4ede6] py-1 font-bold text-accent-dark' : 'py-1 text-heading hover:text-accent';
 $kd_demo_menu = [
     ['خانه', home_url('/'), []],
     ['فروشگاه', $kd_shop, $kd_cat_sub],
@@ -75,11 +79,11 @@ $kd_sticky = 'group-[.is-sticky]/h:fixed group-[.is-sticky]/h:top-0 group-[.is-s
 				</div>
 			</div>
 		</div>
-		<div class="header-mobile-fixed fixed bottom-0 start-0 z-[100] w-full bg-white flex items-center py-1.25 px-3.75 shadow-[0px_1px_12px_2px_rgba(144,144,144,0.3)] [&>*]:flex-1 [&>*]:text-center [&_span.lbl]:block [&_span.lbl]:text-sm [&_span.lbl]:leading-none [&_span.lbl]:mt-0.75">
-			<a href="<?php echo esc_url($kd_shop); ?>" class="text-heading hover:text-accent"><?php echo kidara_icon('grid-2x2', 'text-[20px]'); ?><span class="lbl"><?php esc_html_e('فروشگاه', 'kidara'); ?></span></a>
-			<a href="<?php echo esc_url($kd_account); ?>" class="text-heading hover:text-accent"><?php echo kidara_icon('user', 'text-[20px]'); ?><span class="lbl"><?php esc_html_e('حساب', 'kidara'); ?></span></a>
-			<button type="button" class="bg-transparent border-0 p-0 text-heading hover:text-accent cursor-pointer" data-kd-search-open><?php echo kidara_icon('search', 'text-[20px]'); ?><span class="lbl"><?php esc_html_e('جست‌وجو', 'kidara'); ?></span></button>
-			<a href="<?php echo esc_url($kd_wish); ?>" class="text-heading hover:text-accent"><span class="relative inline-block"><?php echo kidara_icon('heart', 'text-[20px]'); ?><span class="<?php echo $kd_badge; ?> -end-3.75">۰</span></span><span class="lbl"><?php esc_html_e('علاقه‌مندی', 'kidara'); ?></span></a>
+		<div class="header-mobile-fixed fixed bottom-0 start-0 z-[100] w-full bg-white flex items-center gap-1 py-1.25 px-3.75 shadow-[0px_1px_12px_2px_rgba(144,144,144,0.3)] [&>*]:flex-1 [&>*]:text-center [&_span.lbl]:block [&_span.lbl]:text-sm [&_span.lbl]:leading-none [&_span.lbl]:mt-0.75">
+			<a href="<?php echo esc_url($kd_shop); ?>" class="<?php echo $kd_fx($kd_on_shop); ?>"<?php echo $kd_on_shop ? ' aria-current="page"' : ''; ?>><?php echo kidara_icon('grid-2x2', 'text-[20px]'); ?><span class="lbl"><?php esc_html_e('فروشگاه', 'kidara'); ?></span></a>
+			<a href="<?php echo esc_url($kd_account); ?>" class="<?php echo $kd_fx($kd_on_acc); ?>"<?php echo $kd_on_acc ? ' aria-current="page"' : ''; ?>><?php echo kidara_icon('user', 'text-[20px]'); ?><span class="lbl"><?php esc_html_e('حساب', 'kidara'); ?></span></a>
+			<button type="button" class="bg-transparent border-0 p-0 py-1 text-heading hover:text-accent cursor-pointer" data-kd-search-open><?php echo kidara_icon('search', 'text-[20px]'); ?><span class="lbl"><?php esc_html_e('جست‌وجو', 'kidara'); ?></span></button>
+			<a href="<?php echo esc_url($kd_wish); ?>" class="<?php echo $kd_fx($kd_on_wish); ?>"<?php echo $kd_on_wish ? ' aria-current="page"' : ''; ?>><span class="relative inline-block"><?php echo kidara_icon('heart', 'text-[20px]'); ?><span class="<?php echo $kd_badge; ?> -end-3.75">۰</span></span><span class="lbl"><?php esc_html_e('علاقه‌مندی', 'kidara'); ?></span></a>
 		</div>
 	</div>
 

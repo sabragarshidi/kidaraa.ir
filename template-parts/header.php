@@ -154,14 +154,14 @@ $kd_sticky = 'group-[.is-sticky]/h:fixed group-[.is-sticky]/h:top-0 group-[.is-s
 
 <!-- Search overlay -->
 <div id="kd-search" class="fixed inset-0 z-[100001] invisible opacity-0 transition-opacity duration-300 [&.is-open]:visible [&.is-open]:opacity-100" aria-hidden="true">
-	<div class="absolute inset-0 bg-black/50" data-kd-search-close></div>
-	<div class="relative bg-white w-full py-12 shadow-lg">
+	<div class="absolute inset-0 bg-black/30" data-kd-search-close></div>
+	<div class="relative w-full bg-white py-4 shadow-[0_6px_24px_rgba(0,0,0,0.08)]">
 		<div class="container">
-			<button type="button" class="<?php echo $kd_icon_btn; ?> absolute top-4 end-4" data-kd-search-close aria-label="<?php esc_attr_e('بستن', 'kidara'); ?>"><?php echo kidara_icon('x', 'text-[24px]'); ?></button>
-			<form role="search" method="get" action="<?php echo esc_url(home_url('/')); ?>" class="max-w-195 mx-auto flex items-center border-b border-heading">
-				<input type="search" name="s" value="<?php echo esc_attr(get_search_query()); ?>" placeholder="<?php esc_attr_e('جست‌وجوی محصولات…', 'kidara'); ?>" class="flex-1 bg-transparent border-0 outline-0 py-3 text-lg text-heading placeholder:text-muted" data-kd-search-input>
+			<form role="search" method="get" action="<?php echo esc_url(home_url('/')); ?>" class="mx-auto flex max-w-[640px] items-center gap-2 border-b border-border">
+				<span class="text-[19px] text-muted"><?php echo kidara_icon('search', 'text-[19px]'); ?></span>
+				<input type="search" name="s" value="<?php echo esc_attr(get_search_query()); ?>" placeholder="<?php esc_attr_e('جست‌وجوی محصولات', 'kidara'); ?>" class="kd-search-input flex-1 border-0 bg-transparent py-3 text-[15px] text-heading outline-0 placeholder:text-muted" data-kd-search-input>
 				<input type="hidden" name="post_type" value="product">
-				<button type="submit" class="<?php echo $kd_icon_btn; ?>" aria-label="<?php esc_attr_e('جست‌وجو', 'kidara'); ?>"><?php echo kidara_icon('search', 'text-[24px]'); ?></button>
+				<button type="button" class="inline-flex size-8 cursor-pointer items-center justify-center border-0 bg-transparent p-0 text-muted hover:text-heading" data-kd-search-close aria-label="<?php esc_attr_e('بستن', 'kidara'); ?>"><?php echo kidara_icon('x', 'text-[18px]'); ?></button>
 			</form>
 		</div>
 	</div>

@@ -63,3 +63,6 @@
 [dir="rtl"] .kd-icon.kd-dir svg { transform: scaleX(-1); }
 
 .header-mobile-fixed svg{stroke-width:1.6}
+/* search + mobile bar: body font, light weight, no faux-bold */
+#kd-search input, #kd-search button, .header-mobile-fixed, .header-mobile-fixed button, .header-mobile-fixed a, #kd-cats { font-family: var(--font-body); font-weight: 300; }
+#kd-cats a, .header-mobile-fixed .lbl { font-weight: 400; }

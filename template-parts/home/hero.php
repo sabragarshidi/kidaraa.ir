@@ -12,7 +12,7 @@ $slides = [
         'line'    => 'راحتیِ کوچولوها،',
         'mark'    => 'آرامشِ خیال شما',
         'text'    => 'لباس‌های نرم و باکیفیت، برای روزهایی پر از شادی و بازی.',
-        'photo'   => $up . '2024/01/slider-1.jpg',
+        'photo'   => get_theme_file_uri('assets/img/hero-1.webp'),
         'url'     => home_url('/shop/'),
     ],
     [
@@ -20,7 +20,7 @@ $slides = [
         'line'    => 'اولین لباس‌های کوچولو،',
         'mark'    => 'با لطافتی بیشتر',
         'text'    => 'پارچه‌های لطیف و دوخت راحت، برای پوست حساس نوزاد.',
-        'photo'   => $up . '2024/01/slider-2.jpg',
+        'photo'   => get_theme_file_uri('assets/img/hero-2.webp'),
         'url'     => home_url('/product-category/baby/'),
     ],
     [
@@ -28,7 +28,7 @@ $slides = [
         'line'    => 'لباس‌هایی که',
         'mark'    => 'کوچولوها دوستشون دارن',
         'text'    => 'طرح‌های دوست‌داشتنی و رنگ‌های دلنشین، برای لحظه‌های شاد کودکانه.',
-        'photo'   => $up . '2024/01/slider-3.jpg',
+        'photo'   => get_theme_file_uri('assets/img/hero-3.webp'),
         'url'     => home_url('/shop/?product_cat=boys,girls'),
     ],
 ];
@@ -100,7 +100,7 @@ function kd_hero_lv(array $vars): string
                              class="kd-l pointer-events-none absolute -bottom-px left-1/2 z-[7] max-w-none -translate-x-1/2 h-[calc(var(--h)*var(--hu))] w-[calc(var(--w)*var(--hu))]"
                              style="<?= kd_hero_lv(['w' => [1920, 1371, 1371, 1029], 'h' => [280, 200, 200, 150]]) ?>">
                         <!-- arch photo, right anchored (x = right offset, y = bottom offset) -->
-                        <img src="<?= esc_url($s['photo']) ?>" alt="کودک با لباس کیدارا" width="498" height="732"
+                        <img src="<?= esc_url($s['photo']) ?>" alt="کودک با لباس کیدارا" width="996" height="1494"
                              class="kd-l absolute z-[6] max-w-none rounded-t-[249px] border-5 border-white object-cover end-[calc(var(--x)*var(--hu))] bottom-[calc(var(--y)*var(--hu))] h-[calc(var(--h)*var(--hu))] w-[calc(var(--w)*var(--hu))]"
                              style="<?= kd_hero_lv(['x' => [280, 30, 30, 90], 'y' => [0, 0, 0, -90], 'w' => [498, 350, 330, 300], 'h' => [732, 514, 485, 441]]) ?>">
                         <!-- text group -->

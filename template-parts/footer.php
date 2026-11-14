@@ -33,5 +33,12 @@ $kd_socials = ['tiktok' => 'تیک‌تاک', 'x-twitter' => 'ایکس', 'facebo
 		</form>
 
 		<div class="text-heading">© <?php echo esc_html(kidara_jdate(null, 'Y')); ?> <strong class="text-black">کیدارا</strong>. تمامی حقوق محفوظ است.</div>
+
+		<?php /* نماد اعتماد الکترونیکی (اینماد): کد رسمی؛ referrerpolicy=origin برای تأیید دامنه الزامی است */ ?>
+		<div class="mt-6 flex justify-center">
+			<a referrerpolicy="origin" target="_blank" rel="noopener" href="https://trustseal.enamad.ir/?id=8265347&amp;Code=BZsNzsmezxjWBjphZ4rhbMNnmgDJ1DNZ">
+				<img referrerpolicy="origin" src="https://trustseal.enamad.ir/logo.aspx?id=8265347&amp;Code=BZsNzsmezxjWBjphZ4rhbMNnmgDJ1DNZ" alt="نماد اعتماد الکترونیکی" width="90" height="90" class="block h-auto w-[90px] cursor-pointer" loading="lazy" code="BZsNzsmezxjWBjphZ4rhbMNnmgDJ1DNZ">
+			</a>
+		</div>
 	</div>
 </footer>

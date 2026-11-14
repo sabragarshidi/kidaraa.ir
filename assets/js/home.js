@@ -21,15 +21,15 @@
             });
         });
 
-        // Outfits: two slides visible at all widths (demo: columns=2).
+        // Outfits: small cards, 2.3 / 3 / 4 per view.
         document.querySelectorAll('[data-outfits-slider]').forEach(function (el) {
             new Swiper(el.querySelector('.swiper'), {
-                slidesPerView: 2,
-                spaceBetween: 30,
+                slidesPerView: 4,
+                spaceBetween: 20,
                 loop: true,
                 grabCursor: true,
                 navigation: { prevEl: el.querySelector('.js-outfits-prev'), nextEl: el.querySelector('.js-outfits-next') },
-                breakpoints: { 0: { slidesPerView: 1.45, spaceBetween: 15 }, 768: { slidesPerView: 2, spaceBetween: 15 }, 1200: { spaceBetween: 30 } },
+                breakpoints: { 0: { slidesPerView: 2.3, spaceBetween: 12 }, 768: { slidesPerView: 3, spaceBetween: 16 }, 1200: { slidesPerView: 4, spaceBetween: 20 } },
             });
         });
 

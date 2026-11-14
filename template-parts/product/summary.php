@@ -70,7 +70,6 @@ $rating_count = $product->get_rating_count();
         <?php foreach ([
             ['truck', 'ارسال به سراسر کشور، تحویل ۳ تا ۷ روز کاری پس از ثبت سفارش'],
             ['shield-check', 'پرداخت امن از طریق درگاه بانکی'],
-            ['package', 'ارسال رایگان برای سفارش‌های بالای ' . kidara_money(1000000)],
         ] as [$ic, $tx]) : ?>
             <li class="flex items-center gap-3"><span class="inline-flex size-9 shrink-0 items-center justify-center rounded-full bg-white text-accent-dark"><?= kidara_icon($ic, 'text-[18px]') ?></span><span><?= esc_html($tx) ?></span></li>
         <?php endforeach; ?>

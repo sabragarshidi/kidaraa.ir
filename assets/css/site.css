@@ -61,3 +61,5 @@
 
 /* RTL: directional icons (chevrons/arrows) mirror automatically */
 [dir="rtl"] .kd-icon.kd-dir svg { transform: scaleX(-1); }
+
+.header-mobile-fixed svg{stroke-width:1.6}

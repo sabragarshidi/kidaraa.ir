@@ -13,10 +13,11 @@ if (function_exists('kidara_shop_cats')) {
         if (!is_wp_error($kd_link)) $kd_cat_sub[] = [$kd_t->name, $kd_link];
     }
 }
-$kd_on_shop = function_exists('is_shop') && (is_shop() || is_product_category() || is_product() || is_cart() || is_checkout());
+$kd_on_shop = function_exists('is_shop') && (is_shop() || is_product_category() || is_product());
 $kd_on_acc  = function_exists('is_account_page') && is_account_page();
+$kd_on_cart = function_exists('is_cart') && (is_cart() || is_checkout());
 $kd_on_wish = is_page('wishlist');
-$kd_fx = fn(bool $on) => $on ? 'is-active rounded-2xl bg-[#e4ede6] py-1 font-bold text-accent-dark' : 'py-1 text-heading hover:text-accent';
+$kd_fx = fn(bool $on) => $on ? 'is-active rounded-2xl bg-[#e4ede6] py-1 text-accent-dark' : 'py-1 text-heading hover:text-accent';
 $kd_demo_menu = [
     ['خانه', home_url('/'), []],
     ['فروشگاه', $kd_shop, $kd_cat_sub],
@@ -79,11 +80,24 @@ $kd_sticky = 'group-[.is-sticky]/h:fixed group-[.is-sticky]/h:top-0 group-[.is-s
 				</div>
 			</div>
 		</div>
-		<div class="header-mobile-fixed fixed bottom-0 start-0 z-[100] w-full bg-white flex items-center gap-1 py-1.25 px-3.75 shadow-[0px_1px_12px_2px_rgba(144,144,144,0.3)] [&>*]:flex-1 [&>*]:text-center [&_span.lbl]:block [&_span.lbl]:text-sm [&_span.lbl]:leading-none [&_span.lbl]:mt-0.75">
-			<a href="<?php echo esc_url($kd_shop); ?>" class="<?php echo $kd_fx($kd_on_shop); ?>"<?php echo $kd_on_shop ? ' aria-current="page"' : ''; ?>><?php echo kidara_icon('grid-2x2', 'text-[20px]'); ?><span class="lbl"><?php esc_html_e('فروشگاه', 'kidara'); ?></span></a>
-			<a href="<?php echo esc_url($kd_account); ?>" class="<?php echo $kd_fx($kd_on_acc); ?>"<?php echo $kd_on_acc ? ' aria-current="page"' : ''; ?>><?php echo kidara_icon('user', 'text-[20px]'); ?><span class="lbl"><?php esc_html_e('حساب', 'kidara'); ?></span></a>
-			<button type="button" class="bg-transparent border-0 p-0 py-1 text-heading hover:text-accent cursor-pointer" data-kd-search-open><?php echo kidara_icon('search', 'text-[20px]'); ?><span class="lbl"><?php esc_html_e('جست‌وجو', 'kidara'); ?></span></button>
-			<a href="<?php echo esc_url($kd_wish); ?>" class="<?php echo $kd_fx($kd_on_wish); ?>"<?php echo $kd_on_wish ? ' aria-current="page"' : ''; ?>><span class="relative inline-block"><?php echo kidara_icon('heart', 'text-[20px]'); ?><span class="<?php echo $kd_badge; ?> -end-3.75">۰</span></span><span class="lbl"><?php esc_html_e('علاقه‌مندی', 'kidara'); ?></span></a>
+		<div class="header-mobile-fixed fixed bottom-0 start-0 z-[100] flex w-full items-center bg-white px-2 py-1 shadow-[0px_-1px_10px_rgba(0,0,0,0.06)] [&>*]:flex-1 [&>*]:text-center [&_span.lbl]:mt-0.5 [&_span.lbl]:block [&_span.lbl]:text-[11px] [&_span.lbl]:leading-none">
+			<a href="<?php echo esc_url($kd_shop); ?>" class="<?php echo $kd_fx($kd_on_shop); ?>"><?php echo kidara_icon('store', 'text-[21px]'); ?><span class="lbl"><?php esc_html_e('فروشگاه', 'kidara'); ?></span></a>
+			<button type="button" class="<?php echo $kd_fx(false); ?> cursor-pointer border-0 bg-transparent" data-kd-cats-open aria-controls="kd-cats"><?php echo kidara_icon('layout-grid', 'text-[21px]'); ?><span class="lbl"><?php esc_html_e('دسته‌ها', 'kidara'); ?></span></button>
+			<button type="button" class="<?php echo $kd_fx(false); ?> cursor-pointer border-0 bg-transparent" data-kd-search-open><?php echo kidara_icon('search', 'text-[21px]'); ?><span class="lbl"><?php esc_html_e('جست‌وجو', 'kidara'); ?></span></button>
+			<a href="<?php echo esc_url($kd_cart); ?>" class="<?php echo $kd_fx($kd_on_cart); ?>"><?php echo kidara_icon('shopping-bag', 'text-[21px]'); ?><span class="lbl"><?php esc_html_e('سبد', 'kidara'); ?></span></a>
+			<a href="<?php echo esc_url($kd_account); ?>" class="<?php echo $kd_fx($kd_on_acc); ?>"><?php echo kidara_icon('user', 'text-[21px]'); ?><span class="lbl"><?php esc_html_e('حساب', 'kidara'); ?></span></a>
+		</div>
+		<div id="kd-cats" class="fixed inset-0 z-[99] invisible min-[1200px]:hidden [&.is-open]:visible" aria-hidden="true">
+			<div class="absolute inset-0 bg-black/30 opacity-0 transition-opacity duration-200 [#kd-cats.is-open_&]:opacity-100" data-kd-cats-close></div>
+			<div class="absolute inset-x-3 bottom-16 translate-y-3 rounded-2xl bg-white p-4 opacity-0 shadow-[0_8px_30px_rgba(0,0,0,0.12)] transition-all duration-200 [#kd-cats.is-open_&]:translate-y-0 [#kd-cats.is-open_&]:opacity-100">
+				<div class="mb-2 text-sm text-muted">دسته‌بندی‌ها</div>
+				<ul class="m-0 flex list-none flex-wrap gap-2 p-0">
+					<li><a href="<?php echo esc_url($kd_shop); ?>" class="inline-block rounded-full border border-border px-4 py-1.5 text-sm text-heading">همه</a></li>
+					<?php foreach ($kd_cat_sub as $kd_c) : ?>
+						<li><a href="<?php echo esc_url($kd_c[1]); ?>" class="inline-block rounded-full border border-border px-4 py-1.5 text-sm text-heading"><?php echo esc_html($kd_c[0]); ?></a></li>
+					<?php endforeach; ?>
+				</ul>
+			</div>
 		</div>
 	</div>
 

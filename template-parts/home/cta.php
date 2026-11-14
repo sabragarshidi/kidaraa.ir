@@ -1,10 +1,15 @@
 <?php
 /** Closing banner: sends visitors to the shop. */
+$up = 'https://buny.wpbingosite.com/wp-content/uploads/';
 ?>
 <section class="container mt-25 mb-24">
     <div class="relative isolate overflow-hidden rounded-[32px] bg-accent text-white max-[767px]:pt-12 min-[768px]:flex min-[768px]:min-h-[340px] min-[768px]:items-center">
         <span class="pointer-events-none absolute -start-16 -top-20 -z-10 size-72 rounded-full bg-white/10" aria-hidden="true"></span>
         <span class="pointer-events-none absolute -bottom-24 end-1/3 -z-10 size-56 rounded-full bg-[#f3dfe3]/20" aria-hidden="true"></span>
+        <!-- hero decor reused: balloon, dragonfly, feather -->
+        <img src="<?= esc_url($up . '2020/06/balloon.png') ?>" alt="" width="75" height="71" class="pointer-events-none absolute end-[30%] top-8 z-[1] h-auto w-12 max-w-none min-[1025px]:w-[75px] max-[767px]:end-6 max-[767px]:top-auto max-[767px]:bottom-40" loading="lazy">
+        <img src="<?= esc_url($up . '2020/06/dragonfly.png') ?>" alt="" width="29" height="34" class="pointer-events-none absolute bottom-14 end-[38%] z-[1] h-auto w-6 max-w-none max-[767px]:hidden min-[1025px]:w-[29px]" loading="lazy">
+        <img src="<?= esc_url($up . '2023/11/leaves.png') ?>" alt="" width="39" height="87" class="pointer-events-none absolute end-[7%] top-1/3 z-[1] h-auto w-7 max-w-none max-[767px]:hidden min-[1025px]:w-[39px]" loading="lazy">
         <div class="@container w-full px-8 min-[768px]:w-[58%] min-[768px]:px-14 min-[1025px]:px-20">
             <h2 class="m-0 whitespace-nowrap text-[min(42px,calc(100cqw/12.5))] leading-normal text-white">لباس کوچولوها، یک‌جا</h2>
             <p class="mb-8 mt-3 max-w-[440px] text-base leading-8 text-white/85">نوزاد، پسرانه و دخترانه؛ همه را ببینید و بهترین را برای کوچولوی‌تان انتخاب کنید.</p>

@@ -1,16 +1,14 @@
 <?php
-/** Closing banner: watercolor clothesline garland on brand green, short pitch + shop button. */
+/** Compact closing banner: text + shop button, watercolor garland tucked in the corner. */
 ?>
 <section class="container mt-25 mb-24">
-    <div class="relative isolate overflow-hidden rounded-[32px] bg-accent pb-12 pt-6 text-center text-white min-[768px]:pb-14">
-        <span class="pointer-events-none absolute -start-16 -top-20 -z-10 size-72 rounded-full bg-white/10" aria-hidden="true"></span>
-        <span class="pointer-events-none absolute -bottom-24 end-1/4 -z-10 size-56 rounded-full bg-white/10" aria-hidden="true"></span>
-        <img src="<?= esc_url(get_theme_file_uri('assets/img/cta-garland.webp')) ?>" alt="" width="1332" height="750" loading="lazy"
-             class="block aspect-[4/3] w-full object-cover object-top [mask-image:linear-gradient(to_bottom,#000_82%,transparent)] min-[768px]:aspect-[2.4/1]">
-        <div class="@container mx-auto mt-2 px-6 min-[768px]:mt-4">
-            <h2 class="m-0 whitespace-nowrap text-[min(42px,calc(100cqw/12.5))] leading-normal text-white">لباس کوچولوها، یک‌جا</h2>
-            <p class="mx-auto mb-7 mt-2 max-w-[460px] text-base leading-8 text-white/85">نوزاد، پسرانه و دخترانه؛ همه را ببینید و بهترین را برای کوچولوی‌تان انتخاب کنید.</p>
-            <a href="<?= esc_url(home_url('/shop/')) ?>" class="inline-flex items-center gap-2.5 rounded-btn bg-white px-9 text-sm font-bold leading-[50px] text-accent-dark transition-colors duration-200 hover:bg-[#f3dfe3]">رفتن به فروشگاه <?php kidara_icon_e('arrow-left', 'kd-dir'); ?></a>
+    <div class="relative isolate overflow-hidden rounded-[28px] bg-accent text-white min-[768px]:flex min-[768px]:h-[260px] min-[768px]:items-center">
+        <div class="@container relative z-[1] px-7 py-9 min-[768px]:w-[56%] min-[768px]:px-12 min-[768px]:py-0">
+            <h2 class="m-0 whitespace-nowrap text-[min(34px,calc(100cqw/12.5))] leading-normal text-white">لباس کوچولوها، یک‌جا</h2>
+            <p class="mb-6 mt-1.5 max-w-[400px] text-sm leading-7 text-white/85">نوزاد، پسرانه و دخترانه؛ همه را ببینید و بهترین را برای کوچولوی‌تان انتخاب کنید.</p>
+            <a href="<?= esc_url(home_url('/shop/')) ?>" class="inline-flex items-center gap-2 rounded-btn bg-white px-7 text-sm font-bold leading-[44px] text-accent-dark transition-colors duration-200 hover:bg-[#f3dfe3]">رفتن به فروشگاه <?php kidara_icon_e('arrow-left', 'kd-dir'); ?></a>
         </div>
+        <img src="<?= esc_url(get_theme_file_uri('assets/img/cta-garland.webp')) ?>" alt="" width="1332" height="750" loading="lazy"
+             class="pointer-events-none block h-[130px] w-full object-cover object-top max-[767px]:[mask-image:linear-gradient(to_bottom,#000_70%,transparent)] min-[768px]:absolute min-[768px]:end-0 min-[768px]:top-3 min-[768px]:h-[236px] min-[768px]:w-[46%] min-[768px]:object-left min-[768px]:[mask-image:linear-gradient(to_left,#000_92%,transparent)] rtl:min-[768px]:[mask-image:linear-gradient(to_right,#000_92%,transparent)]">
     </div>
 </section>

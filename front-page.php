@@ -2,7 +2,7 @@
 <main id="main">
     <?php
     // One partial per section-manifest entry, in manifest order (extracted/buny-home.manifest.md).
-    foreach (['hero', 'recommended', 'outfits', 'tabs-products', 'blog'] as $part) {
+    foreach (['hero', 'categories', 'recommended', 'outfits', 'tabs-products', 'blog', 'cta'] as $part) {
         get_template_part('template-parts/home/' . $part);
     }
     ?>

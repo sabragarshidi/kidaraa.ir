@@ -3,7 +3,16 @@
  * Manifest #3: "Baby Outfits & Sets" — two-up photo slider + text block.
  */
 $up = 'https://buny.wpbingosite.com/wp-content/uploads/';
-$images = [$up . '2023/11/banner-2.jpg', $up . '2023/11/banner-1.jpg', $up . '2023/11/banner-2.jpg', $up . '2023/11/banner-1.jpg'];
+// Slides = real products of the "baby" category (image, name, price).
+$kd_items = [];
+if (function_exists('wc_get_products')) {
+    foreach (wc_get_products(['category' => ['baby'], 'status' => 'publish', 'limit' => 8, 'orderby' => 'date', 'order' => 'DESC']) as $kd_prod) {
+        $kd_img = wp_get_attachment_image_url($kd_prod->get_image_id(), 'woocommerce_single');
+        if (!$kd_img) continue;
+        $kd_items[] = ['url' => get_permalink($kd_prod->get_id()), 'img' => $kd_img, 'name' => $kd_prod->get_name(), 'price' => kidara_card_args($kd_prod)['price'] ?? '', 'regular' => kidara_card_args($kd_prod)['regular_price'] ?? ''];
+    }
+}
+if (!$kd_items) { return; }
 ?>
 <section class="container relative">
 <div class="-mx-3.75 flex flex-col items-stretch min-[768px]:flex-row">
@@ -11,9 +20,16 @@ $images = [$up . '2023/11/banner-2.jpg', $up . '2023/11/banner-1.jpg', $up . '20
     <div class="relative z-[1] w-full min-w-0 px-3.75 min-[768px]:w-[66%]" data-outfits-slider>
         <div class="swiper !overflow-hidden" dir="rtl">
             <div class="swiper-wrapper">
-                <?php foreach ($images as $src) : ?>
+                <?php foreach ($kd_items as $it) : ?>
                     <div class="swiper-slide">
-                        <a href="<?= esc_url(home_url('/shop/')) ?>" class="block"><?= kidara_img($src, 'ست‌های نوزادی کیدارا', 'block aspect-[436/610] w-full object-cover') ?></a>
+                        <a href="<?= esc_url($it['url']) ?>" class="group block">
+                            <span class="block overflow-hidden bg-bg-light"><?= kidara_img($it['img'], $it['name'], 'block aspect-[436/610] w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]') ?></span>
+                            <span class="mt-3 block truncate text-base text-heading"><?= esc_html($it['name']) ?></span>
+                            <span class="mt-1 flex items-center gap-2 text-sm font-bold text-accent">
+                                <?php if ($it['regular']) : ?><del class="font-normal text-muted"><?= esc_html($it['regular']) ?></del><?php endif; ?>
+                                <?= esc_html($it['price']) ?>
+                            </span>
+                        </a>
                     </div>
                 <?php endforeach; ?>
             </div>

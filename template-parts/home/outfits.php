@@ -13,6 +13,8 @@ if (function_exists('wc_get_products')) {
     }
 }
 if (!$kd_items) { return; }
+$kd_baby_url = taxonomy_exists('product_cat') ? get_term_link('baby', 'product_cat') : '';
+if (!$kd_baby_url || is_wp_error($kd_baby_url)) { $kd_baby_url = home_url('/shop/'); }
 ?>
 <section class="container relative">
 <div class="-mx-3.75 flex flex-col items-stretch min-[768px]:flex-row">
@@ -38,12 +40,15 @@ if (!$kd_items) { return; }
             <button type="button" class="js-outfits-prev text-[22px] text-heading transition-colors hover:text-accent" aria-label="قبلی"><?php kidara_icon_e('arrow-left', 'kd-dir'); ?></button>
             <button type="button" class="js-outfits-next text-[22px] text-heading transition-colors hover:text-accent" aria-label="بعدی"><?php kidara_icon_e('arrow-right', 'kd-dir'); ?></button>
         </div>
+        <div class="mt-6 text-center min-[768px]:hidden">
+            <a href="<?= esc_url($kd_baby_url) ?>" class="inline-block rounded-btn bg-accent px-13.75 text-sm font-bold leading-[50px] text-white transition-colors duration-200 hover:bg-accent-dark">مشاهده بیشتر</a>
+        </div>
     </div>
     <div class="flex w-full flex-col justify-center px-3.75 order-first max-[767px]:mb-6 min-[768px]:w-[34%]">
         <div class="@container relative isolate pe-0 min-[1200px]:pe-10">
             <h2 class="relative m-0 whitespace-nowrap text-start text-[min(40px,calc(100cqw/11.8))] leading-normal text-[#000022] max-[767px]:text-[25px]">لباس و ست‌های نوزادی</h2>
-            <p class="mb-8.75 mt-5 max-w-[394px] text-sm leading-[1.9]">نوزادتان را با لباس‌ها و ست‌های دوست‌داشتنی ما بپوشانید؛ دوخته‌شده از پارچه‌های نرم برای بیشترین راحتی و زیبایی. از سرهمی‌های دل‌چسب تا ست‌های دوتکهٔ ناز، هر لباس طوری طراحی شده که کوچولوی شما گرم و دوست‌داشتنی بماند.</p>
-            <a href="<?= esc_url(home_url('/shop/')) ?>" class="inline-block rounded-btn bg-accent px-13.75 text-sm font-bold leading-[50px] text-white transition-colors duration-200 hover:bg-accent-dark">همین حالا بخرید</a>
+            <p class="mb-8.75 mt-5 max-w-[394px] text-sm leading-[1.9] max-[767px]:hidden">نوزادتان را با لباس‌ها و ست‌های دوست‌داشتنی ما بپوشانید؛ دوخته‌شده از پارچه‌های نرم برای بیشترین راحتی و زیبایی. از سرهمی‌های دل‌چسب تا ست‌های دوتکهٔ ناز، هر لباس طوری طراحی شده که کوچولوی شما گرم و دوست‌داشتنی بماند.</p>
+            <a href="<?= esc_url($kd_baby_url) ?>" class="inline-block rounded-btn bg-accent px-13.75 text-sm font-bold leading-[50px] text-white transition-colors duration-200 hover:bg-accent-dark max-[767px]:hidden">مشاهده بیشتر</a>
         </div>
     </div>
 </div>

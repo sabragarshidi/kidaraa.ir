@@ -18,6 +18,7 @@
                 loop: slides > 2,
                 autoplay: { delay: 9000, disableOnInteraction: false },
                 allowTouchMove: slides > 1,
+                pagination: { el: el.querySelector('.kd-dots'), clickable: true },
             });
         });
 

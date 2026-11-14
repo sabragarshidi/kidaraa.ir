@@ -215,3 +215,10 @@
 .kd-wc input[name=username] { direction:ltr; text-align:start; }
 .kd-wc input[type=email]:placeholder-shown, .kd-wc input[type=tel]:placeholder-shown, .kd-wc input#billing_postcode:placeholder-shown,
 .kd-wc input[name=username]:placeholder-shown { direction:rtl; }
+
+/* Cart: update button beside proceed-to-checkout */
+.kd-wc .woocommerce-cart-form td.actions { display:none; }
+.kd-wc .wc-proceed-to-checkout { display:flex; gap:10px; align-items:stretch; }
+.kd-wc .wc-proceed-to-checkout .button { width:auto; flex:1; margin:0; }
+.kd-wc .wc-proceed-to-checkout .kd-update-proxy { flex:0 0 auto; background:#fff; color:var(--color-accent-dark); border:1px solid var(--color-accent); cursor:pointer; }
+.kd-wc .wc-proceed-to-checkout .kd-update-proxy:hover { background:var(--color-accent); color:#fff!important; }

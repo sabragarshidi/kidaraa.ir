@@ -194,3 +194,8 @@ add_filter('woocommerce_add_to_cart_fragments', function ($f) {
 add_filter('woocommerce_coupons_enabled', function ($on) {
     return (function_exists('is_cart') && is_cart()) ? false : $on;
 });
+
+// "Update cart" sits beside "Proceed to checkout"; it proxies the real (hidden) button.
+add_action('woocommerce_proceed_to_checkout', function () {
+    echo '<button type="button" class="button kd-update-proxy" data-kd-update-cart>به‌روزرسانی سبد</button>';
+}, 5);

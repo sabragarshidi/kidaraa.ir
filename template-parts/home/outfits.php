@@ -21,12 +21,13 @@ if (!$kd_items) { return; }
             <div class="swiper-wrapper">
                 <?php foreach ($kd_items as $it) : ?>
                     <div class="swiper-slide">
-                        <a href="<?= esc_url($it['url']) ?>" class="group block">
-                            <span class="block overflow-hidden bg-bg-light"><?= kidara_img($it['img'], $it['name'], 'block aspect-[436/610] w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]') ?></span>
-                            <span class="mt-2.5 block truncate text-sm text-heading"><?= esc_html($it['name']) ?></span>
-                            <span class="mt-0.5 flex items-center gap-2 whitespace-nowrap text-xs font-bold text-accent">
-                                <?php if ($it['regular']) : ?><del class="font-normal text-muted max-[767px]:hidden"><?= esc_html($it['regular']) ?></del><?php endif; ?>
-                                <?= esc_html($it['price']) ?>
+                        <a href="<?= esc_url($it['url']) ?>" class="group relative block overflow-hidden rounded-2xl border border-border bg-bg-light">
+                            <?= kidara_img($it['img'], $it['name'], 'block aspect-[436/610] w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]') ?>
+                            <span class="absolute inset-x-2.5 bottom-2.5 rounded-xl bg-white/90 px-3 py-2.5 text-center backdrop-blur-sm">
+                                <span class="block truncate text-sm font-bold text-heading"><?= esc_html($it['name']) ?></span>
+                                <span class="mt-1 flex items-center justify-center gap-2 whitespace-nowrap text-sm font-bold text-accent">
+                                    <?= esc_html($it['price']) ?>
+                                </span>
                             </span>
                         </a>
                     </div>

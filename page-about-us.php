@@ -66,6 +66,5 @@ $perks = [
     </section>
 
     <?php get_template_part('template-parts/home/blog'); ?>
-    <?php get_template_part('template-parts/home/brands'); ?>
 </main>
 <?php get_footer();

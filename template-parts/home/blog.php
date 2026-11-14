@@ -14,6 +14,7 @@ foreach (get_posts(['numberposts' => 3, 'post_status' => 'publish', 'ignore_stic
         'excerpt' => wp_trim_words(get_the_excerpt($kd_post) ?: wp_strip_all_tags($kd_post->post_content), 20, '…'),
     ];
 }
+if (!$posts) { return; } // no published posts → hide the whole section
 ?>
 <section class="container mt-25 mb-24">
     <div class="-mx-3.75 flex flex-col min-[1025px]:flex-row">

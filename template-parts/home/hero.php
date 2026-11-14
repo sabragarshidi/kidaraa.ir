@@ -47,7 +47,7 @@ function kd_hero_lv(array $vars): string
 } }
 ?>
 <style>
-    .kd-hero { --hu: min(1px, calc(100vw / 480)); --gw3: 480; --gh3: 740; --gw: var(--gw3); --gh: var(--gh3) }
+    .kd-hero { --hu: min(1px, calc(100vw / 480)); --gw3: 480; --gh3: 720; --gw: var(--gw3); --gh: var(--gh3) }
     .kd-hero .kd-l { --x: var(--x3); --y: var(--y3); --w: var(--w3); --h: var(--h3); --fs: var(--fs3); --lh: var(--lh3); --px: var(--px3) }
     @media (min-width: 480px) {
         .kd-hero { --hu: min(1px, calc(100vw / 778)); --gw: 778; --gh: 550 }
@@ -91,6 +91,7 @@ function kd_hero_lv(array $vars): string
     .kd-hero .kd-dots { position:absolute; inset-inline:0; bottom:calc(30*var(--hu)); z-index:20; display:flex; justify-content:center; gap:8px; }
     .kd-hero .kd-dots .swiper-pagination-bullet { width:9px; height:9px; margin:0 !important; border-radius:999px; background:var(--color-accent); opacity:.28; transition:width .25s, opacity .25s; }
     .kd-hero .kd-dots .swiper-pagination-bullet-active { width:26px; opacity:1; }
+    @media (max-width: 479px) { .kd-hero { --ts: 27; } .kd-hero .kd-title { line-height:1.65; } .kd-hero .kd-title .kd-mark { white-space:nowrap; } }
 </style>
 <section class="kd-hero relative overflow-hidden bg-[#f6f6f6]" data-hero-slider>
     <div class="swiper" dir="rtl">
@@ -105,10 +106,10 @@ function kd_hero_lv(array $vars): string
                         <!-- arch photo, right anchored (x = right offset, y = bottom offset) -->
                         <img src="<?= esc_url($s['photo']) ?>" alt="کودک با لباس کیدارا" width="996" height="1494"
                              class="kd-l absolute z-[6] max-w-none rounded-t-[249px] border-5 border-white object-cover end-[calc(var(--x)*var(--hu))] bottom-[calc(var(--y)*var(--hu))] h-[calc(var(--h)*var(--hu))] w-[calc(var(--w)*var(--hu))]"
-                             style="<?= kd_hero_lv(['x' => [280, 30, 30, 115], 'y' => [0, 0, 0, 292], 'w' => [498, 350, 330, 250], 'h' => [732, 514, 485, 368]]) ?>">
+                             style="<?= kd_hero_lv(['x' => [280, 30, 30, 132], 'y' => [0, 0, 0, 290], 'w' => [498, 350, 330, 216], 'h' => [732, 514, 485, 318]]) ?>">
                         <!-- text group -->
                         <div class="kd-l kd-txt absolute z-[8] start-[calc(var(--x)*var(--hu))] top-[calc(var(--y)*var(--hu))] h-[calc(var(--h)*var(--hu))] w-[calc(var(--w)*var(--hu))]"
-                             style="<?= kd_hero_lv(['x' => [300, 50, 30, 90], 'y' => [170, 142, 137, 466], 'w' => [780, 560, 340, 300], 'h' => [460, 400, 300, 220]]) ?>">
+                             style="<?= kd_hero_lv(['x' => [300, 50, 30, 70], 'y' => [170, 142, 137, 452], 'w' => [780, 560, 340, 340], 'h' => [460, 400, 300, 220]]) ?>">
                             <span class="kd-eyebrow"><?= esc_html($s['eyebrow']) ?></span>
                             <h2 class="kd-title"><?= esc_html($s['line']) ?><br><span class="kd-mark"><?= esc_html($s['mark']) ?></span></h2>
                             <p class="kd-lead"><?= esc_html($s['text']) ?></p>

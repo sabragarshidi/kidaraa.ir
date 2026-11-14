@@ -15,7 +15,7 @@ if (taxonomy_exists('product_cat')) {
 if (count($kd_cats) < 1) { return; }
 ?>
 <section class="container mt-25">
-    <?php get_template_part('template-parts/section-title', null, ['title' => 'دسته‌بندی‌ها', 'subtitle' => 'از میان دسته‌ها، لباس دلخواه کوچولوی‌تان را پیدا کنید']); ?>
+    <?php get_template_part('template-parts/section-title', null, ['title' => 'دسته‌بندی‌ها', 'subtitle' => 'از میان دسته‌ها، لباس دلخواه کوچولوی‌تان را پیدا کنید', 'sub_class' => 'max-[767px]:whitespace-nowrap max-[767px]:text-[13px]']); ?>
     <div class="mt-12 flex justify-center gap-4 min-[768px]:gap-12">
         <?php foreach ($kd_cats as $c) : ?>
             <a href="<?= esc_url($c['url']) ?>" class="group block w-1/4 max-w-[190px] text-center">

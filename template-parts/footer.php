@@ -5,7 +5,7 @@ $kd_up = 'https://buny.wpbingosite.com/wp-content/uploads/2020/06/';
 $kd_socials = ['tiktok' => 'تیک‌تاک', 'x-twitter' => 'ایکس', 'facebook' => 'فیسبوک', 'behance' => 'بیهنس'];
 ?>
 <footer id="bwp-footer" class="bwp-footer footer-1 relative overflow-hidden border-b border-b-[#0000001a] bg-[url(https://buny.wpbingosite.com/wp-content/uploads/2020/06/footer-1.png)] bg-center bg-no-repeat bg-cover">
-	<img src="<?php echo esc_url($kd_up . 'teddy-2.png'); ?>" alt="" width="92" height="166" loading="lazy" class="absolute bottom-0 start-0 max-md:hidden">
+	<img src="<?php echo esc_url($kd_up . 'teddy-2.png'); ?>" alt="" width="92" height="166" loading="lazy" class="absolute bottom-0 end-0 max-md:hidden">
 	<img src="<?php echo esc_url($kd_up . 'balloon.png'); ?>" alt="" width="75" height="71" loading="lazy" class="absolute bottom-[40%] start-[10%] max-md:hidden">
 	<img src="<?php echo esc_url($kd_up . 'leaves-2.png'); ?>" alt="" width="48" height="77" loading="lazy" class="absolute bottom-[53%] end-[18%] max-md:hidden">
 	<img src="<?php echo esc_url($kd_up . 'dragonfly.png'); ?>" alt="" width="29" height="34" loading="lazy" class="absolute bottom-[15%] end-[15%] max-md:hidden">

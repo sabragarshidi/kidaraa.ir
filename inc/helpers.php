@@ -212,10 +212,10 @@ function kidara_home_products(int $limit, array $args = []): array
     $base = ['status' => 'publish', 'visibility' => 'catalog', 'limit' => $limit, 'orderby' => 'date', 'order' => 'DESC'];
     if (!empty($args['featured'])) {
         unset($args['featured']);
-        $featured = wc_get_products($base + $args + ['featured' => true]);
+        $featured = wc_get_products($args + $base + ['featured' => true]);
         if ($featured) {
             return $featured;
         }
     }
-    return wc_get_products($base + $args);
+    return wc_get_products($args + $base);
 }

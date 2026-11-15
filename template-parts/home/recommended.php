@@ -1,9 +1,19 @@
 <?php
-// Manifest #1 (title) + #2 (product slider): featured products, else the newest ones.
-$products = array_filter(array_map('kidara_card_args', kidara_home_products(10, ['featured' => true])));
+// Manifest #1 (title) + #2 (product slider): best sellers (total_sales), ties broken by newest.
+$kd_ids = (new WP_Query([
+    'post_type'      => 'product',
+    'post_status'    => 'publish',
+    'posts_per_page' => 10,
+    'fields'         => 'ids',
+    'no_found_rows'  => true,
+    'tax_query'      => [['taxonomy' => 'product_visibility', 'field' => 'name', 'terms' => ['exclude-from-catalog'], 'operator' => 'NOT IN']],
+    'meta_query'     => ['relation' => 'OR', 'kd_sales' => ['key' => 'total_sales', 'type' => 'NUMERIC'], 'kd_nosales' => ['key' => 'total_sales', 'compare' => 'NOT EXISTS']],
+    'orderby'        => ['kd_sales' => 'DESC', 'date' => 'DESC'],
+]))->posts;
+$products = array_filter(array_map('kidara_card_args', $kd_ids));
 ?>
 <section class="container mt-25">
-    <?php get_template_part('template-parts/section-title', null, ['title' => 'پیشنهاد ویژه برای شما', 'subtitle' => 'شیک، راحت و مطابق مد روز']); ?>
+    <?php get_template_part('template-parts/section-title', null, ['title' => 'پرفروش‌ترین‌ها', 'subtitle' => 'شیک، راحت و مطابق مد روز']); ?>
 </section>
 <section class="container mt-10 mb-16.25">
     <div class="group/slider relative -mx-3.75" data-product-slider>

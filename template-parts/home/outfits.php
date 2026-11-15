@@ -3,18 +3,17 @@
  * Manifest #3: "Baby Outfits & Sets" — two-up photo slider + text block.
  */
 $up = 'https://buny.wpbingosite.com/wp-content/uploads/';
-// Slides = real products of the "baby" category (image, name, price).
+// Slides = newest real products (image, name, price).
 $kd_items = [];
 if (function_exists('wc_get_products')) {
-    foreach (wc_get_products(['category' => ['baby'], 'status' => 'publish', 'limit' => 8, 'orderby' => 'date', 'order' => 'DESC']) as $kd_prod) {
+    foreach (kidara_home_products(8) as $kd_prod) {
         $kd_img = wp_get_attachment_image_url($kd_prod->get_image_id(), 'woocommerce_single');
         if (!$kd_img) continue;
         $kd_items[] = ['url' => get_permalink($kd_prod->get_id()), 'img' => $kd_img, 'name' => $kd_prod->get_name(), 'price' => kidara_card_args($kd_prod)['price'] ?? '', 'regular' => kidara_card_args($kd_prod)['regular_price'] ?? ''];
     }
 }
 if (!$kd_items) { return; }
-$kd_baby_url = taxonomy_exists('product_cat') ? get_term_link('baby', 'product_cat') : '';
-if (!$kd_baby_url || is_wp_error($kd_baby_url)) { $kd_baby_url = home_url('/shop/'); }
+$kd_baby_url = home_url('/shop/');
 ?>
 <section class="container relative">
 <div class="-mx-3.75 flex flex-col items-stretch min-[768px]:flex-row">

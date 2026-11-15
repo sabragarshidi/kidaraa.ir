@@ -1,11 +1,6 @@
 <?php
-// Manifest #1 (title) + #2 (product slider). Data copied from captured demo.
-$kd_slugs = ['braced-bloomer-fawn', 'short-sleeve-belle-dress', 'gathered-bloomers-basil', 'organic-belle-dress-ditsy-clay', 'zanti-humpback-belt-for-babies'];
-$products = [];
-foreach ($kd_slugs as $kd_slug) {
-    $kd_p = function_exists('wc_get_product') ? get_page_by_path($kd_slug, OBJECT, 'product') : null;
-    if ($kd_p) $products[] = kidara_card_args($kd_p->ID);
-}
+// Manifest #1 (title) + #2 (product slider): featured products, else the newest ones.
+$products = array_filter(array_map('kidara_card_args', kidara_home_products(10, ['featured' => true])));
 ?>
 <section class="container mt-25">
     <?php get_template_part('template-parts/section-title', null, ['title' => 'پیشنهاد ویژه برای شما', 'subtitle' => 'شیک، راحت و مطابق مد روز']); ?>

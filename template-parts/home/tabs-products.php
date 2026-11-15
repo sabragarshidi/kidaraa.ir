@@ -1,14 +1,26 @@
 <?php
-// Manifest #5: tabs + 4x2 product grid + View All. Only the "All" list exists in the capture; tabs filter it by category.
-$kd_slugs = ['the-rest-shortie-snowberry', '100-pure-cotton-jumpsuit', 'dress-pansy-floral-mist', 'quincy-mae-luca-pants-pecan', 'organic-flutter-dress', 'nature-baby-drawstring-pants-nettle', 'dress-petite-fleur-soft-peony', 'peplum-set-cherries-blush'];
+// Manifest #5: tabs + 4x2 product grid + View All. Newest products; tabs = top categories among them.
 $products = [];
-foreach ($kd_slugs as $kd_slug) {
-    $kd_p = function_exists('wc_get_product') ? get_page_by_path($kd_slug, OBJECT, 'product') : null;
-    if (!$kd_p) continue;
-    $kd_terms = wp_get_post_terms($kd_p->ID, 'product_cat', ['fields' => 'slugs']);
-    $products[] = kidara_card_args($kd_p->ID) + ['cat_slugs' => is_wp_error($kd_terms) ? '' : implode(' ', $kd_terms)];
+$kd_count = [];
+$kd_names = [];
+foreach (kidara_home_products(8) as $kd_prod) {
+    $kd_terms = get_the_terms($kd_prod->get_id(), 'product_cat') ?: [];
+    $kd_slugs = [];
+    foreach ($kd_terms as $kd_t) {
+        if ($kd_t->slug === 'uncategorized') continue;
+        $kd_slugs[] = $kd_t->slug;
+        $kd_count[$kd_t->slug] = ($kd_count[$kd_t->slug] ?? 0) + 1;
+        $kd_names[$kd_t->slug] = $kd_t->name;
+    }
+    $products[] = kidara_card_args($kd_prod) + ['cat_slugs' => implode(' ', $kd_slugs)];
 }
-$tabs = ['all' => 'همه', 'baby' => 'نوزاد', 'boys' => 'پسرانه', 'girls' => 'دخترانه'];
+arsort($kd_count);
+$tabs = ['all' => 'همه'];
+foreach (array_slice(array_keys($kd_count), 0, 3) as $kd_slug) {
+    $tabs[$kd_slug] = $kd_names[$kd_slug];
+}
+if (count($tabs) < 3) $tabs = ['all' => 'همه'];
+if (!$products) return;
 ?>
 <section class="container mb-16.25" data-product-tabs>
     <ul class="flex flex-nowrap items-center justify-center py-3.75 max-[767px]:justify-start" role="tablist">

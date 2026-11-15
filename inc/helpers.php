@@ -199,3 +199,23 @@ add_filter('woocommerce_coupons_enabled', function ($on) {
 add_action('woocommerce_proceed_to_checkout', function () {
     echo '<button type="button" class="button kd-update-proxy" data-kd-update-cart>به‌روزرسانی سبد</button>';
 }, 5);
+
+/**
+ * Live products for homepage sections (newest first, published, in stock-visible).
+ * Pass 'featured' => true to prefer featured products; falls back to newest when none.
+ */
+function kidara_home_products(int $limit, array $args = []): array
+{
+    if (!function_exists('wc_get_products')) {
+        return [];
+    }
+    $base = ['status' => 'publish', 'visibility' => 'catalog', 'limit' => $limit, 'orderby' => 'date', 'order' => 'DESC'];
+    if (!empty($args['featured'])) {
+        unset($args['featured']);
+        $featured = wc_get_products($base + $args + ['featured' => true]);
+        if ($featured) {
+            return $featured;
+        }
+    }
+    return wc_get_products($base + $args);
+}

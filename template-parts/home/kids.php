@@ -16,11 +16,13 @@ $spots = [
      'pos' => 'translate-x-[calc(-100%_+_40px)] -translate-y-[calc(100%_+_20px)]',
      'arrow' => 'before:-bottom-5 before:border-t-white before:right-3.75'],
 ];
-foreach ($spots as &$kd_sp) {
-    $kd_pp = function_exists('wc_get_product') ? get_page_by_path($kd_sp['slug'], OBJECT, 'product') : null;
-    $kd_pr = $kd_pp ? wc_get_product($kd_pp->ID) : null;
-    $kd_sp['url'] = $kd_pp ? get_permalink($kd_pp->ID) : home_url('/shop/');
+// Hotspots show the newest real products (positions stay fixed on the lookbook photo).
+$kd_live = kidara_home_products(count($spots));
+foreach ($spots as $kd_i => &$kd_sp) {
+    $kd_pr = $kd_live[$kd_i] ?? null;
+    $kd_sp['url'] = $kd_pr ? get_permalink($kd_pr->get_id()) : home_url('/shop/');
     $kd_sp['title'] = $kd_pr ? $kd_pr->get_name() : '';
+    if ($kd_pr && ($kd_im = wp_get_attachment_image_url($kd_pr->get_image_id(), 'woocommerce_thumbnail'))) $kd_sp['img'] = $kd_im;
     if ($kd_pr && $kd_pr->is_on_sale() && !$kd_pr->is_type('variable')) {
         $kd_sp['price'] = '<del class="opacity-70">' . esc_html(kidara_money($kd_pr->get_regular_price())) . '</del> <ins class="no-underline">' . esc_html(kidara_money($kd_pr->get_sale_price())) . '</ins>';
     } else {

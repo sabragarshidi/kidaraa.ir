@@ -69,10 +69,11 @@ $rating_count = $product->get_rating_count();
 
     <ul class="m-0 mt-6 grid list-none gap-3 rounded-2xl bg-[#f7f4f0] p-4 text-sm text-body">
         <?php foreach ([
-            ['truck', 'ارسال به سراسر کشور، تحویل ۳ تا ۷ روز کاری پس از ثبت سفارش'],
-            ['shield-check', 'پرداخت امن از طریق درگاه بانکی'],
+            ['truck', esc_html('ارسال به سراسر کشور، تحویل ۲ تا ۵ روز کاری پس از ثبت سفارش')],
+            ['shield-check', esc_html('پرداخت امن از طریق درگاه بانکی')],
+            ['phone', 'مشاوره و پشتیبانی: ' . kidara_phone_link('font-bold text-heading hover:text-accent')],
         ] as [$ic, $tx]) : ?>
-            <li class="flex items-center gap-3"><span class="inline-flex size-9 shrink-0 items-center justify-center rounded-full bg-white text-accent-dark"><?= kidara_icon($ic, 'text-[18px]') ?></span><span><?= esc_html($tx) ?></span></li>
+            <li class="flex items-center gap-3"><span class="inline-flex size-9 shrink-0 items-center justify-center rounded-full bg-white text-accent-dark"><?= kidara_icon($ic, 'text-[18px]') ?></span><span><?= $tx // escaped above ?></span></li>
         <?php endforeach; ?>
     </ul>
 </div>

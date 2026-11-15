@@ -64,8 +64,7 @@ $star = '<span class="pointer-events-none absolute end-3.75 top-3 text-xl leadin
             <div class="w-full px-3.75 max-[1024px]:mt-12.5 min-[1025px]:w-[32%] min-[1025px]:ps-7.5">
                 <?php
                 $info = [
-                    ['نشانی', '<a href="https://www.google.com/maps/search/?api=1&query=Tehran" target="_blank" rel="noopener">تهران، خیابان نمونه، پلاک ۱۰</a>'],
-                    ['تلفن', '<a href="tel:+982112345678" dir="ltr">۰۲۱-۱۲۳۴۵۶۷۸</a>'],
+                    ['تلفن', kidara_phone_link()],
                     ['ایمیل', '<a href="mailto:info@kidaraa.ir"><bdi dir="ltr">info@kidaraa.ir</bdi></a>'],
                     ['ساعت کاری', 'شنبه تا پنجشنبه، ۹ صبح تا ۹ شب؛ جمعه‌ها تعطیل'],
                 ];

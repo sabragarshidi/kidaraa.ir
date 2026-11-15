@@ -237,3 +237,10 @@ add_filter('woocommerce_dropdown_variation_attribute_options_args', function ($a
     $args['show_option_none'] = 'انتخاب ' . kidara_attr_label_fa(wc_attribute_label($args['attribute'], $args['product'] ?? ''));
     return $args;
 });
+
+// Store contact phone (shown in footer, contact page, product page; required by Torob).
+const KIDARA_PHONE = '09337456906';
+function kidara_phone_link(string $class = ''): string
+{
+    return '<a href="tel:+98' . substr(KIDARA_PHONE, 1) . '" dir="ltr" class="' . esc_attr($class) . '">' . esc_html(kidara_fa(substr(KIDARA_PHONE, 0, 4) . ' ' . substr(KIDARA_PHONE, 4, 3) . ' ' . substr(KIDARA_PHONE, 7))) . '</a>';
+}

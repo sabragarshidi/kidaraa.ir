@@ -19,6 +19,8 @@ $kd_socials = ['tiktok' => 'تیک‌تاک', 'x-twitter' => 'ایکس', 'facebo
 			<?php endforeach; ?>
 		</ul>
 
+		<div class="mb-4 text-heading">تلفن تماس: <?php echo kidara_phone_link('font-bold text-heading hover:text-accent'); ?></div>
+
 		<div class="text-heading">© <?php echo esc_html(kidara_jdate(null, 'Y')); ?> <strong class="text-black">کیدارا</strong>. تمامی حقوق محفوظ است.</div>
 
 		<?php /* نماد اعتماد الکترونیکی (اینماد): کد رسمی؛ referrerpolicy=origin برای تأیید دامنه الزامی است */ ?>

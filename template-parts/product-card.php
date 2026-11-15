@@ -13,7 +13,7 @@
 $a = wp_parse_args($args ?? [], [
     'url' => '#', 'title' => '', 'category' => '', 'category_url' => '#',
     'image' => '', 'image_hover' => '', 'price' => '', 'regular_price' => '', 'price_html' => '',
-    'badges' => [], 'swatches' => [], 'product_id' => 0, 'slide' => false,
+    'badges' => [], 'swatches' => [], 'sizes' => [], 'colors' => [], 'product_id' => 0, 'slide' => false,
     'cart_label' => 'افزودن به سبد',
 ]);
 $badges = (array) $a['badges'];
@@ -55,10 +55,7 @@ $tip = 'relative m-1.25 opacity-0 invisible transition-all duration-500 group-ho
             <div class="<?= $tip ?> [transition-delay:0.05s]" data-title="<?= esc_attr($a['cart_label']) ?>">
                 <a href="<?= esc_url($a['url']) ?>" class="js-add-to-cart size-11.25 <?= $circle ?>" aria-label="<?= esc_attr($a['cart_label']) ?>" data-product-id="<?= $pid ?>"><?= kidara_icon('shopping-bag', 'text-[28px]') ?></a>
             </div>
-            <div class="<?= $tip ?> [transition-delay:0.1s]" data-title="نمایش سریع">
-                <button type="button" class="js-quickview size-11.25 <?= $circle ?>" aria-label="نمایش سریع" data-product-id="<?= $pid ?>"><?= kidara_icon('eye', 'text-[27px]') ?></button>
-            </div>
-            <div class="<?= $tip ?> [transition-delay:0.15s]" data-title="علاقه‌مندی">
+            <div class="<?= $tip ?> [transition-delay:0.1s]" data-title="علاقه‌مندی">
                 <button type="button" class="js-wishlist size-11.25 <?= $circle ?>" aria-label="علاقه‌مندی" data-product-id="<?= $pid ?>"><?= kidara_icon('heart', 'text-[17px]') ?></button>
             </div>
         </div>
@@ -66,7 +63,6 @@ $tip = 'relative m-1.25 opacity-0 invisible transition-all duration-500 group-ho
         <!-- compact buttons (<1200) -->
         <div class="kd-card-actions absolute bottom-20 end-2.5 z-[9] flex flex-col min-[1200px]:hidden">
             <button type="button" class="js-wishlist my-[3.5px] size-8.75 <?= $circle ?>" aria-label="علاقه‌مندی" data-product-id="<?= $pid ?>"><?= kidara_icon('heart', 'text-base') ?></button>
-            <button type="button" class="js-quickview my-[3.5px] size-8.75 <?= $circle ?>" aria-label="نمایش سریع" data-product-id="<?= $pid ?>"><?= kidara_icon('eye', 'text-2xl') ?></button>
         </div>
     </div>
 
@@ -79,6 +75,27 @@ $tip = 'relative m-1.25 opacity-0 invisible transition-all duration-500 group-ho
                 <?php if ($a['regular_price']) : ?><del><?= esc_html($a['regular_price']) ?></del> <?php endif; ?><ins><?= esc_html($a['price']) ?></ins>
             <?php endif; ?>
         </span>
+        <?php
+        $sizes = (array) $a['sizes'];
+        $colors = (array) $a['colors'];
+        if (!$colors && $a['swatches']) $colors = array_column((array) $a['swatches'], 'color');
+        if ($colors) : ?>
+            <div class="mt-2 flex items-center justify-center gap-1.5" aria-label="رنگ‌ها">
+                <?php foreach (array_slice($colors, 0, 5) as $c) : $hex = kidara_color_hex($c); ?>
+                    <?php if ($hex) : ?><span class="size-3.5 rounded-full ring-1 ring-black/15" style="background:<?= esc_attr($hex) ?>" title="<?= esc_attr($c) ?>"></span>
+                    <?php else : ?><span class="text-[11px] leading-none text-body"><?= esc_html($c) ?></span><?php endif; ?>
+                <?php endforeach; ?>
+                <?php if (count($colors) > 5) : ?><span class="text-[11px] leading-none text-muted">+<?= esc_html(kidara_fa((string) (count($colors) - 5))) ?></span><?php endif; ?>
+            </div>
+        <?php endif; ?>
+        <?php if ($sizes) : $max = 3; ?>
+            <div class="mt-2 flex flex-nowrap items-center justify-center gap-1 overflow-hidden" aria-label="سایزها">
+                <?php foreach (array_slice($sizes, 0, $max) as $sz) : ?>
+                    <span class="whitespace-nowrap rounded-full border border-border bg-white px-1.5 py-0.5 text-[11px] leading-none text-body"><?= esc_html($sz) ?></span>
+                <?php endforeach; ?>
+                <?php if (count($sizes) > $max) : ?><span class="whitespace-nowrap text-[11px] leading-none text-muted">+<?= esc_html(kidara_fa((string) (count($sizes) - $max))) ?></span><?php endif; ?>
+            </div>
+        <?php endif; ?>
     </div>
 </div>
 <?php if ($a['slide']) : ?></div><?php endif; ?>

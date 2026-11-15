@@ -106,7 +106,46 @@ function kidara_card_args($product, array $extra = []): array
         'category' => $term ? $term->name : '', 'category_url' => $term ? get_term_link($term) : '#',
         'image' => $img, 'image_hover' => $hover, 'badges' => $badges, 'swatches' => $swatches,
         'product_id' => $product->get_id(),
-    ], $price, $extra);
+    ], kidara_card_options($product), $price, $extra);
+}
+
+/** Sizes and colors for product cards, from product attributes («گزینه ها»/سایز, Color/رنگ). */
+function kidara_card_options(WC_Product $product): array
+{
+    $out = ['sizes' => [], 'colors' => []];
+    foreach ($product->get_attributes() as $attr) {
+        if (!$attr instanceof WC_Product_Attribute || !$attr->get_visible() && !$attr->get_variation()) continue;
+        $label = kidara_attr_label_fa(wc_attribute_label($attr->get_name(), $product));
+        $key = $label === 'سایز' ? 'sizes' : ($label === 'رنگ' ? 'colors' : null);
+        if (!$key) continue;
+        $vals = $attr->is_taxonomy() ? wc_get_product_terms($product->get_id(), $attr->get_name(), ['fields' => 'names']) : $attr->get_options();
+        foreach ($vals as $v) { $v = trim((string) $v); if ($v !== '') $out[$key][] = $v; }
+    }
+    // sizes in ascending order when they start with a number (۶-۹ ماه, ۹ـ۱۲ ماه, ...)
+    $num = function ($v) {
+        $v = strtr($v, ['۰'=>'0','۱'=>'1','۲'=>'2','۳'=>'3','۴'=>'4','۵'=>'5','۶'=>'6','۷'=>'7','۸'=>'8','۹'=>'9']);
+        $words = ['صفر' => 0, 'یک' => 1, 'دو' => 2, 'سه' => 3, 'چهار' => 4, 'پنج' => 5, 'شش' => 6];
+        if (isset($words[$v])) return $words[$v];
+        return preg_match('/\d+/', $v, $m) ? (int) $m[0] : null;
+    };
+    $nums = array_map($num, $out['sizes']);
+    if ($out['sizes'] && !in_array(null, $nums, true)) array_multisort($nums, SORT_NUMERIC, $out['sizes']);
+    $out['sizes'] = array_values(array_unique(array_map(fn($v) => kidara_fa($v), $out['sizes'])));
+    $out['colors'] = array_values(array_unique($out['colors']));
+    return $out;
+}
+
+/** Persian/English color name → hex for card swatches (null = show as text). */
+function kidara_color_hex(string $name): ?string
+{
+    if (preg_match('/^#[0-9a-f]{3,6}$/i', trim($name))) return trim($name);
+    $map = ['سفید' => '#ffffff', 'مشکی' => '#222222', 'سیاه' => '#222222', 'طوسی' => '#9a9a9a', 'خاکستری' => '#9a9a9a', 'ذغالی' => '#4a4a4a',
+        'قرمز' => '#d64545', 'زرشکی' => '#8b1e3f', 'صورتی' => '#f4a7b9', 'گلبهی' => '#f7b7a3', 'نارنجی' => '#f0883e', 'زرد' => '#f5d04c', 'لیمویی' => '#f3eb7a',
+        'سبز' => '#5aa469', 'یشمی' => '#3e8e7e', 'زیتونی' => '#808a3c', 'آبی' => '#4a90d9', 'آبی آسمانی' => '#8ecae6', 'سرمه‌ای' => '#1f2f5c', 'سرمه ای' => '#1f2f5c',
+        'فیروزه‌ای' => '#3cc3c3', 'فیروزه ای' => '#3cc3c3', 'بنفش' => '#8e6cc2', 'یاسی' => '#c8a2d8', 'قهوه‌ای' => '#8b5a3c', 'قهوه ای' => '#8b5a3c',
+        'کرم' => '#efe3c8', 'بژ' => '#e4d3b5', 'شیری' => '#f8f3e6', 'نباتی' => '#f6ecd0', 'طلایی' => '#d4af37', 'نقره‌ای' => '#c0c0c0',
+        'white' => '#ffffff', 'black' => '#222222', 'red' => '#d64545', 'pink' => '#f4a7b9', 'blue' => '#4a90d9', 'green' => '#5aa469', 'yellow' => '#f5d04c', 'gray' => '#9a9a9a', 'grey' => '#9a9a9a'];
+    return $map[mb_strtolower(trim($name))] ?? null;
 }
 
 /* ===== Persian / RTL helpers ===== */

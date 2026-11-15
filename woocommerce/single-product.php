@@ -6,10 +6,6 @@
 defined('ABSPATH') || exit;
 
 get_header();
-// Colour attribute is a local attribute named 'Color': show the Persian label (variation form + additional info table).
-add_filter('woocommerce_attribute_label', function ($label) {
-    return strtolower(trim((string) $label)) === 'color' ? 'رنگ' : $label;
-});
 // Variation form script (swatches sit on top of WC's own selects).
 wp_enqueue_script('wc-add-to-cart-variation');
 

@@ -37,7 +37,7 @@ $after = ob_get_clean();
             <?php get_template_part('template-parts/shop/toolbar'); ?>
 
             <?php if (have_posts()) : ?>
-                <div class="kd-shop-grid" data-shop-grid data-cols="3">
+                <div class="kd-shop-grid" data-shop-grid data-cols="4">
                     <?php while (have_posts()) : the_post();
                         $p = wc_get_product(get_the_ID());
                         if (!$p) continue;

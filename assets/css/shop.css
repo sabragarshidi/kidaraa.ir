@@ -4,7 +4,7 @@
   .kd-shop-grid{column-gap:30px}
   .kd-shop-grid[data-cols="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
   .kd-shop-grid[data-cols="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
-  .kd-shop-grid[data-cols="4"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .kd-shop-grid[data-cols="4"]{grid-template-columns:repeat(2,minmax(0,1fr))}
   .kd-shop-grid[data-cols="list"]{grid-template-columns:minmax(0,1fr)}
   .kd-shop-grid[data-cols="list"] .products-entry{display:flex;align-items:center;gap:30px}
 }
@@ -33,6 +33,8 @@
   .kd-shop-sidebar .kd-filter-close{display:inline-flex}
 }
 
+/* 20 per page: 4 columns only where cards stay wide enough; 2 below (both divide 20, no gaps) */
+@media (min-width:1200px){ .kd-shop-grid[data-cols="4"]{grid-template-columns:repeat(4,minmax(0,1fr))} }
 /* list mode: forced on phones, optional on desktop via the view switcher */
 @media (max-width:767px){
   .kd-shop-grid{grid-template-columns:minmax(0,1fr);column-gap:0}

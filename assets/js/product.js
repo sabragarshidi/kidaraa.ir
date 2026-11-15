@@ -255,3 +255,13 @@
         rnd(); setInterval(rnd, +pv.dataset.timeout || 10000);
     }
 })();
+
+// Size guide dialog (inc/size-guide.php)
+(function () {
+    document.addEventListener('click', function (e) {
+        var open = e.target.closest('[data-size-guide-open]');
+        if (open) { var d = document.getElementById(open.getAttribute('data-size-guide-open')); if (d && d.showModal) d.showModal(); return; }
+        if (e.target.closest('[data-size-guide-close]')) { e.target.closest('dialog').close(); return; }
+        if (e.target.tagName === 'DIALOG' && e.target.classList.contains('kd-size-guide')) e.target.close(); // backdrop click
+    });
+})();

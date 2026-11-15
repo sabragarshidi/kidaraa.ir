@@ -222,3 +222,18 @@ function kidara_home_products(int $limit, array $args = []): array
 
 // Shop/category archives: 20 products per page.
 add_filter('loop_shop_per_page', fn() => 20, 20);
+
+// Local attribute labels shown to customers (product page, cart, checkout, orders):
+// 'Color' → رنگ; Tamineto imports sizes as «گزینه ها» → سایز.
+function kidara_attr_label_fa(string $label): string
+{
+    $k = strtolower(str_replace(["\u{200C}", ' ', '_', '-'], '', trim($label)));
+    $map = ['color' => 'رنگ', 'گزینهها' => 'سایز', 'گزینه' => 'سایز'];
+    return $map[$k] ?? $label;
+}
+add_filter('woocommerce_attribute_label', fn($label) => kidara_attr_label_fa((string) $label), 20);
+// Variation dropdown placeholder: «انتخاب سایز» instead of «یک گزینه را انتخاب کنید».
+add_filter('woocommerce_dropdown_variation_attribute_options_args', function ($args) {
+    $args['show_option_none'] = 'انتخاب ' . kidara_attr_label_fa(wc_attribute_label($args['attribute'], $args['product'] ?? ''));
+    return $args;
+});

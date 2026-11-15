@@ -25,8 +25,7 @@ $btn = 'kd-view inline-flex size-10 cursor-pointer items-center justify-center r
     </div>
     <div class="flex items-center gap-2.5 max-[767px]:hidden" data-views>
         <button type="button" class="<?= $btn ?>" data-view="2" aria-label="دو ستونه"><?= $mk(2) ?></button>
-        <button type="button" class="<?= $btn ?> is-active" data-view="3" aria-label="سه ستونه"><?= $mk(3) ?></button>
-        <button type="button" class="<?= $btn ?>" data-view="4" aria-label="چهار ستونه"><?= $mk(4) ?></button>
+        <button type="button" class="<?= $btn ?> is-active" data-view="4" aria-label="چهار ستونه"><?= $mk(4) ?></button>
         <button type="button" class="<?= $btn ?>" data-view="list" aria-label="نمایش لیستی"><?= kidara_icon('list', 'text-[18px]') ?></button>
     </div>
 </div>

@@ -63,6 +63,7 @@ $rating_count = $product->get_rating_count();
         </div>
     <?php endif; ?>
 
+    <?php kidara_size_guide_render($product); ?>
     <div class="kd-cart"><?php woocommerce_template_single_add_to_cart(); ?></div>
     <?php remove_action('woocommerce_after_add_to_cart_button', $extra_buttons, 20); ?>
 

@@ -219,3 +219,6 @@ function kidara_home_products(int $limit, array $args = []): array
     }
     return wc_get_products($args + $base);
 }
+
+// Shop/category archives: 20 products per page.
+add_filter('loop_shop_per_page', fn() => 20, 20);

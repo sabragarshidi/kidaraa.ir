@@ -4,11 +4,11 @@
  * 
  */
 $kd_cats = [];
-$kd_art = ['baby' => 'cat-baby.webp', 'boys' => 'cat-boys.webp', 'girls' => 'cat-girls.webp']; // watercolor illustrations; other categories are not shown
+$kd_art = ['baby' => 'cat-baby.webp', 'boys' => 'cat-boys.webp', 'girls' => 'cat-girls.webp']; // watercolor illustrations; always shown (even empty)
 if (taxonomy_exists('product_cat')) {
     foreach ($kd_art as $slug => $file) {
         $t = get_term_by('slug', $slug, 'product_cat');
-        if (!$t || is_wp_error($t) || !$t->count) continue;
+        if (!$t || is_wp_error($t)) continue; // shown even when empty
         $kd_cats[] = ['name' => $t->name, 'url' => get_term_link($t), 'img' => get_theme_file_uri('assets/img/' . $file)];
     }
 }

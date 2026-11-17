@@ -210,13 +210,33 @@ add_filter('date_i18n', fn($d) => kidara_fa((string) $d), 20);
 add_filter('number_format_i18n', fn($n) => kidara_fa((string) $n), 20);
 
 
-/** Product categories shown in menus/sidebar (no "all", no uncategorized, no toys). */
-function kidara_shop_cats(): array
+/**
+ * Product categories shown in menus/sidebar (no "all", no uncategorized, no toys).
+ * Ordered as a tree: each parent (baby, boys, girls first) followed by its children.
+ * Each term gets ->kd_depth (0 = top level); counts include child products.
+ */
+function kidara_shop_cats(bool $top_only = false): array
 {
     if (!taxonomy_exists('product_cat')) return [];
-    $terms = get_terms(['taxonomy' => 'product_cat', 'hide_empty' => true, 'orderby' => 'count', 'order' => 'DESC']);
+    $terms = get_terms(['taxonomy' => 'product_cat', 'hide_empty' => true, 'pad_counts' => true, 'orderby' => 'count', 'order' => 'DESC']);
     if (is_wp_error($terms)) return [];
-    return array_values(array_filter($terms, fn($t) => !in_array($t->slug, ['all', 'uncategorized', 'toys'], true)));
+    $terms = array_filter($terms, fn($t) => !in_array($t->slug, ['all', 'uncategorized', 'toys'], true));
+    $kids = [];
+    foreach ($terms as $t) $kids[$t->parent][] = $t;
+    $rank = array_flip(['baby', 'boys', 'girls']);
+    $top = $kids[0] ?? [];
+    usort($top, fn($a, $b) => ($rank[$a->slug] ?? 9) <=> ($rank[$b->slug] ?? 9) ?: $b->count <=> $a->count);
+    $out = [];
+    foreach ($top as $t) {
+        $t->kd_depth = 0;
+        $out[] = $t;
+        if ($top_only) continue;
+        foreach ($kids[$t->term_id] ?? [] as $c) {
+            $c->kd_depth = 1;
+            $out[] = $c;
+        }
+    }
+    return $out;
 }
 
 /** Cart-count badge (updated live through WooCommerce cart fragments). */
@@ -240,23 +260,48 @@ add_action('woocommerce_proceed_to_checkout', function () {
 }, 5);
 
 /**
- * Live products for homepage sections (newest first, published, in stock-visible).
- * Pass 'featured' => true to prefer featured products; falls back to newest when none.
+ * Live products for homepage sections: a mix across categories (round-robin over each
+ * product's own category, newest first inside each), so one big category can't fill a section.
+ * Pass 'featured' => true to prefer featured products; falls back to all when none.
+ * $skip drops the first N of the mixed list (lets sections show different products).
  */
-function kidara_home_products(int $limit, array $args = []): array
+function kidara_home_products(int $limit, array $args = [], int $skip = 0): array
 {
     if (!function_exists('wc_get_products')) {
         return [];
     }
-    $base = ['status' => 'publish', 'visibility' => 'catalog', 'limit' => $limit, 'orderby' => 'date', 'order' => 'DESC'];
+    $want = $limit + $skip;
+    $base = ['status' => 'publish', 'visibility' => 'catalog', 'limit' => max(60, $want * 4), 'orderby' => 'date', 'order' => 'DESC'];
+    $pool = [];
     if (!empty($args['featured'])) {
         unset($args['featured']);
-        $featured = wc_get_products($args + $base + ['featured' => true]);
-        if ($featured) {
-            return $featured;
-        }
+        $pool = wc_get_products($args + $base + ['featured' => true]);
+        if (count($pool) < $want) $pool = []; // too few featured to fill the section → use everything
     }
-    return wc_get_products($args + $base);
+    if (!$pool) {
+        $pool = wc_get_products($args + $base);
+    }
+    $groups = [];
+    foreach ($pool as $p) {
+        $ids = array_values(array_diff($p->get_category_ids(), [(int) get_option('default_product_cat')]));
+        $key = $ids[0] ?? 0; // prefer a sub-category (e.g. «ست نوزادی» over «نوزاد») as the group
+        foreach ($ids as $id) {
+            $t = get_term($id, 'product_cat');
+            if ($t && !is_wp_error($t) && $t->parent) { $key = $id; break; }
+        }
+        $groups[$key][] = $p; // each group keeps newest-first order
+    }
+    $mixed = [];
+    while ($groups && count($mixed) < $want) {
+        foreach ($groups as $k => &$g) {
+            $mixed[] = array_shift($g);
+            if (!$g) unset($groups[$k]);
+        }
+        unset($g);
+    }
+    $out = array_slice($mixed, $skip, $limit);
+    // Not enough products left after skipping → wrap around instead of an empty section.
+    return count($out) < $limit && $skip ? array_slice($mixed, 0, $limit) : $out;
 }
 
 // Shop/category archives: 20 products per page.

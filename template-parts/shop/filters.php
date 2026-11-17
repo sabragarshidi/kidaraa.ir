@@ -26,7 +26,7 @@ $featured = wc_get_products(['limit' => 3, 'status' => 'publish', 'featured' => 
             <li><a href="<?= esc_url(get_permalink(wc_get_page_id('shop'))) ?>" class="flex items-center justify-between rounded-lg px-3 py-2 text-sm transition-colors <?= !$cur ? 'bg-[#eef3ef] text-accent-dark' : 'text-heading hover:bg-bg-light' ?>">همهٔ محصولات</a></li>
             <?php foreach ($cats as $c) : ?>
                 <li>
-                    <a href="<?= esc_url(get_term_link($c)) ?>" class="flex items-center justify-between rounded-lg px-3 py-2 text-sm transition-colors <?= $cur === $c->term_id ? 'bg-[#eef3ef] text-accent-dark' : 'text-heading hover:bg-bg-light' ?>"><span><?= esc_html($c->name) ?></span> <span class="text-xs text-muted"><?= kidara_fa((string) (int) $c->count) ?></span></a>
+                    <a href="<?= esc_url(get_term_link($c)) ?>" class="flex items-center justify-between rounded-lg <?= $c->kd_depth ? 'ps-7 pe-3 py-1.5 text-[13px]' : 'px-3 py-2 text-sm' ?> transition-colors <?= $cur === $c->term_id ? 'bg-[#eef3ef] text-accent-dark' : 'text-heading hover:bg-bg-light' ?>"><span><?= esc_html($c->name) ?></span> <span class="text-xs text-muted"><?= kidara_fa((string) (int) $c->count) ?></span></a>
                 </li>
             <?php endforeach; ?>
         </ul>

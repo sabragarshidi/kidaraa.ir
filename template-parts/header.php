@@ -8,7 +8,7 @@ $kd_cart    = home_url('/cart/');
 
 $kd_cat_sub = [];
 if (function_exists('kidara_shop_cats')) {
-    foreach (kidara_shop_cats() as $kd_t) {
+    foreach (kidara_shop_cats(true) as $kd_t) { // top level only: نوزاد / پسرانه / دخترانه
         $kd_link = get_term_link($kd_t);
         if (!is_wp_error($kd_link)) $kd_cat_sub[] = [$kd_t->name, $kd_link];
     }

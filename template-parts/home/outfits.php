@@ -3,17 +3,20 @@
  * Manifest #3: "Baby Outfits & Sets" — two-up photo slider + text block.
  */
 $up = 'https://buny.wpbingosite.com/wp-content/uploads/';
-// Slides = newest real products (image, name, price).
+// Slides = baby products (نوزاد and its sub-categories), mixed across sub-categories; falls back to all.
 $kd_items = [];
 if (function_exists('wc_get_products')) {
-    foreach (kidara_home_products(8) as $kd_prod) {
+    $kd_baby = get_term_by('slug', 'baby', 'product_cat');
+    $kd_list = $kd_baby ? kidara_home_products(8, ['category' => ['baby']]) : [];
+    if (count($kd_list) < 4) $kd_list = kidara_home_products(8);
+    foreach ($kd_list as $kd_prod) {
         $kd_img = wp_get_attachment_image_url($kd_prod->get_image_id(), 'woocommerce_single');
         if (!$kd_img) continue;
         $kd_items[] = ['url' => get_permalink($kd_prod->get_id()), 'img' => $kd_img, 'name' => $kd_prod->get_name(), 'price' => kidara_card_args($kd_prod)['price'] ?? '', 'regular' => kidara_card_args($kd_prod)['regular_price'] ?? ''];
     }
 }
 if (!$kd_items) { return; }
-$kd_baby_url = home_url('/shop/');
+$kd_baby_url = ($kd_baby && !is_wp_error($kd_l = get_term_link($kd_baby))) ? $kd_l : home_url('/shop/');
 ?>
 <section class="container relative">
 <div class="-mx-3.75 flex flex-col items-stretch min-[768px]:flex-row">

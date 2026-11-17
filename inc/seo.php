@@ -38,8 +38,15 @@ function kidara_seo_empty_cats(): array
     static $ids = null;
     if ($ids !== null) return $ids;
     $ids = [];
-    $all = get_terms(['taxonomy' => 'product_cat', 'hide_empty' => false, 'pad_counts' => true]);
-    foreach (is_array($all) ? $all : [] as $t) if ((int) $t->count === 0) $ids[] = (int) $t->term_id;
+    $all = get_terms(['taxonomy' => 'product_cat', 'hide_empty' => false]);
+    if (!is_array($all)) return $ids;
+    $total = [];
+    foreach ($all as $t) $total[$t->term_id] = (int) $t->count;
+    foreach ($all as $t) {           // roll each term's own count up its ancestor chain
+        if ((int) $t->count === 0) continue;
+        foreach (get_ancestors($t->term_id, 'product_cat') as $a) $total[$a] = ($total[$a] ?? 0) + (int) $t->count;
+    }
+    foreach ($total as $id => $n) if ($n === 0) $ids[] = (int) $id;
     return $ids;
 }
 

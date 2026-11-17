@@ -6,6 +6,7 @@ require_once get_template_directory() . '/inc/otp.php';
 require_once get_template_directory() . '/inc/sms-notify.php';
 require_once get_template_directory() . '/inc/size-guide.php';
 require_once get_template_directory() . '/inc/analytics.php';
+require_once get_template_directory() . '/inc/seo.php';
 
 add_action('after_setup_theme', function () {
     add_theme_support('title-tag');

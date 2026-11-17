@@ -32,6 +32,17 @@ function kidara_seo_private_page_ids(): array
     return array_values(array_unique($ids));
 }
 
+/** product_cat ids with no products anywhere in their sub-tree. */
+function kidara_seo_empty_cats(): array
+{
+    static $ids = null;
+    if ($ids !== null) return $ids;
+    $ids = [];
+    $all = get_terms(['taxonomy' => 'product_cat', 'hide_empty' => false, 'pad_counts' => true]);
+    foreach (is_array($all) ? $all : [] as $t) if ((int) $t->count === 0) $ids[] = (int) $t->term_id;
+    return $ids;
+}
+
 function kidara_seo_has_posts(): bool
 {
     static $has = null;
@@ -93,6 +104,7 @@ add_filter('wp_robots', function (array $r) {
     $noindex = is_author() || is_date() || is_attachment() || is_404()
         || (is_singular() && in_array((int) get_queried_object_id(), kidara_seo_private_page_ids(), true))
         || (is_home() && !kidara_seo_has_posts())
+        || (is_product_category() && in_array((int) get_queried_object_id(), kidara_seo_empty_cats(), true))
         // filtered / sorted shop listings are duplicates of the base listing
         || (kidara_seo_is_listing() && preg_grep('/^(?!utm_|paged$|product-page$|gclid$|fbclid$)/', array_keys($_GET)));
     if ($noindex) {
@@ -138,8 +150,9 @@ add_filter('wp_sitemaps_taxonomies', function ($t) {
 // Parent categories hold no products directly but list their children's — keep them.
 add_filter('wp_sitemaps_taxonomies_query_args', function ($args, $tax) {
     if ($tax === 'product_cat') {
+        // keep parents whose sub-tree has products; drop truly empty categories
         $args['hide_empty'] = false;
-        $args['exclude'] = array_filter([(int) get_option('default_product_cat')]);
+        $args['exclude'] = array_values(array_unique(array_filter(array_merge(kidara_seo_empty_cats(), [(int) get_option('default_product_cat')]))));
     }
     return $args;
 }, 10, 2);

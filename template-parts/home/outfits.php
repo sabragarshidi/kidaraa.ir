@@ -2,7 +2,7 @@
 /**
  * Manifest #3: "Baby Outfits & Sets" — two-up photo slider + text block.
  */
-$up = 'https://buny.wpbingosite.com/wp-content/uploads/';
+$up = '/wp-content/themes/kidara/assets/img/demo/uploads/';
 // Slides = baby products (نوزاد and its sub-categories), mixed across sub-categories; falls back to all.
 $kd_items = [];
 if (function_exists('wc_get_products')) {

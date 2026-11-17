@@ -10,7 +10,7 @@ $fallback = ['all' => 'category-5', 'baby' => 'category-8', 'boys' => 'category-
         <?php foreach ($terms as $t) :
             $ids = wc_get_products(['limit' => 1, 'status' => 'publish', 'category' => [$t->slug], 'return' => 'ids', 'orderby' => 'date', 'order' => 'ASC']);
             $img = $ids ? get_the_post_thumbnail_url($ids[0], 'woocommerce_thumbnail') : '';
-            if (!$img) $img = 'https://buny.wpbingosite.com/wp-content/uploads/2023/12/' . ($fallback[$t->slug] ?? 'category-9') . '.jpg';
+            if (!$img) $img = '/wp-content/themes/kidara/assets/img/demo/uploads/2023/12/' . ($fallback[$t->slug] ?? 'category-9') . '.jpg';
             $active = $current === $t->term_id;
         ?>
             <li class="w-1/2 shrink-0 px-2.5 text-center min-[768px]:w-1/4">

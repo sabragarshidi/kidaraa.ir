@@ -1,7 +1,7 @@
 <?php
 /** About Us (slug about-us). Partials reused from the homepage. */
 get_header();
-$up = 'https://buny.wpbingosite.com/wp-content/uploads/';
+$up = '/wp-content/themes/kidara/assets/img/demo/uploads/';
 $testimonials = [
     ['«از وقتی لباس بچه‌ها را از کیدارا می‌خرم خیالم راحت است. پارچه‌ها نرم و بی‌حساسیت‌اند و بعد از چند بار شستن هم رنگشان تغییر نمی‌کند.»', 'لیلا محمدی'],
     ['«بسته‌بندی تمیز، ارسال سریع و جنس عالی. اندازه‌ها دقیقاً همان چیزی بود که در سایت نوشته بودند. حتماً دوباره خرید می‌کنم.»', 'سارا احمدی'],

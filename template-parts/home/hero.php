@@ -5,7 +5,7 @@
  * per level [desktop>=1240, notebook>=1200, tablet 480-1199, mobile<480]; --hu scales them like Rev does.
  * Right-anchored/centered layers were converted to plain left/right offsets from the stage edge.
  */
-$up = 'https://buny.wpbingosite.com/wp-content/uploads/';
+$up = '/wp-content/themes/kidara/assets/img/demo/uploads/';
 $slides = [
     [
         'eyebrow' => 'لباس نوزاد و کودک',

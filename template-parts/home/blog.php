@@ -2,7 +2,7 @@
 /**
  * Manifest #6: "Our Blog" banner + 3 recent posts. 3 latest real posts.
  */
-$up = 'https://buny.wpbingosite.com/wp-content/uploads/';
+$up = '/wp-content/themes/kidara/assets/img/demo/uploads/';
 $demo_imgs = [$up . '2023/01/little-fashionistas-wardrobe-8-720x484.jpg', $up . '2023/01/little-fashionistas-wardrobe-7-720x484.jpg', $up . '2023/01/little-fashionistas-wardrobe-6-720x484.jpg'];
 $posts = [];
 foreach (get_posts(['numberposts' => 3, 'post_status' => 'publish', 'ignore_sticky_posts' => true]) as $n => $kd_post) {

@@ -2,7 +2,7 @@
 /**
  * Manifest #4: Kids — intro text, video thumbnail with lightbox, lookbook with 3 hotspots.
  */
-$up = 'https://buny.wpbingosite.com/wp-content/uploads/';
+$up = '/wp-content/themes/kidara/assets/img/demo/uploads/';
 $video = 'https://www.youtube.com/embed/XHOmBV4js_E';
 // Popup position classes are literal so Tailwind picks them up (from the demo's .content-lookbook rules).
 $spots = [
@@ -56,7 +56,7 @@ unset($kd_sp);
         <!-- lookbook -->
         <div class="w-full px-3.75 max-[767px]:mt-10 min-[768px]:w-2/3">
             <div class="relative max-w-[910px]" data-lookbook>
-                <?= kidara_img('https://buny.wpbingosite.com/wp-content/plugins/wpbingo/lib/lookbook/images/bwp_lookbook/lookbook-1.jpg', 'استایل کودکانه کیدارا', 'block h-auto w-full', ['width' => 910, 'height' => 762, 'loading' => 'eager']) ?>
+                <?= kidara_img('/wp-content/themes/kidara/assets/img/demo/plugins/wpbingo/lib/lookbook/images/bwp_lookbook/lookbook-1.jpg', 'استایل کودکانه کیدارا', 'block h-auto w-full', ['width' => 910, 'height' => 762, 'loading' => 'eager']) ?>
                 <?php foreach ($spots as $i => $sp) : ?>
                     <div data-spot class="group/spot absolute z-[1] size-7.5 cursor-pointer min-[768px]:size-10" style="left:<?= $sp['left'] ?>;top:<?= $sp['top'] ?>">
                         <span class="absolute -inset-1 -z-[1] rounded-full bg-white/80"></span>

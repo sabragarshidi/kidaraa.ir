@@ -11,7 +11,7 @@
 $a = wp_parse_args($args ?? [], [
     'title'  => get_the_title(),
     'crumbs' => null,
-    'bg'     => 'https://buny.wpbingosite.com/wp-content/uploads/2024/01/bg-breadcrumb.jpg',
+    'bg'     => '/wp-content/themes/kidara/assets/img/demo/uploads/2024/01/bg-breadcrumb.jpg',
     'after'  => '',
 ]);
 if ($a['crumbs'] === null) {

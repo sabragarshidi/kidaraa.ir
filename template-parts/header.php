@@ -48,7 +48,7 @@ $kd_nav_desktop = 'menu flex items-center gap-x-7.5 m-0 p-0 list-none text-sm le
     . '[&>li]:relative [&>li>a]:relative [&>li>a]:z-10 [&>li>a]:text-heading [&>li>a:hover]:text-accent '
     . '[&>li.current-menu-item>a]:before:content-[\'\'] [&>li.current-menu-item>a]:before:absolute [&>li.current-menu-item>a]:before:z-[-1] '
     . '[&>li.current-menu-item>a]:before:start-1.25 [&>li.current-menu-item>a]:before:top-0 [&>li.current-menu-item>a]:before:w-8 [&>li.current-menu-item>a]:before:h-6 '
-    . '[&>li.current-menu-item>a]:before:bg-[url(https://buny.wpbingosite.com/wp-content/themes/buny/images/ellipse.png)] [&>li.current-menu-item>a]:before:bg-no-repeat [&>li.current-menu-item>a]:before:bg-center [&>li.current-menu-item>a]:before:bg-contain '
+    . '[&>li.current-menu-item>a]:before:bg-[url(/wp-content/themes/kidara/assets/img/demo/themes/buny/images/ellipse.png)] [&>li.current-menu-item>a]:before:bg-no-repeat [&>li.current-menu-item>a]:before:bg-center [&>li.current-menu-item>a]:before:bg-contain '
     . '[&_.sub-menu]:absolute [&_.sub-menu]:start-0 [&_.sub-menu]:top-full [&_.sub-menu]:z-[9999] [&_.sub-menu]:min-w-56.25 [&_.sub-menu]:bg-white [&_.sub-menu]:border [&_.sub-menu]:border-bg-light [&_.sub-menu]:py-6.25 [&_.sub-menu]:px-5 [&_.sub-menu]:list-none [&_.sub-menu]:m-0 '
     . '[&_.sub-menu]:opacity-0 [&_.sub-menu]:invisible [&_.sub-menu]:translate-y-2.5 [&_.sub-menu]:transition-all [&_.sub-menu]:duration-300 '
     . '[&>li:hover>.sub-menu]:opacity-100 [&>li:hover>.sub-menu]:visible [&>li:hover>.sub-menu]:translate-y-0 [&>li:focus-within>.sub-menu]:opacity-100 [&>li:focus-within>.sub-menu]:visible [&>li:focus-within>.sub-menu]:translate-y-0 '

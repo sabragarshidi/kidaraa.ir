@@ -2,7 +2,7 @@
 /**
  * Manifest #7 (title) + #8 (brand logo strip).
  */
-$up = 'https://buny.wpbingosite.com/wp-content/uploads/2023/11/';
+$up = '/wp-content/themes/kidara/assets/img/demo/uploads/2023/11/';
 $brands = [
     ['name' => 'برند دلفین', 'url' => '/shop/?brand=dolphin', 'img' => $up . 'brand-2.png'],
     ['name' => 'برند گامی', 'url' => '/shop/?brand=gummy', 'img' => $up . 'brand-5.png'],

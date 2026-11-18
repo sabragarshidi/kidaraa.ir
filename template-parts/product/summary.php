@@ -34,7 +34,7 @@ $stock_qty = $product->managing_stock() ? $product->get_stock_quantity() : null;
 $rating_count = $product->get_rating_count();
 ?>
 <?php $kd_cat = $cats_terms = wc_get_product_terms($pid, 'product_cat', ['orderby' => 'parent', 'order' => 'DESC']); $kd_cat = $cats_terms && !is_wp_error($cats_terms) ? $cats_terms[0] : null; ?>
-<div class="kd-summary min-w-0" data-swatches="<?= esc_attr(wp_json_encode($sw)) ?>" data-split="<?= esc_attr(wp_json_encode(kidara_split_map($product), JSON_UNESCAPED_UNICODE)) ?>" data-product-type="<?= esc_attr($product->get_type()) ?>">
+<div class="kd-summary min-w-0" data-swatches="<?= esc_attr(wp_json_encode($sw)) ?>" data-split="<?= esc_attr(wp_json_encode(function_exists('kidara_split_map') ? kidara_split_map($product) : [], JSON_UNESCAPED_UNICODE)) ?>" data-product-type="<?= esc_attr($product->get_type()) ?>">
     <?php if ($kd_cat) : ?><a href="<?= esc_url(get_term_link($kd_cat)) ?>" class="mb-1.5 inline-block text-sm text-accent-dark hover:text-accent"><?= esc_html($kd_cat->name) ?></a><?php endif; ?>
     <h1 class="product_title entry-title mb-2 mt-0 text-[19px] leading-[1.5] text-heading min-[768px]:text-[28px] min-[992px]:text-[34px]"><?php the_title(); ?></h1>
 

@@ -115,7 +115,7 @@ function kidara_card_options(WC_Product $product): array
     $out = ['sizes' => [], 'colors' => []];
     foreach ($product->get_attributes() as $attr) {
         if (!$attr instanceof WC_Product_Attribute || !$attr->get_visible() && !$attr->get_variation()) continue;
-        $label = kidara_attr_label_fa(wc_attribute_label($attr->get_name(), $product));
+        $label = kidara_attr_label_fa(wc_attribute_label($attr->get_name(), $product), $product);
         $key = $label === 'سایز' ? 'sizes' : ($label === 'رنگ' ? 'colors' : null);
         if (!$key) continue;
         $vals = $attr->is_taxonomy() ? wc_get_product_terms($product->get_id(), $attr->get_name(), ['fields' => 'names']) : $attr->get_options();
@@ -309,16 +309,41 @@ add_filter('loop_shop_per_page', fn() => 20, 20);
 
 // Local attribute labels shown to customers (product page, cart, checkout, orders):
 // 'Color' → رنگ; Tamineto imports sizes as «گزینه ها» → سایز.
-function kidara_attr_label_fa(string $label): string
+function kidara_attr_label_fa(string $label, $product = null): string
 {
     $k = strtolower(str_replace(["\u{200C}", ' ', '_', '-'], '', trim($label)));
     $map = ['color' => 'رنگ', 'گزینهها' => 'سایز', 'گزینه' => 'سایز'];
-    return $map[$k] ?? $label;
+    if (!isset($map[$k])) return $label;
+    if ($map[$k] === 'سایز' && $product && kidara_options_have_design($product, $label)) return 'طرح و سایز';
+    return $map[$k];
 }
-add_filter('woocommerce_attribute_label', fn($label) => kidara_attr_label_fa((string) $label), 20);
+
+/** True when the Tamineto «گزینه ها» values mix a design/colour with the size (e.g. «آبی6», «طرح یک سایز2», «قلبی - 1»). */
+function kidara_options_have_design($product, string $label): bool
+{
+    if (!$product instanceof WC_Product) $product = wc_get_product($product);
+    if (!$product) return false;
+    $id = $product->is_type('variation') ? $product->get_parent_id() : $product->get_id();
+    static $cache = [];
+    $ck = $id . '|' . $label;
+    if (isset($cache[$ck])) return $cache[$ck];
+    $parent = $product->is_type('variation') ? wc_get_product($id) : $product;
+    $vals = [];
+    foreach ($parent ? $parent->get_attributes() : [] as $a) {
+        if ($a instanceof WC_Product_Attribute && !$a->is_taxonomy() && in_array($label, [$a->get_name(), sanitize_title($a->get_name()), 'attribute_' . sanitize_title($a->get_name())], true)) $vals = $a->get_options();
+    }
+    $size_words = '/(سایز|ماه|سال|تا|صفر|یک|دو|سه|چهار|پنج|شش|بدو|تولد|و|size)/u';
+    foreach ($vals as $v) {
+        $rest = preg_replace($size_words, '', (string) $v);
+        $rest = preg_replace('/[\d۰-۹\s\-–ـ()\/،,.+\x{200C}]+/u', '', $rest);
+        if ($rest !== '') return $cache[$ck] = true;
+    }
+    return $cache[$ck] = false;
+}
+add_filter('woocommerce_attribute_label', fn($label, $name = '', $product = null) => kidara_attr_label_fa((string) $label, $product), 20, 3);
 // Variation dropdown placeholder: «انتخاب سایز» instead of «یک گزینه را انتخاب کنید».
 add_filter('woocommerce_dropdown_variation_attribute_options_args', function ($args) {
-    $args['show_option_none'] = 'انتخاب ' . kidara_attr_label_fa(wc_attribute_label($args['attribute'], $args['product'] ?? ''));
+    $args['show_option_none'] = 'انتخاب ' . kidara_attr_label_fa(wc_attribute_label($args['attribute'], $args['product'] ?? ''), $args['product'] ?? null);
     return $args;
 });
 

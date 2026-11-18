@@ -11,8 +11,16 @@ foreach ($ids as $id) {
         'full'  => wp_get_attachment_image_url($id, 'full') ?: $src,
         'thumb' => wp_get_attachment_image_url($id, 'woocommerce_thumbnail') ?: $src,
         'alt'   => trim(get_post_meta($id, '_wp_attachment_image_alt', true)) ?: $product->get_name(),
+        'srcset'=> (string) wp_get_attachment_image_srcset($id, 'full'),
     ];
 }
+// Frame follows the product's own photo shape (Tamineto photos are square) so nothing is cropped or blown up.
+$kd_ratio = '1000 / 1394';
+if ($ids && ($m = wp_get_attachment_metadata(reset($ids))) && !empty($m['width']) && !empty($m['height'])) {
+    $r = $m['width'] / $m['height'];
+    if ($r >= 0.6 && $r <= 1.5) $kd_ratio = (int) $m['width'] . ' / ' . (int) $m['height'];
+}
+$kd_sizes = '(min-width: 992px) 55vw, 100vw';
 if (!$items) {
     $ph = wc_placeholder_img_src('woocommerce_single');
     $items[] = ['src' => $ph, 'full' => $ph, 'thumb' => $ph, 'alt' => $product->get_name()];
@@ -25,7 +33,7 @@ $multi = count($items) > 1;
         <?php foreach ($items as $i => $it) : ?>
             <button type="button" data-thumb="<?= $i ?>" aria-label="<?= esc_attr(sprintf('تصویر %s', kidara_fa((string) ($i + 1)))) ?>"
                     class="kd-thumb block cursor-pointer overflow-hidden rounded-xl border-2 border-transparent bg-bg-light p-0 transition-colors duration-200 hover:border-accent <?= $i === 0 ? "is-active" : "" ?>">
-                <?= kidara_img($it['thumb'], $it['alt'], 'block aspect-[1000/1394] w-full object-cover') ?>
+                <?= kidara_img($it['thumb'], $it['alt'], 'block w-full object-cover', ['style' => 'aspect-ratio:' . $kd_ratio]) ?>
             </button>
         <?php endforeach; ?>
     </div>
@@ -36,8 +44,8 @@ $multi = count($items) > 1;
             <div class="swiper-wrapper">
                 <?php foreach ($items as $i => $it) : ?>
                     <div class="swiper-slide">
-                        <a href="<?= esc_url($it['full']) ?>" class="kd-zoom relative block aspect-[1000/1394] cursor-zoom-in overflow-hidden" data-full="<?= esc_url($it['full']) ?>">
-                            <?= kidara_img($it['src'], $it['alt'], 'kd-main-img absolute inset-0 size-full object-cover transition-transform duration-200', ['data-orig' => $it['src'], 'data-orig-full' => $it['full']]) ?>
+                        <a href="<?= esc_url($it['full']) ?>" class="kd-zoom relative block cursor-zoom-in overflow-hidden" style="aspect-ratio:<?= esc_attr($kd_ratio) ?>" data-full="<?= esc_url($it['full']) ?>">
+                            <?= kidara_img($it['src'], $it['alt'], 'kd-main-img absolute inset-0 size-full object-cover transition-transform duration-200', array_filter(['srcset' => $it['srcset'], 'sizes' => $it['srcset'] ? $kd_sizes : '', 'data-orig' => $it['src'], 'data-orig-full' => $it['full'], 'data-orig-srcset' => $it['srcset']])) ?>
                         </a>
                     </div>
                 <?php endforeach; ?>

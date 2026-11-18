@@ -85,6 +85,7 @@
         });
         if (idx < 0) {
             var a = slides[0].querySelector('.kd-zoom'), im = slides[0].querySelector('img');
+            if (v.image.srcset) im.setAttribute('srcset', v.image.srcset); else im.removeAttribute('srcset');
             im.src = v.image.src; im.classList.remove('kd-img-missing');
             a.setAttribute('data-full', v.image.full_src || v.image.src); a.href = v.image.full_src || v.image.src;
             if (thumbs[0]) thumbs[0].querySelector('img').src = v.image.gallery_thumbnail_src || v.image.src;
@@ -96,6 +97,7 @@
         if (!gal || !slides[0]) return;
         var a = slides[0].querySelector('.kd-zoom'), im = slides[0].querySelector('img');
         if (im.getAttribute('data-orig') && im.getAttribute('src') !== im.getAttribute('data-orig')) {
+            if (im.getAttribute('data-orig-srcset')) im.setAttribute('srcset', im.getAttribute('data-orig-srcset')); else im.removeAttribute('srcset');
             im.src = im.getAttribute('data-orig');
             a.setAttribute('data-full', im.getAttribute('data-orig-full')); a.href = im.getAttribute('data-orig-full');
             if (thumbs[0]) thumbs[0].querySelector('img').src = im.getAttribute('data-orig');

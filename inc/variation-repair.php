@@ -69,17 +69,21 @@ add_action('woocommerce_new_product_variation', function ($vid) {
     if ($parent) kidara_repair_variation_attrs($parent);
 }, 999);
 
-// Hourly safety sweep over all variable products (cheap: a few dozen products).
-function kidara_repair_all_variation_attrs(): int
+// Safety sweep: every 10 minutes check the next 8 variable products (keeps each run short on this host).
+function kidara_repair_all_variation_attrs(int $batch = 0): int
 {
-    $n = 0;
-    foreach (wc_get_products(['type' => 'variable', 'limit' => -1, 'return' => 'ids', 'status' => ['publish', 'private', 'draft']]) as $id) {
-        if (kidara_repair_variation_attrs((int) $id)) $n++;
+    $ids = wc_get_products(['type' => 'variable', 'limit' => -1, 'return' => 'ids', 'status' => ['publish', 'private', 'draft'], 'orderby' => 'ID', 'order' => 'ASC']);
+    if ($batch > 0 && $ids) {
+        $cur = (int) get_option('kidara_varattr_cursor', 0) % count($ids);
+        $ids = array_slice(array_merge($ids, $ids), $cur, min($batch, count($ids)));
+        update_option('kidara_varattr_cursor', $cur + count($ids), false);
     }
+    $n = 0;
+    foreach ($ids as $id) if (kidara_repair_variation_attrs((int) $id)) $n++;
     return $n;
 }
 add_action('init', function () {
-    if (!function_exists('wc_get_products') || get_transient('kidara_varattr_sweep')) return;
-    set_transient('kidara_varattr_sweep', 1, HOUR_IN_SECONDS);
-    kidara_repair_all_variation_attrs();
+    if (!function_exists('wc_get_products') || wp_doing_ajax() || get_transient('kidara_varattr_sweep')) return;
+    set_transient('kidara_varattr_sweep', 1, 10 * MINUTE_IN_SECONDS);
+    kidara_repair_all_variation_attrs(8);
 }, 99);

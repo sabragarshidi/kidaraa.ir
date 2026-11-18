@@ -353,3 +353,39 @@ function kidara_phone_link(string $class = ''): string
 {
     return '<a href="tel:+98' . substr(KIDARA_PHONE, 1) . '" dir="ltr" class="' . esc_attr($class) . '">' . esc_html(kidara_fa(substr(KIDARA_PHONE, 0, 4) . ' ' . substr(KIDARA_PHONE, 4, 3) . ' ' . substr(KIDARA_PHONE, 7))) . '</a>';
 }
+
+/**
+ * Tamineto sends design + size fused in one option («آبی6», «طرح یک سایز2», «3 - پاپیون», «نباتی، سایز 2»).
+ * Returns [design, size] or null when the value doesn't follow one of those shapes.
+ */
+function kidara_split_option(string $v): ?array
+{
+    $s = trim(strtr($v, ['۰'=>'0','۱'=>'1','۲'=>'2','۳'=>'3','۴'=>'4','۵'=>'5','۶'=>'6','۷'=>'7','۸'=>'8','۹'=>'9', "\u{200C}" => ' ']));
+    $clean = fn($d) => trim(preg_replace('/(\s*[،,\-–:]\s*|\s+)?(مدل|طرح)?\s*$/u', '', trim(preg_replace('/[\s،,\-–:]+$/u', '', $d)))) ?: trim($d);
+    if (preg_match('/^(.*?\D)\s*(?:سایز|size)?\s*(\d{1,2})\s*$/u', $s, $m)) {
+        $d = trim(preg_replace('/(?:سایز|size)\s*$/u', '', trim($m[1])));
+        $d = $clean($d);
+        if ($d !== '' && preg_match('/\p{L}/u', $d)) return [$d, $m[2]];
+    }
+    if (preg_match('/^(\d{1,2})\s*[-–]\s*(\D.*)$/u', $s, $m)) return [trim($m[2]), $m[1]];
+    return null;
+}
+
+/** For the product page: {"attribute_<key>": {"<value>": ["design","size"], ...}} for every fused design+size attribute. */
+function kidara_split_map(WC_Product $product): array
+{
+    if (!$product->is_type('variable')) return [];
+    $out = [];
+    foreach ($product->get_attributes() as $key => $a) {
+        if (!$a instanceof WC_Product_Attribute || !$a->get_variation() || $a->is_taxonomy()) continue;
+        if (kidara_attr_label_fa(wc_attribute_label($a->get_name(), $product), $product) !== 'طرح و سایز') continue;
+        $map = [];
+        foreach ($a->get_options() as $v) {
+            $p = kidara_split_option((string) $v);
+            if (!$p) { $map = []; break; }               // one odd value → keep the single combined list
+            $map[$v] = $p;
+        }
+        if ($map) $out['attribute_' . sanitize_title($a->get_name())] = $map;
+    }
+    return $out;
+}

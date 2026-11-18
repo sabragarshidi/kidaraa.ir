@@ -50,6 +50,9 @@
 .kd-product .kd-sw.is-pill.is-active { border-color: #719378; background: #719378; color: #fff; }
 .kd-product .kd-sw:disabled { opacity: .35; cursor: not-allowed; text-decoration: line-through; }
 .kd-product .kd-sw.is-dot:disabled { text-decoration: none; }
+.kd-product .kd-split { display: flex; flex-direction: column; gap: 16px; }
+.kd-product .kd-split-label { font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 8px; }
+.kd-product .kd-split-label .kd-selected { color: #222; margin-inline-start: 2px; }
 .kd-product .reset_variations { display: inline-block; margin-top: 8px; font-size: 13px; color: #666; text-decoration: underline; }
 
 /* stars */

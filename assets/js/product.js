@@ -140,6 +140,7 @@
     function buildSwatches() {
         if (!form) return;
         form.querySelectorAll('table.variations select').forEach(function (sel) {
+            if (splitMap[sel.name]) { buildSplit(sel, splitMap[sel.name]); return; }
             var row = sel.closest('tr'), isColor = /colou?r/i.test(sel.name + ' ' + (row.querySelector('label') || {}).textContent);
             var box = document.createElement('div'); box.className = 'kd-swatches' + (isColor ? ' is-color' : ' is-label');
             [].slice.call(sel.options).forEach(function (o) {
@@ -164,9 +165,85 @@
             }
         });
     }
+    /* Fused «design + size» options (Tamineto) → two rows of buttons driving the one hidden select. */
+    var splitMap = {};
+    try { splitMap = JSON.parse(summary.getAttribute('data-split') || '{}') || {}; } catch (e) {}
+    var faNum = function (n) { return String(n).replace(/\d/g, function (d) { return '۰۱۲۳۴۵۶۷۸۹'[d]; }); };
+    function buildSplit(sel, map) {
+        var row = sel.closest('tr'), td = sel.parentNode;
+        var inStock = null;   // value → bool, from WC's variation data when present
+        try {
+            var vars = JSON.parse(form.getAttribute('data-product_variations') || 'false');
+            if (vars) { inStock = {}; vars.forEach(function (v) { var val = v.attributes[sel.name]; if (val) inStock[val] = inStock[val] || !!v.is_in_stock; }); }
+        } catch (e) {}
+        var designs = [], sizes = [], combo = {};
+        Object.keys(map).forEach(function (val) {
+            var d = map[val][0], z = map[val][1], k = d + '\u0001' + z;
+            if (designs.indexOf(d) < 0) designs.push(d);
+            if (sizes.indexOf(z) < 0) sizes.push(z);
+            // duplicates like «3 - پاپیون» and «پاپیون - 3»: prefer the one in stock
+            if (!combo[k] || (inStock && inStock[val] && !inStock[combo[k]])) combo[k] = val;
+        });
+        sizes.sort(function (a, b) { return a - b; });
+        var ok = function (val) { return !inStock || !!inStock[val]; };
+        var state = { d: '', z: '' };
+        var cur = map[sel.value]; if (cur) { state.d = cur[0]; state.z = cur[1]; }
+
+        var th = row.querySelector('th, td.label'); if (th) th.style.display = 'none';
+        var wrap = document.createElement('div'); wrap.className = 'kd-split';
+        function group(title, items, kind, text) {
+            var g = document.createElement('div'); g.className = 'kd-split-group';
+            g.innerHTML = '<div class="kd-split-label">' + title + ': <span class="kd-selected"></span></div>';
+            var box = document.createElement('div'); box.className = 'kd-swatches is-label';
+            items.forEach(function (it) {
+                var b = document.createElement('button'); b.type = 'button'; b.className = 'kd-sw is-pill';
+                b.setAttribute('data-' + kind, it); b.textContent = text(it); b.title = text(it);
+                b.addEventListener('click', function () {
+                    if (b.disabled) return;
+                    state[kind] = state[kind] === it ? '' : it;
+                    apply();
+                });
+                box.appendChild(b);
+            });
+            g.appendChild(box); wrap.appendChild(g); return g;
+        }
+        var gd = group('طرح', designs, 'd', function (d) { return d; });
+        var gz = group('سایز', sizes, 'z', function (z) { return 'سایز ' + faNum(z); });
+        td.insertBefore(wrap, sel);
+        sel.classList.add('kd-hidden-select');
+
+        function refresh() {
+            gd.querySelectorAll('.kd-sw').forEach(function (b) {
+                var d = b.getAttribute('data-d');
+                var any = sizes.some(function (z) { var v = combo[d + '\u0001' + z]; return v && ok(v); });
+                b.disabled = !any; b.classList.toggle('is-active', state.d === d);
+            });
+            gz.querySelectorAll('.kd-sw').forEach(function (b) {
+                var z = b.getAttribute('data-z');
+                var avail = state.d ? (function (v) { return v && ok(v); })(combo[state.d + '\u0001' + z])
+                                    : designs.some(function (d) { var v = combo[d + '\u0001' + z]; return v && ok(v); });
+                b.disabled = !avail; b.classList.toggle('is-active', state.z === z);
+            });
+            gd.querySelector('.kd-selected').textContent = state.d;
+            gz.querySelector('.kd-selected').textContent = state.z ? faNum(state.z) : '';
+        }
+        function apply() {
+            var v = state.d && state.z ? combo[state.d + '\u0001' + state.z] : '';
+            if (state.d && state.z && (!v || !ok(v))) { state.z = ''; v = ''; }
+            if (sel.value !== (v || '')) {
+                sel.value = v || '';
+                if ($) $(sel).trigger('change'); else sel.dispatchEvent(new Event('change', { bubbles: true }));
+            }
+            refresh();
+        }
+        if ($) $(form).on('reset_data', function () { if (!sel.value) { state.d = ''; state.z = ''; refresh(); } });
+        refresh();
+    }
+
     function sync() {
         if (!form) return;
         form.querySelectorAll('table.variations select').forEach(function (sel) {
+            if (splitMap[sel.name]) return;
             var row = sel.closest('tr'), box = row.querySelector('.kd-swatches'); if (!box) return;
             var opts = {}; [].slice.call(sel.options).forEach(function (o) { opts[o.value] = o; });
             box.querySelectorAll('.kd-sw').forEach(function (b) {

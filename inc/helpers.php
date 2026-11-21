@@ -368,6 +368,8 @@ function kidara_split_option(string $v): ?array
         if ($d !== '' && preg_match('/\p{L}/u', $d)) return [$d, $m[2]];
     }
     if (preg_match('/^(\d{1,2})\s*[-–]\s*(\D.*)$/u', $s, $m)) return [trim($m[2]), $m[1]];
+    // size first: «سایز45 سرمه ای», «سایز1سبز»
+    if (preg_match('/^(?:سایز|size)\s*(\d{1,2})\s*[،,\-–:]?\s*(\D.*)$/u', $s, $m) && preg_match('/\p{L}/u', $m[2]) && !preg_match('/\d|ماه|سال|تا/u', $m[2])) return [$clean(trim($m[2])), $m[1]];
     return null;
 }
 
